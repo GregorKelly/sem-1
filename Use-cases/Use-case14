@@ -1,0 +1,35 @@
+USE CASE: 14 produce a Capital city report containing the following columns: Name Country, Population.
+
+CHARACTERISTIC INFORMATION
+Goal in Context
+As the organisation I would like to be able to produce a Capital city report containing the following columns: Name Country, Population.
+
+Scope
+Company.
+
+Level
+Primary task.
+
+Preconditions
+Database contains appropriate data.
+
+Success End Condition
+A report is available for the organisation to analyse.
+
+Failed End Condition
+No report is produced.
+
+Primary Actor
+Organisation
+
+Trigger
+A request for the data is made
+
+
+EXTENSIONS
+None.
+SUB-VARIATIONS
+None.
+
+SCHEDULE
+DUE DATE: Code review 2
