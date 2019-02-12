@@ -1,0 +1,40 @@
+USE CASE: 15 produce a population report containing the following columns: 
+
+The name of the continent/region/country.
+The total population of the continent/region/country.
+The total population of the continent/region/country living in cities (including a %).
+The total population of the continent/region/country not living in cities (including a %)
+
+CHARACTERISTIC INFORMATION
+Goal in Context
+As an organisation, I would like to be able to produce a report as mentioned above
+
+Scope
+Company.
+
+Level
+Primary task.
+
+Preconditions
+Database contains appropriate data.
+
+Success End Condition
+A report is available for the organisation to analyse.
+
+Failed End Condition
+No report is produced.
+
+Primary Actor
+Organisation
+
+Trigger
+A request for the data is made
+
+
+EXTENSIONS
+None.
+SUB-VARIATIONS
+None.
+
+SCHEDULE
+DUE DATE: Release 1.0
