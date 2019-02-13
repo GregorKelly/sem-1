@@ -11,7 +11,7 @@ Level
 Primary task.
 
 Preconditions
-Database contains appropriate data.
+Database contains Name, Country, District, Population fields.
 
 Success End Condition
 A report is available for the organisation to analyse.
