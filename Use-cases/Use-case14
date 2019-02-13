@@ -1,8 +1,8 @@
-USE CASE: 14 produce a Capital city report containing the following columns: Name Country, Population.
+USE CASE: 14 produce a Capital city report containing the following columns: Name, Country, Population.
 
 CHARACTERISTIC INFORMATION
 Goal in Context
-As the organisation I would like to be able to produce a Capital city report containing the following columns: Name Country, Population.
+As the organisation I would like to be able to produce a Capital city report containing the following columns: Name, Country, Population.
 
 Scope
 Company.
@@ -11,7 +11,7 @@ Level
 Primary task.
 
 Preconditions
-Database contains appropriate data.
+Database contains names of countries, names of their capital cities and their populations.
 
 Success End Condition
 A report is available for the organisation to analyse.
