@@ -1,0 +1,20 @@
+@startuml
+
+actor Organisation
+
+rectangle Database
+
+rectangle "Database System" {
+    usecase UC15 as "Request data"
+
+    usecase UC15a as "Get requested data"
+
+    usecase UC15b as "Print requested data"
+
+    Organisation - UC15
+    UC15 ..> UC15a
+    UC15a ..> UC15b
+    UC15a - Database
+}
+
+@enduml
