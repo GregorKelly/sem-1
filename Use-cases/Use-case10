@@ -1,0 +1,47 @@
+USE CASE: 10 access the following information:
+The population of the world.
+The population of a continent.
+The population of a region.
+The population of a country.
+The population of a district.
+The population of a city.
+
+CHARACTERISTIC INFORMATION
+Goal in Context
+As the organisation, I would like to be able to access the following information:
+The population of the world.
+The population of a continent.
+The population of a region.
+The population of a country.
+The population of a district.
+The population of a city.
+
+Scope
+Company.
+
+Level
+Primary task.
+
+Preconditions
+Database contains the populations of: the world, continents, regions, countries, districts, and cities.
+
+Success End Condition
+A report is available for the organisation to analyse.
+
+Failed End Condition
+No report is produced.
+
+Primary Actor
+Organisation
+
+Trigger
+A request for the data is made
+
+
+EXTENSIONS
+None.
+SUB-VARIATIONS
+None.
+
+SCHEDULE
+DUE DATE: Code review 2
