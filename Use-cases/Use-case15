@@ -16,7 +16,7 @@ Level
 Primary task.
 
 Preconditions
-Database contains appropriate data.
+Database contains continent, region, country and the total populations of all of each, as well as how many are living in and out of cities
 
 Success End Condition
 A report is available for the organisation to analyse.
