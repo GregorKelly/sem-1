@@ -10,7 +10,7 @@ Level
 Primary task.
 
 Preconditions
-Database contains appropriate data.
+Database contains Code, Name, Continent, Region, Population, Capital fields.
 
 Success End Condition
 A report is available for the organisation to analyse.
