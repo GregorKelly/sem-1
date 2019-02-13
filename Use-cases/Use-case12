@@ -1,0 +1,34 @@
+USE CASE: 12 produce a country report containing the following columns: Code, Name, Continent, Region, Population, Capital.
+
+CHARACTERISTIC INFORMATION
+Goal in Context
+As the organisation, I would like to be able to produce a country report containing the following columns: Code, Name, Continent, Region, Population, Capital.
+Scope
+Company.
+
+Level
+Primary task.
+
+Preconditions
+Database contains appropriate data.
+
+Success End Condition
+A report is available for the organisation to analyse.
+
+Failed End Condition
+No report is produced.
+
+Primary Actor
+Organisation
+
+Trigger
+A request for the data is made
+
+
+EXTENSIONS
+None.
+SUB-VARIATIONS
+None.
+
+SCHEDULE
+DUE DATE: Code review 2
