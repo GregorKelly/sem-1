@@ -7,6 +7,8 @@ public class App
 {
     public static void main(String[] args)
     {
+        System.out.println("hello app");
+
         // Create new Application
         App a = new App();
 
