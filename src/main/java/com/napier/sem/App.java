@@ -15,21 +15,24 @@ public class App
         // Connect to database
         a.connect();
 
+        City city = a.getCity();
+        a.displayCity(city);
+
+
         // Lab 3
 
         // Get Employee
-        Employee emp = a.getEmployee(255530);
+       // Employee emp = a.getEmployee(255530);
         // Display results
-        a.displayEmployee(emp);
-
+       // a.displayEmployee(emp);
 
         // Lab 4
 
         // Extract employee salary information
-        ArrayList<Employee> employees = a.getAllSalaries();
+       // ArrayList<Employee> employees = a.getAllSalaries();
 
         // Test the size of the returned data - should be 240124
-        System.out.println(employees.size());
+       // System.out.println(employees.size());
 
         // Disconnect from database
         a.disconnect();
@@ -65,7 +68,7 @@ public class App
                     // Wait a bit for db to start
                     Thread.sleep(30000);
                     // Connect to database
-                    con = DriverManager.getConnection("jdbc:mysql://db:3306/employees?useSSL=false", "root", "example");
+                    con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                     System.out.println("Successfully connected");
                     break;
                 }
@@ -100,7 +103,70 @@ public class App
             }
         }
 
-    public Employee getEmployee(int ID)
+        public City getCity()
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT ID, Name "
+                            + "FROM city "
+                            + "WHERE ID = 1";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new employee if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                City city = new City();
+                city.city_ID = rset.getInt("ID");
+                city.city_name = rset.getString("Name");
+                return city;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    public void displayCity(City city)
+    {
+        if (city != null)
+        {
+            System.out.println(
+                    city.city_ID + " "
+                            + city.city_name);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* public Employee getEmployee(int ID)
     {
         try
         {
@@ -153,7 +219,7 @@ public class App
      * Gets all the current employees and salaries.
      * @return A list of all employees and salaries, or null if there is an error.
      */
-    public ArrayList<Employee> getAllSalaries()
+   /* public ArrayList<Employee> getAllSalaries()
     {
         try
         {
@@ -192,7 +258,7 @@ public class App
      * Prints a list of employees.
      * @param employees The list of employees to print.
      */
-    public void printSalaries(ArrayList<Employee> employees)
+   /* public void printSalaries(ArrayList<Employee> employees)
     {
         // Print header
         System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
@@ -204,6 +270,6 @@ public class App
                             emp.emp_no, emp.first_name, emp.last_name, emp.salary);
             System.out.println(emp_string);
         }
-    }
+    } */
 
 }
