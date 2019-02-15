@@ -15,7 +15,7 @@ public class App
         // Connect to database
         a.connect();
 
-        City city = a.getCity();
+        City city = a.getCity(1);
         a.displayCity(city);
 
 
@@ -103,7 +103,7 @@ public class App
             }
         }
 
-        public City getCity()
+        public City getCity(int ID)
     {
         try
         {
@@ -113,7 +113,7 @@ public class App
             String strSelect =
                     "SELECT ID, Name "
                             + "FROM city "
-                            + "WHERE ID = 1";
+                            + "WHERE ID = " + ID;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
