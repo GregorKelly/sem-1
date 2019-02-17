@@ -157,9 +157,6 @@ public class App
         }
     }
 
-
-
-
     public Country getCountry(String code)
     {
         try
@@ -229,7 +226,6 @@ public class App
                     "SELECT ID, Name "
                             + "FROM city "
                             + "WHERE ID = " + ID;
-            //"Name LIKE '" + name + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new city if valid.
