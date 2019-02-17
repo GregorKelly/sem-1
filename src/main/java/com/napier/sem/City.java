@@ -15,16 +15,16 @@ public class City
     /**
      * Country code
      */
-    public char country_code;
+    public String country_code;
 
     /**
      * District
      */
-    public char district;
+    public String district;
 
     /**
      * City's population
      */
-    public int population;
+    public String population;
 
 }
