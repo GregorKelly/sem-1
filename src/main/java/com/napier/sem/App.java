@@ -7,7 +7,7 @@ public class App
 {
     public static void main(String[] args)
     {
-        System.out.println("hello app");
+        //System.out.println("hello app");
 
         // Create new Application
         App a = new App();
@@ -15,7 +15,7 @@ public class App
         // Connect to database
         a.connect();
 
-        City city = a.getCity(1);
+        City city = a.getCity(460);
         a.displayCity(city);
 
 
@@ -111,18 +111,20 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT ID, Name "
+                    "SELECT ID, Name, District, Population "
                             + "FROM city "
                             + "WHERE ID = " + ID;
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
+            // Return new city if valid.
             // Check one is returned
             if (rset.next())
             {
                 City city = new City();
                 city.city_ID = rset.getInt("ID");
                 city.city_name = rset.getString("Name");
+                city.district = rset.getString("District");
+                city.population = rset.getInt("Population");
                 return city;
             }
             else
@@ -142,7 +144,9 @@ public class App
         {
             System.out.println(
                     city.city_ID + " "
-                            + city.city_name);
+                            + city.city_name + " "
+                                + city.district + " "
+                                    + city.population);
         }
     }
 
