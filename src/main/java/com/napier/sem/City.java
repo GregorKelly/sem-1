@@ -18,6 +18,11 @@ public class City
     public String country_code;
 
     /**
+     *  Country Name
+     */
+    public String countryName;
+
+    /**
      * District
      */
     public String district;

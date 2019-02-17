@@ -68,9 +68,14 @@ public class Country
     public String head_of_state;
 
     /**
-     * Capital
+     * Capital City Code
      */
-    public int capital;
+    public int capitalCode;
+
+    /**
+     * Capital City Name
+     */
+    public String capitalName;
 
     /**
      * Code 2

@@ -17,7 +17,7 @@ public class App
         // Connect to database
         a.connect();
 
-        City city = a.getCity(460);
+        City city = a.getCity("Edinburgh");
         a.displayCity(city);
 
         Country country = a.getCountry("GBR");
@@ -108,7 +108,7 @@ public class App
             }
         }
 
-        public City getCity(int ID)
+        public City getCity(String name)
     {
         try
         {
@@ -116,9 +116,9 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT ID, Name, District, Population "
+                    "SELECT ID, Name, CountryCode, District, Population "
                             + "FROM city "
-                            + "WHERE ID = " + ID;
+                            + "WHERE Name LIKE '" + name + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new city if valid.
@@ -128,8 +128,13 @@ public class App
                 City city = new City();
                 city.city_ID = rset.getInt("ID");
                 city.city_name = rset.getString("Name");
+
+                Country country = getCountry(rset.getString("CountryCode"));
+                city.countryName = country.country_name;
+
                 city.district = rset.getString("District");
                 city.population = rset.getInt("Population");
+
                 return city;
             }
             else
@@ -148,16 +153,19 @@ public class App
         if (city != null)
         {
             System.out.println(
-                    city.city_ID + " "
-                            + city.city_name + " "
+                    city.city_name + " "
+                            + city.countryName + " "
                                 + city.district + " "
-                                    + city.population + "\n");
+                                    + city.population);
         }
         else
         {
             System.out.println("No city");
         }
     }
+
+
+
 
     public Country getCountry(String code)
     {
@@ -172,7 +180,7 @@ public class App
                             + "WHERE Code LIKE '" + code + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new city if valid.
+            // Return new country if valid.
             // Check one is returned
             if (rset.next())
             {
@@ -182,7 +190,10 @@ public class App
                 country.continent = rset.getString("Continent");
                 country.region = rset.getString("Region");
                 country.population = rset.getInt("Population");
-                country.capital = rset.getInt("Capital");
+
+                City city = getCityForCountry(rset.getInt("Capital"));
+                country.capitalName = city.city_name;
+
                 return country;
             }
             else
@@ -206,11 +217,80 @@ public class App
                             + country.continent + " "
                             + country.region + " "
                             + country.population + " "
-                            + country.capital);
+                            + country.capitalName);
         }
         else
         {
             System.out.println("No country");
+        }
+    }
+
+    public City getCityForCountry(int ID)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT ID, Name "
+                            + "FROM city "
+                            + "WHERE ID = " + ID;
+            //"Name LIKE '" + name + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new city if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                City city = new City();
+                city.city_ID = rset.getInt("ID");
+                city.city_name = rset.getString("Name");
+
+                return city;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    public Country getCountryForCity(String code)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Code, Name "
+                            + "FROM country "
+                            + "WHERE Code LIKE '" + code + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Country country = new Country();
+                country.country_code = rset.getString("Code");
+                country.country_name = rset.getString("Name");
+
+                return country;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
         }
     }
 
