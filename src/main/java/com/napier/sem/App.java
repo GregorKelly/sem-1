@@ -1,5 +1,7 @@
 package com.napier.sem;
 
+import com.sun.org.apache.xpath.internal.operations.Variable;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -17,6 +19,9 @@ public class App
 
         City city = a.getCity(460);
         a.displayCity(city);
+
+        Country country = a.getCountry("GBR");
+        a.displayCountry(country);
 
 
         // Lab 3
@@ -146,10 +151,68 @@ public class App
                     city.city_ID + " "
                             + city.city_name + " "
                                 + city.district + " "
-                                    + city.population);
+                                    + city.population + "\n");
+        }
+        else
+        {
+            System.out.println("No city");
         }
     }
 
+    public Country getCountry(String code)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Code, Name, Continent, Region, Population, Capital "
+                            + "FROM country "
+                            + "WHERE Code LIKE '" + code + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new city if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Country country = new Country();
+                country.country_code = rset.getString("Code");
+                country.country_name = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                country.capital = rset.getInt("Capital");
+                return country;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displayCountry(Country country)
+    {
+        if (country != null)
+        {
+            System.out.println(
+                    country.country_code + " "
+                            + country.country_name + " "
+                            + country.continent + " "
+                            + country.region + " "
+                            + country.population + " "
+                            + country.capital);
+        }
+        else
+        {
+            System.out.println("No country");
+        }
+    }
 
 
 
