@@ -15,13 +15,17 @@ public class App
         // Connect to database
         a.connect();
 
-        // Get City By Name
+        // Get City By City Name
         City city = a.getCity("Edinburgh");
         a.displayCity(city);
 
         // Get Country By Country Code
         Country country = a.getCountry("GBR");
         a.displayCountry(country);
+
+        // Get Capital City By Country Name
+        City capitalCity = a.getCapitalCity("France");
+        a.displayCapitalCity(capitalCity);
 
 
         // Lab 4
@@ -32,6 +36,7 @@ public class App
         // Test the size of the returned data - should be 240124
        // System.out.println(employees.size());
 
+        
         // Disconnect from database
         a.disconnect();
     }
@@ -122,7 +127,7 @@ public class App
                 city.city_ID = rset.getInt("ID");
                 city.city_name = rset.getString("Name");
 
-                Country country = getCountry(rset.getString("CountryCode"));
+                Country country = getCountryForCity(rset.getString("CountryCode"));
                 city.countryName = country.country_name;
 
                 city.district = rset.getString("District");
@@ -153,7 +158,7 @@ public class App
         }
         else
         {
-            System.out.println("No city");
+            System.out.println("No city found");
         }
     }
 
@@ -211,7 +216,57 @@ public class App
         }
         else
         {
-            System.out.println("No country");
+            System.out.println("No country found");
+        }
+    }
+
+    public City getCapitalCity(String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, country.Name, city.Population "
+                            + "FROM city JOIN country ON city.ID = country.Capital "
+                            + "WHERE country.name LIKE '" + name + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new city if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                City capitalCity = new City();
+                capitalCity.city_name = rset.getString("city.Name");
+                capitalCity.countryName = rset.getString("country.Name");
+                capitalCity.population = rset.getInt("city.Population");
+
+                return capitalCity;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital city details");
+            return null;
+        }
+    }
+
+    public void displayCapitalCity(City capitalCity)
+    {
+        if (capitalCity != null)
+        {
+            System.out.println(
+                    capitalCity.city_name + " "
+                            + capitalCity.countryName + " "
+                            + capitalCity.population);
+        }
+        else
+        {
+            System.out.println("No capital city found");
         }
     }
 
