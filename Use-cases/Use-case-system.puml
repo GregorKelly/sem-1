@@ -5,15 +5,21 @@ actor Organisation
 rectangle Database
 
 rectangle "Database System" {
-    usecase UC15 as "Request data"
+    usecase UC15 as "Log in"
 
-    usecase UC15a as "Get requested data"
+    usecase UC15a as "Download database"
 
-    usecase UC15b as "Print requested data"
+    usecase UC15b as "Sort data"
+
+    usecase UC15c as "Create reports"
+
+    usecase UC15d as "Input data"
 
     Organisation - UC15
-    UC15 ..> UC15a
+    UC15 -> UC15a
     UC15a ..> UC15b
+    UC15a ..> UC15c
+    UC15a ..> UC15d
     UC15a - Database
 }
 
