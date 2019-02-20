@@ -81,4 +81,9 @@ public class Country
      * Code 2
      */
     public String code2;
+
+    /**
+     *  City populations
+     */
+    public int allCityPopulation;
 }

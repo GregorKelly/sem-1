@@ -27,6 +27,10 @@ public class App
         City capitalCity = a.getCapitalCity("France");
         a.displayCapitalCity(capitalCity);
 
+        // Get country populations
+        Country countryPop = a.getPopulation("Spain");
+        a.displayPopulation(countryPop);
+
 
         // Lab 4
 
@@ -269,6 +273,61 @@ public class App
             System.out.println("No capital city found");
         }
     }
+
+
+
+    public Country getPopulation(String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Name, country.Population, city.Population "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "WHERE country.name LIKE '" + name + "' ";
+                           // + "GROUPBY country.Name, country.Population";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country for population if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Country countryPop = new Country();
+                countryPop.country_name = rset.getString("country.Name");
+                countryPop.population = rset.getInt("country.Population");
+                countryPop.allCityPopulation = rset.getInt("city.Population");
+
+                return countryPop;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    public void displayPopulation(Country countryPop)
+    {
+        if (countryPop != null)
+        {
+            System.out.println(
+                    countryPop.country_name + " "
+                            + countryPop.population + " "
+                            + countryPop.allCityPopulation);
+        }
+        else
+        {
+            System.out.println("No country population found");
+        }
+    }
+
+
 
     public City getCityForCountry(int ID)
     {
