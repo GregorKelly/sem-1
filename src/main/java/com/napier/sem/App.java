@@ -28,8 +28,16 @@ public class App
         a.displayCapitalCity(capitalCity);
 
         // Get country populations
-        Country countryPop = a.getPopulation("Spain");
-        a.displayPopulation(countryPop);
+        Country countryPop = a.getCountryPopulation("Spain");
+        a.displayCountryPopulation(countryPop);
+
+        // Get region populations
+        Country regionPop = a.getRegionPopulation("Caribbean");
+        a.displayRegionPopulation(regionPop);
+
+        // Get continent populations
+        Country continentPop = a.getContinentPopulation("Europe");
+        a.displayContinentPopulation(continentPop);
 
 
         // Lab 4
@@ -276,7 +284,7 @@ public class App
 
 
 
-    public Country getPopulation(String name)
+    public Country getCountryPopulation(String name)
     {
         try
         {
@@ -284,10 +292,10 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Name, country.Population, city.Population "
+                    "SELECT country.Name, country.Population, SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
-                            + "WHERE country.name LIKE '" + name + "' ";
-                           // + "GROUPBY country.Name, country.Population";
+                            + "WHERE country.Name LIKE '" + name + "' "
+                            + "GROUP BY country.Name, country.Population";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new country for population if valid.
@@ -297,7 +305,10 @@ public class App
                 Country countryPop = new Country();
                 countryPop.country_name = rset.getString("country.Name");
                 countryPop.population = rset.getInt("country.Population");
-                countryPop.allCityPopulation = rset.getInt("city.Population");
+                countryPop.allCityPopulation = rset.getInt("SUM(city.Population)");
+                countryPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
+                countryPop.notCityPopulation = rset.getInt("country.Population-SUM(city.Population)");
+                countryPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
 
                 return countryPop;
             }
@@ -312,14 +323,17 @@ public class App
         }
     }
 
-    public void displayPopulation(Country countryPop)
+    public void displayCountryPopulation(Country countryPop)
     {
         if (countryPop != null)
         {
             System.out.println(
                     countryPop.country_name + " "
                             + countryPop.population + " "
-                            + countryPop.allCityPopulation);
+                            + countryPop.allCityPopulation + " "
+                            + countryPop.allCityPopulationPercentage + "% "
+                            + countryPop.notCityPopulation + " "
+                            + countryPop.notCityPopulationPercentage + "%");
         }
         else
         {
@@ -327,6 +341,119 @@ public class App
         }
     }
 
+    public Country getRegionPopulation(String region)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Region, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "WHERE country.Region LIKE '" + region + "' "
+                            + "GROUP BY country.Region, country.Population";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new region for population if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Country regionPop = new Country();
+                regionPop.region = rset.getString("country.Region");
+                regionPop.population = rset.getInt("SUM(country.Population)");
+                regionPop.allCityPopulation = rset.getInt("SUM(city.Population)");
+                regionPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
+                regionPop.notCityPopulation = rset.getInt("country.Population-SUM(city.Population)");
+                regionPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
+
+                return regionPop;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    public void displayRegionPopulation(Country regionPop)
+    {
+        if (regionPop != null)
+        {
+            System.out.println(
+                    regionPop.region + " "
+                            + regionPop.population + " "
+                            + regionPop.allCityPopulation + " "
+                            + regionPop.allCityPopulationPercentage + "% "
+                            + regionPop.notCityPopulation + " "
+                            + regionPop.notCityPopulationPercentage + "%");
+        }
+        else
+        {
+            System.out.println("No region population found");
+        }
+    }
+
+    public Country getContinentPopulation(String continent)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Continent, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "WHERE country.Continent LIKE '" + continent + "' "
+                            + "GROUP BY country.Continent, country.Population";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new region for population if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Country continentPop = new Country();
+                continentPop.continent = rset.getString("country.Continent");
+                continentPop.population = rset.getInt("SUM(country.Population)");
+                continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
+                continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
+                continentPop.notCityPopulation = rset.getInt("country.Population-SUM(city.Population)");
+                continentPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
+
+                return continentPop;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    public void displayContinentPopulation(Country continentPop)
+    {
+        if (continentPop != null)
+        {
+            System.out.println(
+                    continentPop.continent + " "
+                            + continentPop.population + " "
+                            + continentPop.allCityPopulation + " "
+                            + continentPop.allCityPopulationPercentage + "% "
+                            + continentPop.notCityPopulation + " "
+                            + continentPop.notCityPopulationPercentage + "%");
+        }
+        else
+        {
+            System.out.println("No continent population found");
+        }
+    }
 
 
     public City getCityForCountry(int ID)
