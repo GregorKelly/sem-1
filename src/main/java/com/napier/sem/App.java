@@ -27,15 +27,15 @@ public class App
         City capitalCity = a.getCapitalCity("France");
         a.displayCapitalCity(capitalCity);
 
-        // Get country populations
+        // Get Country Populations By Country Name
         Country countryPop = a.getCountryPopulation("Spain");
         a.displayCountryPopulation(countryPop);
 
-        // Get region populations
+        // Get Region Populations By Region Name
         Country regionPop = a.getRegionPopulation("Caribbean");
         a.displayRegionPopulation(regionPop);
 
-        // Get continent populations
+        // Get Continent Populations By Continent Name
         Country continentPop = a.getContinentPopulation("Europe");
         a.displayContinentPopulation(continentPop);
 
