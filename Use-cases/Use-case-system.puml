@@ -22,5 +22,4 @@ rectangle "Database System" {
     UC15a ..> UC15d
     UC15a - Database
 }
-
 @enduml
