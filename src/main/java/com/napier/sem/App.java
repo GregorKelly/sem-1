@@ -1,6 +1,6 @@
 package com.napier.sem;
 
-import com.sun.org.apache.xpath.internal.operations.Variable;
+//import com.sun.org.apache.xpath.internal.operations.Variable;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,24 +31,21 @@ public class App
         Country countryPop = a.getCountryPopulation("Spain");
         a.displayCountryPopulation(countryPop);
 
-        // Get Region Populations By Region Name
-        Country regionPop = a.getRegionPopulation("Caribbean");
+       // Get Region Populations By Region Name
+        Region regionPop = a.getRegionPopulation("Caribbean");
         a.displayRegionPopulation(regionPop);
 
         // Get Continent Populations By Continent Name
-        Country continentPop = a.getContinentPopulation("Europe");
+        Continent continentPop = a.getContinentPopulation("Europe");
         a.displayContinentPopulation(continentPop);
 
+        // Extract city information
+        ArrayList<City> cities = a.getAllCities();
+        a.printCities(cities);
 
-        // Lab 4
+        // Test the size of the returned data
+        System.out.println(cities.size());
 
-        // Extract employee salary information
-       // ArrayList<Employee> employees = a.getAllSalaries();
-
-        // Test the size of the returned data - should be 240124
-       // System.out.println(employees.size());
-
-        
         // Disconnect from database
         a.disconnect();
     }
@@ -341,7 +338,7 @@ public class App
         }
     }
 
-    public Country getRegionPopulation(String region)
+    public Region getRegionPopulation(String region)
     {
         try
         {
@@ -349,23 +346,23 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Region, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
+                    "SELECT country.Region, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Region LIKE '" + region + "' "
-                            + "GROUP BY country.Region, country.Population";
+                            + "GROUP BY country.Region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new region for population if valid.
             // Check one is returned
             if (rset.next())
             {
-                Country regionPop = new Country();
-                regionPop.region = rset.getString("country.Region");
+                Region regionPop = new Region();
+                regionPop.name = rset.getString("country.Region");
                 regionPop.population = rset.getInt("SUM(country.Population)");
                 regionPop.allCityPopulation = rset.getInt("SUM(city.Population)");
-                regionPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
-                regionPop.notCityPopulation = rset.getInt("country.Population-SUM(city.Population)");
-                regionPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
+                regionPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
+                regionPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
+                regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
 
                 return regionPop;
             }
@@ -380,12 +377,12 @@ public class App
         }
     }
 
-    public void displayRegionPopulation(Country regionPop)
+    public void displayRegionPopulation(Region regionPop)
     {
         if (regionPop != null)
         {
             System.out.println(
-                    regionPop.region + " "
+                    regionPop.name + " "
                             + regionPop.population + " "
                             + regionPop.allCityPopulation + " "
                             + regionPop.allCityPopulationPercentage + "% "
@@ -398,7 +395,7 @@ public class App
         }
     }
 
-    public Country getContinentPopulation(String continent)
+    public Continent getContinentPopulation(String continent)
     {
         try
         {
@@ -406,23 +403,25 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Continent, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
+                    "SELECT country.Continent, country.Population, SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Continent LIKE '" + continent + "' "
-                            + "GROUP BY country.Continent, country.Population";
+                            + "GROUP BY country.Continent";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new region for population if valid.
+            // Return new continent for population if valid.
             // Check one is returned
             if (rset.next())
             {
-                Country continentPop = new Country();
-                continentPop.continent = rset.getString("country.Continent");
-                continentPop.population = rset.getInt("SUM(country.Population)");
+                Continent continentPop = new Continent();
+                continentPop.name = rset.getString("country.Continent");
+                //continentPop.population = rset.getInt("SUM(country.Population)");
+                continentPop.population = rset.getInt("country.Population");
                 continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
-                continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
-                continentPop.notCityPopulation = rset.getInt("country.Population-SUM(city.Population)");
-                continentPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
+                //continentPop.allCityPopulation = rset.getInt("city.Population");
+                continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
+                continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
+                continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
 
                 return continentPop;
             }
@@ -437,12 +436,12 @@ public class App
         }
     }
 
-    public void displayContinentPopulation(Country continentPop)
+    public void displayContinentPopulation(Continent continentPop)
     {
         if (continentPop != null)
         {
             System.out.println(
-                    continentPop.continent + " "
+                    continentPop.name + " "
                             + continentPop.population + " "
                             + continentPop.allCityPopulation + " "
                             + continentPop.allCityPopulationPercentage + "% "
@@ -524,21 +523,11 @@ public class App
         }
     }
 
-
-
-
-
-
-
-
-
-
-
     /**
-     * Gets all the current employees and salaries.
-     * @return A list of all employees and salaries, or null if there is an error.
+     * Gets all the cities
+     * @return A list of all cities, or null if there is an error.
      */
-   /* public ArrayList<Employee> getAllSalaries()
+    public ArrayList<City> getAllCities()
     {
         try
         {
@@ -546,49 +535,50 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
-                            + "FROM employees, salaries "
-                            + "WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01' "
-                            + "ORDER BY employees.emp_no ASC";
+                    "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "WHERE country.Name LIKE 'United Kingdom' "
+                            + "ORDER BY city.Name";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Extract employee information
-            ArrayList<Employee> employees = new ArrayList<Employee>();
+            // Extract city information
+            ArrayList<City> cityArray = new ArrayList<City>();
             while (rset.next())
             {
-                Employee emp = new Employee();
-                emp.emp_no = rset.getInt("employees.emp_no");
-                emp.first_name = rset.getString("employees.first_name");
-                emp.last_name = rset.getString("employees.last_name");
-                emp.salary = rset.getInt("salaries.salary");
-                employees.add(emp);
+                City city = new City();
+                city.city_ID = rset.getInt("city.ID");
+                city.city_name = rset.getString("city.Name");
+                city.country_code = rset.getString("city.CountryCode");
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                cityArray.add(city);
             }
-            return employees;
+            return cityArray;
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get salary details");
+            System.out.println("Failed to get city details");
             return null;
         }
     }
 
     /**
-     * Prints a list of employees.
-     * @param employees The list of employees to print.
+     * Prints a list of cities.
+     * @param cityArray The list of cities to print.
      */
-   /* public void printSalaries(ArrayList<Employee> employees)
+    public void printCities(ArrayList<City> cityArray)
     {
         // Print header
-        System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
-        // Loop over all employees in the list
-        for (Employee emp : employees)
+        System.out.println(String.format("%-10s %-15s %-20s %-25s %-30s", "City ID", "City Name", "Country Code", "District", "City Population"));
+        // Loop over all cities in the list
+        for (City city : cityArray)
         {
-            String emp_string =
-                    String.format("%-10s %-15s %-20s %-8s",
-                            emp.emp_no, emp.first_name, emp.last_name, emp.salary);
-            System.out.println(emp_string);
+            String city_string =
+                    String.format("%-10s %-15s %-20s %-25s %-30s",
+                            city.city_ID, city.city_name, city.country_code, city.district, city.population);
+            System.out.println(city_string);
         }
-    } */
+    }
 
 }
