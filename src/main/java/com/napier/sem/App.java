@@ -27,17 +27,22 @@ public class App
         City capitalCity = a.getCapitalCity("France");
         a.displayCapitalCity(capitalCity);
 
+
+        // Not giving correct answers
+
         // Get Country Populations By Country Name
-        Country countryPop = a.getCountryPopulation("Spain");
+        Country countryPop = a.getCountryPopulation("United Kingdom");
         a.displayCountryPopulation(countryPop);
 
        // Get Region Populations By Region Name
-        Region regionPop = a.getRegionPopulation("Caribbean");
+        Region regionPop = a.getRegionPopulation("British Islands");
         a.displayRegionPopulation(regionPop);
 
         // Get Continent Populations By Continent Name
-        //Continent continentPop = a.getContinentPopulation("Europe");
-        //a.displayContinentPopulation(continentPop);
+        Continent continentPop = a.getContinentPopulation("Asia");
+        a.displayContinentPopulation(continentPop);
+
+
 
         // Extract city information
         //ArrayList<City> cities = a.getAllCities();
@@ -346,10 +351,10 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Region, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Region, SUM(country.Population), city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Region LIKE '" + region + "' "
-                            + "GROUP BY country.Region";
+                            + "GROUP BY country.Region, city.Population";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new region for population if valid.
@@ -359,7 +364,7 @@ public class App
                 Region regionPop = new Region();
                 regionPop.name = rset.getString("country.Region");
                 regionPop.population = rset.getInt("SUM(country.Population)");
-                regionPop.allCityPopulation = rset.getInt("SUM(city.Population)");
+                regionPop.allCityPopulation = rset.getInt("city.Population");
                 regionPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 regionPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
                 regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
@@ -403,10 +408,10 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Continent, country.Population, city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Continent, SUM(country.Population), city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Continent LIKE '" + continent + "' "
-                            + "GROUP BY country.Continent, country.Population, city.Population";
+                            + "GROUP BY country.Continent, city.Population";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new continent for population if valid.
@@ -415,10 +420,10 @@ public class App
             {
                 Continent continentPop = new Continent();
                 continentPop.name = rset.getString("country.Continent");
-                //continentPop.population = rset.getInt("SUM(country.Population)");
-                continentPop.population = rset.getInt("country.Population");
+                continentPop.population = rset.getInt("SUM(country.Population)");
+                //continentPop.population = rset.getInt("country.Population");
                 continentPop.allCityPopulation = rset.getInt("city.Population");
-                //continentPop.allCityPopulation = rset.getInt("city.Population");
+                //continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
                 continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
                 continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
