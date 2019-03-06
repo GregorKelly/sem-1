@@ -28,7 +28,7 @@ public class App
         a.displayCapitalCity(capitalCity);
 
 
-        // Not giving correct answers
+        // Not giving correct answers - populations and therefore percentages
 
         // Get Country Populations By Country Name
         Country countryPop = a.getCountryPopulation("United Kingdom");
