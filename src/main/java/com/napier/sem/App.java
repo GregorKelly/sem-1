@@ -36,15 +36,15 @@ public class App
         a.displayRegionPopulation(regionPop);
 
         // Get Continent Populations By Continent Name
-        Continent continentPop = a.getContinentPopulation("Europe");
-        a.displayContinentPopulation(continentPop);
+        //Continent continentPop = a.getContinentPopulation("Europe");
+        //a.displayContinentPopulation(continentPop);
 
         // Extract city information
-        ArrayList<City> cities = a.getAllCities();
-        a.printCities(cities);
+        //ArrayList<City> cities = a.getAllCities();
+        //a.printCities(cities);
 
         // Test the size of the returned data
-        System.out.println(cities.size());
+        //System.out.println(cities.size());
 
         // Disconnect from database
         a.disconnect();
@@ -403,10 +403,10 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Continent, country.Population, SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Continent, country.Population, city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Continent LIKE '" + continent + "' "
-                            + "GROUP BY country.Continent";
+                            + "GROUP BY country.Continent, country.Population, city.Population";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new continent for population if valid.
@@ -417,7 +417,7 @@ public class App
                 continentPop.name = rset.getString("country.Continent");
                 //continentPop.population = rset.getInt("SUM(country.Population)");
                 continentPop.population = rset.getInt("country.Population");
-                continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
+                continentPop.allCityPopulation = rset.getInt("city.Population");
                 //continentPop.allCityPopulation = rset.getInt("city.Population");
                 continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
@@ -526,7 +526,7 @@ public class App
     /**
      * Gets all the cities
      * @return A list of all cities, or null if there is an error.
-     */
+     *
     public ArrayList<City> getAllCities()
     {
         try
@@ -566,7 +566,7 @@ public class App
     /**
      * Prints a list of cities.
      * @param cityArray The list of cities to print.
-     */
+     *
     public void printCities(ArrayList<City> cityArray)
     {
         // Print header
@@ -579,6 +579,6 @@ public class App
                             city.city_ID, city.city_name, city.country_code, city.district, city.population);
             System.out.println(city_string);
         }
-    }
+    } */
 
 }

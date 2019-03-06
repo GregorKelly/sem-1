@@ -41,11 +41,4 @@ public class Tests
         City city = app.getCity("Edinburgh");
         app.displayCity(city);
     }
-
-    @Test
-    void printTest()
-    {
-        ArrayList<City> cities = new ArrayList<City>();
-        app.printCities(cities);
-    }
 }
