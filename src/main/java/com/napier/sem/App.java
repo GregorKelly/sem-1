@@ -10,6 +10,24 @@ public class App
     public static void main(String[] args)
     {
         // Create new Application
+        App a = nesw App();
+
+        // Connect to database
+        a.connect("localhost:33060");
+
+        Department dept = a.getDepartment("Sales");
+        ArrayList<Employee> employees = a.getSalariesByDepartment(dept);
+
+        // Print salary report
+        a.printSalaries(employees);
+
+        // Disconnect from database
+        a.disconnect();
+    }
+
+    /*public static void main(String[] args)
+    {
+        // Create new Application
         App a = new App();
 
         // Connect to database
@@ -53,7 +71,7 @@ public class App
 
         // Disconnect from database
         a.disconnect();
-    }
+    }*/
 
         /**
          * Connection to MySQL database.
