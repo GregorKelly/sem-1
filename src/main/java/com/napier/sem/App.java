@@ -6,11 +6,11 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class App
-{
+{/*
     public static void main(String[] args)
     {
         // Create new Application
-        App a = nesw App();
+        App a = new App();
 
         // Connect to database
         a.connect("localhost:33060");
@@ -23,9 +23,9 @@ public class App
 
         // Disconnect from database
         a.disconnect();
-    }
+    }*/
 
-    /*public static void main(String[] args)
+    public static void main(String[] args)
     {
         // Create new Application
         App a = new App();
@@ -71,7 +71,7 @@ public class App
 
         // Disconnect from database
         a.disconnect();
-    }*/
+    }
 
         /**
          * Connection to MySQL database.
