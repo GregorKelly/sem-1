@@ -1,10 +1,9 @@
 
 
+import com.napier.sem.Country;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,6 +18,7 @@ public class UnitTests
     static void init()
     {
         app = new App();
+        app.connect("localhost:33060");
     }
 
     @Test
@@ -40,5 +40,47 @@ public class UnitTests
     {
         City city = app.getCity("Edinburgh");
         app.displayCity(city);
+    }
+
+    @Test
+    void getCountryTestNull()
+    {
+        Country country = app.getCountry(null);
+        app.displayCountry(country);
+    }
+
+    @Test
+    void getCountryTestEmpty()
+    {
+        Country country = app.getCountry("");
+        app.displayCountry(country);
+    }
+
+    @Test
+    void getCountryTest()
+    {
+        Country country = app.getCountry("GBR");
+        app.displayCountry(country);
+    }
+
+    @Test
+    void getCapitalCityTestNull()
+    {
+        City capCity = app.getCity(null);
+        app.displayCity(capCity);
+    }
+
+    @Test
+    void getCapitalCityTestEmpty()
+    {
+        City capCity = app.getCity("");
+        app.displayCity(capCity);
+    }
+
+    @Test
+    void getCapitalCityTest()
+    {
+        City capCity = app.getCapitalCity("France");
+        app.displayCapitalCity(capCity);
     }
 }
