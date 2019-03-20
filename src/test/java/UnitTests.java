@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.napier.sem.App;
 import com.napier.sem.City;
 
-public class Tests
+public class UnitTests
 {
     static App app;
 
