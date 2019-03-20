@@ -1,5 +1,6 @@
 import com.napier.sem.App;
 import com.napier.sem.City;
+import com.napier.sem.Country;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -24,5 +25,22 @@ public class AppIntegrationTest
     {
         City city = app.getCity("Edinburgh");
         assertEquals(city.city_name, "Edinburgh");
+        assertEquals(city.countryName, "United Kingdom");
+    }
+
+    @Test
+    void testGetCountry()
+    {
+        Country country = app.getCountry("GBR");
+        assertEquals(country.country_name, "United Kingdom");
+        assertEquals(country.country_code, "GBR");
+    }
+
+    @Test
+    void testGetCapitalCity()
+    {
+        City capitalCity = app.getCapitalCity("France");
+        assertEquals(capitalCity.city_name, "Paris");
+        assertEquals(capitalCity.countryName, "France");
     }
 }
