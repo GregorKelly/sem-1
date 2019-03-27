@@ -22,7 +22,7 @@ jobs:
   - stage: unit tests
     install: skip
     jdk: oraclejdk11
-    script: mvn test -Dtest=com.napier.sem.AppTest
+    script: mvn test -Dtest=com.napier.sem.AppIntegrationTest
   - stage: integration tests
     jdk: oraclejdk11
     script: mvn test -Dtest=com.napier.sem.App
@@ -34,8 +34,8 @@ jobs:
     - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
     before_deploy:
     # Set up git user name and tag this commit
-    - git config --local user.name "Bogoslava Dyankova"
-    - git config --local user.email "40323952@live.napier.ac.uk"
+    - git config --local user.name "Ryan Headley"
+    - git config --local user.email "40337540@live.napier.ac.uk"
     # Create temporary tag from date and Git log.
     - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
     # Set tag
