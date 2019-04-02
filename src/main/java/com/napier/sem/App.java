@@ -1,27 +1,38 @@
 package com.napier.sem;
 
-//import com.sun.org.apache.xpath.internal.operations.Variable;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+@SpringBootApplication
+@RestController
 public class App
 {
     public static void main(String[] args)
     {
         // Create new Application
-        App a = new App();
+        //App a = new App();
 
         // Connect to database
         if (args.length < 1)
         {
-            a.connect("localhost:33060");
+            //a.connect("localhost:33060");
+            connect("localhost:33060");
         }
         else
         {
-            a.connect(args[0]);
+            //a.connect(args[0]);
+            connect(args[0]);
         }
 
+        SpringApplication.run(App.class, args);
+
+        /*
         // Get City By City Name
         City city = a.getCity("Edinburgh");
         a.displayCity(city);
@@ -49,8 +60,6 @@ public class App
         Continent continentPop = a.getContinentPopulation("Asia");
         a.displayContinentPopulation(continentPop);
 
-
-
         // Extract city information
         //ArrayList<City> cities = a.getAllCities();
         //a.printCities(cities);
@@ -60,17 +69,19 @@ public class App
 
         // Disconnect from database
         a.disconnect();
+
+        */
     }
 
         /**
          * Connection to MySQL database.
          */
-        private Connection con = null;
+        private static Connection con = null;
 
         /**
          * Connect to the MySQL database.
          */
-        public void connect(String location)
+        public static void connect(String location)
         {
             try
             {
@@ -111,7 +122,7 @@ public class App
         /**
          * Disconnect from the MySQL database.
          */
-        public void disconnect()
+        public static void disconnect()
         {
             if (con != null)
             {
@@ -127,7 +138,20 @@ public class App
             }
         }
 
-        public City getCity(String name)
+
+
+
+
+
+
+
+    /**
+     * Get a single city record.
+     * @param name CountryCode District Population of the city record to get.
+     * @return The record of the city with CountryCode District Population or null if no city exists.
+     */
+    @RequestMapping("city")
+    public City getCity(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -183,7 +207,14 @@ public class App
         }
     }
 
-    public Country getCountry(String code)
+
+    /**
+     * Get a single country record.
+     * @param code Name Continent Region Population Capital of the country record to get.
+     * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
+     */
+    @RequestMapping("country")
+    public Country getCountry(@RequestParam(value = "code") String code)
     {
         try
         {
@@ -241,7 +272,13 @@ public class App
         }
     }
 
-    public City getCapitalCity(String name)
+    /**
+     * Get a single capital city record.
+     * @param name CountryCode Population of the city record to get.
+     * @return The record of the city with CountryCode Population or null if no city exists.
+     */
+    @RequestMapping("city")
+    public City getCapitalCity(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -290,10 +327,14 @@ public class App
             System.out.println("No capital city found");
         }
     }
-
-
-
-    public Country getCountryPopulation(String name)
+    
+    /**
+     * Get a single country population record.
+     * @param name Name Continent Region Population Capital of the country record to get.
+     * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
+     */
+    @RequestMapping("country")
+    public Country getCountryPopulation(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -350,7 +391,13 @@ public class App
         }
     }
 
-    public Region getRegionPopulation(String region)
+    /**
+     * Get a single region population record.
+     * @param region Name Continent Region Population Capital of the region record to get.
+     * @return The record of the region with Name Continent Region Population Capital or null if no region exists.
+     */
+    @RequestMapping("region")
+    public Region getRegionPopulation(@RequestParam(value = "region") String region)
     {
         try
         {
@@ -407,7 +454,13 @@ public class App
         }
     }
 
-    public Continent getContinentPopulation(String continent)
+    /**
+     * Get a single continent population record.
+     * @param continent Name Continent Region Population Capital of the continent record to get.
+     * @return The record of the continent with Name Continent Region Population Capital or null if no continent exists.
+     */
+    @RequestMapping("continent")
+    public Continent getContinentPopulation(@RequestParam(value = "continent") String continent)
     {
         try
         {
