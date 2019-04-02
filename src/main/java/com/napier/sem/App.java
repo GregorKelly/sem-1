@@ -327,7 +327,7 @@ public class App
             System.out.println("No capital city found");
         }
     }
-    
+
     /**
      * Get a single country population record.
      * @param name Name Continent Region Population Capital of the country record to get.
