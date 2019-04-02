@@ -67,7 +67,7 @@ jobs:
         - gcloud version
         # Login to our Google Cloud Account using credentials file
         - gcloud auth activate-service-account --key-file client-secret.json
-        script:
+      script:
             # Set the project we will work in.
             - gcloud config set project intense-elysium-235810
             # Set the zone to work in.
@@ -96,7 +96,7 @@ jobs:
             - kubectl run app --image=gcr.io/${PROJECT_ID}/app --port 8080
             # Expose the app to the Internet, mapping external port 80 to internal port 8080.
             - kubectl expose deployment app --port=80 --target-port=8080 --type=LoadBalancer
- 
+
 stages:
   - unit tests
   - integration tests
