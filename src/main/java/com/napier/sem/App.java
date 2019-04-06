@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 @SpringBootApplication
 @RestController
@@ -138,13 +138,6 @@ public class App
             }
         }
 
-
-
-
-
-
-
-
     /**
      * Get a single city record.
      * @param name CountryCode District Population of the city record to get.
@@ -206,7 +199,6 @@ public class App
             System.out.println("No city found");
         }
     }
-
 
     /**
      * Get a single country record.
@@ -274,10 +266,10 @@ public class App
 
     /**
      * Get a single capital city record.
-     * @param name CountryCode Population of the city record to get.
-     * @return The record of the city with CountryCode Population or null if no city exists.
+     * @param name countryName Population of the city record to get.
+     * @return The record of the city with countryName Population or null if no city exists.
      */
-    @RequestMapping("city")
+    @RequestMapping("capitalCity")
     public City getCapitalCity(@RequestParam(value = "name") String name)
     {
         try
@@ -333,7 +325,7 @@ public class App
      * @param name Name Continent Region Population Capital of the country record to get.
      * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
      */
-    @RequestMapping("country")
+    @RequestMapping("countryPop")
     public Country getCountryPopulation(@RequestParam(value = "name") String name)
     {
         try
@@ -396,7 +388,7 @@ public class App
      * @param region Name Continent Region Population Capital of the region record to get.
      * @return The record of the region with Name Continent Region Population Capital or null if no region exists.
      */
-    @RequestMapping("region")
+    @RequestMapping("regionPop")
     public Region getRegionPopulation(@RequestParam(value = "region") String region)
     {
         try
@@ -459,7 +451,7 @@ public class App
      * @param continent Name Continent Region Population Capital of the continent record to get.
      * @return The record of the continent with Name Continent Region Population Capital or null if no continent exists.
      */
-    @RequestMapping("continent")
+    @RequestMapping("continentPop")
     public Continent getContinentPopulation(@RequestParam(value = "continent") String continent)
     {
         try
