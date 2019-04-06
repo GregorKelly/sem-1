@@ -164,10 +164,9 @@ public class App
                 City city = new City();
                 city.city_ID = rset.getInt("ID");
                 city.city_name = rset.getString("Name");
-
+                city.country_code = rset.getString("CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
                 city.countryName = country.country_name;
-
                 city.district = rset.getString("District");
                 city.population = rset.getInt("Population");
 
