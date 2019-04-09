@@ -583,6 +583,95 @@ public class App
     */
 
 
+
+    /**
+     * Gets all the countries
+     * @param name
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("continentCountries")
+    public ArrayList<Country> getContinentCountries(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "WHERE country.continent LIKE '" + name + "'"
+                            + "ORDER BY city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<Country> countryArray = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.country_code = rset.getString("Code");
+                country.country_name = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                City city = getCityForCountry(rset.getInt("Capital"));
+                country.capitalName = city.city_name;
+                countryArray.add(country);
+            }
+            return countryArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets all the countries
+     * @param name
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("regionCountries")
+    public ArrayList<Country> getRegionCountries(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "WHERE country.region LIKE '" + name + "'"
+                            + "ORDER BY city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<Country> countryArray = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.country_code = rset.getString("Code");
+                country.country_name = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                City city = getCityForCountry(rset.getInt("Capital"));
+                country.capitalName = city.city_name;
+                countryArray.add(country);
+            }
+            return countryArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
     /**
      * Gets all the cities
      * @param name
@@ -746,6 +835,88 @@ public class App
                 Country country = getCountryForCity(rset.getString("CountryCode"));
                 city.countryName = country.country_name;
                 city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                cityArray.add(city);
+            }
+            return cityArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets all the capital cities
+     * @param name
+     * @return A list of all capital cities, or null if there is an error.
+     */
+    @RequestMapping("continentCapitalCities")
+    public ArrayList<CapitalCity> getContinentCapitalCities(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.Population "
+                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "WHERE country.continent LIKE '" + name + "'"
+                            + "ORDER BY city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<CapitalCity> cityArray = new ArrayList<CapitalCity>();
+            while (rset.next())
+            {
+                CapitalCity city = new CapitalCity();
+                city.city_name = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("CountryCode"));
+                city.countryName = country.country_name;
+                city.population = rset.getInt("city.Population");
+                cityArray.add(city);
+            }
+            return cityArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets all the capital cities
+     * @param name
+     * @return A list of all capital cities, or null if there is an error.
+     */
+    @RequestMapping("regionCapitalCities")
+    public ArrayList<CapitalCity> getRegionCapitalCities(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.Population "
+                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "WHERE country.region LIKE '" + name + "'"
+                            + "ORDER BY city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<CapitalCity> cityArray = new ArrayList<CapitalCity>();
+            while (rset.next())
+            {
+                CapitalCity city = new CapitalCity();
+                city.city_name = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("CountryCode"));
+                city.countryName = country.country_name;
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
             }
