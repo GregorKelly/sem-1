@@ -600,7 +600,7 @@ public class App
                     "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
                             + "FROM city JOIN country ON city.CountryCode = country.Code "
                             + "WHERE country.continent LIKE '" + name + "'"
-                            + "ORDER BY city.Population";
+                            + "ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -611,6 +611,140 @@ public class App
                 city.city_ID = rset.getInt("city.ID");
                 city.city_name = rset.getString("city.Name");
                 city.country_code = rset.getString("city.CountryCode");
+                Country country = getCountryForCity(rset.getString("CountryCode"));
+                city.countryName = country.country_name;
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                cityArray.add(city);
+            }
+            return cityArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets all the cities
+     * @param name
+     * @return A list of all cities, or null if there is an error.
+     */
+    @RequestMapping("regionCities")
+    public ArrayList<City> getRegionCities(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "WHERE country.region LIKE '" + name + "'"
+                            + "ORDER BY city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> cityArray = new ArrayList<City>();
+            while (rset.next())
+            {
+                City city = new City();
+                city.city_ID = rset.getInt("city.ID");
+                city.city_name = rset.getString("city.Name");
+                city.country_code = rset.getString("city.CountryCode");
+                Country country = getCountryForCity(rset.getString("CountryCode"));
+                city.countryName = country.country_name;
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                cityArray.add(city);
+            }
+            return cityArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets all the cities
+     * @param name
+     * @return A list of all cities, or null if there is an error.
+     */
+    @RequestMapping("countryCities")
+    public ArrayList<City> getCountryCities(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "WHERE country.name LIKE '" + name + "'"
+                            + "ORDER BY city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> cityArray = new ArrayList<City>();
+            while (rset.next())
+            {
+                City city = new City();
+                city.city_ID = rset.getInt("city.ID");
+                city.city_name = rset.getString("city.Name");
+                city.country_code = rset.getString("city.CountryCode");
+                Country country = getCountryForCity(rset.getString("CountryCode"));
+                city.countryName = country.country_name;
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                cityArray.add(city);
+            }
+            return cityArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets all the cities
+     * @param name
+     * @return A list of all cities, or null if there is an error.
+     */
+    @RequestMapping("districtCities")
+    public ArrayList<City> getDistrictCities(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "WHERE city.District LIKE '" + name + "'"
+                            + "ORDER BY city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> cityArray = new ArrayList<City>();
+            while (rset.next())
+            {
+                City city = new City();
+                city.city_ID = rset.getInt("city.ID");
+                city.city_name = rset.getString("city.Name");
+                city.country_code = rset.getString("city.CountryCode");
+                Country country = getCountryForCity(rset.getString("CountryCode"));
+                city.countryName = country.country_name;
                 city.district = rset.getString("city.District");
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
