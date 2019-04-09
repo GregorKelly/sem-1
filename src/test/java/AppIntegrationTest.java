@@ -1,6 +1,7 @@
 import com.napier.sem.App;
 import com.napier.sem.City;
 import com.napier.sem.Country;
+import com.napier.sem.CapitalCity;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +37,7 @@ public class AppIntegrationTest
     @Test
     void testGetCapitalCity()
     {
-        City capitalCity = app.getCapitalCity("France");
+        CapitalCity capitalCity = app.getCapitalCity("France");
         assertEquals(capitalCity.city_name, "Paris");
         assertEquals(capitalCity.countryName, "France");
     }

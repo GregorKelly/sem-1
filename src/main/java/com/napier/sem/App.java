@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 @SpringBootApplication
 @RestController
@@ -116,8 +116,8 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT ID, Name, CountryCode, District, Population "
-                            + "FROM city"
-                            + "GROUP BY Population";
+                            + "FROM city WHERE Name LIKE '" + name + "'";
+                            //+ "GROUP BY Population"
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new city if valid.
@@ -267,7 +267,7 @@ public class App
         }
     }
 
-    public void displayCapitalCity(City capitalCity)
+    public void displayCapitalCity(CapitalCity capitalCity)
     {
         if (capitalCity != null)
         {
@@ -542,12 +542,13 @@ public class App
         }
     }
 
+
     /**
      * Get the world population record.
      * @param name Population of the world.
      * @return The record of the world Population or null if no countries exists.
      */
-    @RequestMapping("worldPop")
+    /*@RequestMapping("worldPop")
     public Country getWorldPopulation(@RequestParam(value = "name") String name)
     {
         try
@@ -579,20 +580,17 @@ public class App
             return null;
         }
     }
-
-
-
-
-
-
+    */
 
 
 
     /**
      * Gets all the cities
+     * @param name
      * @return A list of all cities, or null if there is an error.
-     *
-    public ArrayList<City> getAllCities()
+     */
+    @RequestMapping("continentCities")
+    public ArrayList<City> getContinentCities(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -602,8 +600,8 @@ public class App
             String strSelect =
                     "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
                             + "FROM city JOIN country ON city.CountryCode = country.Code "
-                            + "WHERE country.Name LIKE 'United Kingdom' "
-                            + "ORDER BY city.Name";
+                            + "WHERE country.continent LIKE '" + name + "'"
+                            + "ORDER BY city.Population";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -631,7 +629,7 @@ public class App
     /**
      * Prints a list of cities.
      * @param cityArray The list of cities to print.
-     *
+     */
     public void printCities(ArrayList<City> cityArray)
     {
         // Print header
@@ -644,6 +642,6 @@ public class App
                             city.city_ID, city.city_name, city.country_code, city.district, city.population);
             System.out.println(city_string);
         }
-    } */
+    }
 
 }
