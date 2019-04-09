@@ -583,6 +583,49 @@ public class App
     */
 
 
+    /**
+     * Gets all the countries
+     * @param name
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("worldCountries")
+    public ArrayList<Country> getWorldCountries(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "WHERE '" + name + "' LIKE " + "world"
+                            + "ORDER BY city.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<Country> countryArray = new ArrayList<Country>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.country_code = rset.getString("Code");
+                country.country_name = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                City city = getCityForCountry(rset.getInt("Capital"));
+                country.capitalName = city.city_name;
+                countryArray.add(country);
+            }
+            return countryArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
 
     /**
      * Gets all the countries
