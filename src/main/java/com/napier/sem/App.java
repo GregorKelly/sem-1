@@ -15,50 +15,18 @@ public class App
 {
     public static void main(String[] args)
     {
-        // Create new Application
-        //App a = new App();
 
         // Connect to database
         if (args.length < 1)
         {
-            //a.connect("localhost:33060");
             connect("localhost:33060");
         }
         else
         {
-            //a.connect(args[0]);
             connect(args[0]);
         }
 
         SpringApplication.run(App.class, args);
-
-        /*
-        // Get City By City Name
-        City city = a.getCity("Edinburgh");
-        a.displayCity(city);
-
-        // Get Country By Country Code
-        Country country = a.getCountry("GBR");
-        a.displayCountry(country);
-
-        // Get Capital City By Country Name
-        City capitalCity = a.getCapitalCity("France");
-        a.displayCapitalCity(capitalCity);
-
-
-        // Not giving correct answers - populations and therefore percentages
-
-        // Get Country Populations By Country Name
-        Country countryPop = a.getCountryPopulation("United Kingdom");
-        a.displayCountryPopulation(countryPop);
-
-       // Get Region Populations By Region Name
-        Region regionPop = a.getRegionPopulation("British Islands");
-        a.displayRegionPopulation(regionPop);
-
-        // Get Continent Populations By Continent Name
-        Continent continentPop = a.getContinentPopulation("Asia");
-        a.displayContinentPopulation(continentPop);
 
         // Extract city information
         //ArrayList<City> cities = a.getAllCities();
@@ -66,11 +34,6 @@ public class App
 
         // Test the size of the returned data
         //System.out.println(cities.size());
-
-        // Disconnect from database
-        a.disconnect();
-
-        */
     }
 
         /**
@@ -140,11 +103,11 @@ public class App
 
     /**
      * Get a single city record.
-     * @param name CountryCode District Population of the city record to get.
+     * CountryCode District Population of the city record to get.
      * @return The record of the city with CountryCode District Population or null if no city exists.
      */
     @RequestMapping("city")
-    public City getCity(@RequestParam(value = "name") String name)
+    public City getCity()
     {
         try
         {
@@ -153,8 +116,8 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT ID, Name, CountryCode, District, Population "
-                            + "FROM city "
-                            + "WHERE Name LIKE '" + name + "'";
+                            + "FROM city"
+                            + "GROUP BY Population";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new city if valid.
@@ -581,11 +544,11 @@ public class App
 
     /**
      * Get the world population record.
-     * @param world Population of the world.
+     * Population of the world.
      * @return The record of the world Population or null if no countries exists.
      */
     @RequestMapping("worldPop")
-    public Country getWorldPopulation(@RequestParam(value = "world") String world)
+    public Country getWorldPopulation()
     {
         try
         {
