@@ -583,7 +583,6 @@ public class App
     */
 
 
-
     /**
      * Gets all the cities
      * @param name
@@ -625,23 +624,4 @@ public class App
             return null;
         }
     }
-
-    /**
-     * Prints a list of cities.
-     * @param cityArray The list of cities to print.
-     */
-    public void printCities(ArrayList<City> cityArray)
-    {
-        // Print header
-        System.out.println(String.format("%-10s %-15s %-20s %-25s %-30s", "City ID", "City Name", "Country Code", "District", "City Population"));
-        // Loop over all cities in the list
-        for (City city : cityArray)
-        {
-            String city_string =
-                    String.format("%-10s %-15s %-20s %-25s %-30s",
-                            city.city_ID, city.city_name, city.country_code, city.district, city.population);
-            System.out.println(city_string);
-        }
-    }
-
 }

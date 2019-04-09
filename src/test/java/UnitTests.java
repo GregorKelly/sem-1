@@ -1,3 +1,4 @@
+import com.napier.sem.CapitalCity;
 import com.napier.sem.Country;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -78,7 +79,7 @@ public class UnitTests
     @Test
     void getCapitalCityTest()
     {
-        City capCity = app.getCapitalCity("France");
+        CapitalCity capCity = app.getCapitalCity("France");
         app.displayCapitalCity(capCity);
     }
 }
