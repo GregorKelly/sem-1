@@ -580,6 +580,52 @@ public class App
     }
 
     /**
+     * Get the world population record.
+     * @param world Population of the world.
+     * @return The record of the world Population or null if no countries exists.
+     */
+    @RequestMapping("worldPop")
+    public Country getWorldPopulation(@RequestParam(value = "world") String world)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT SUM(country.Population)"
+                            + "FROM country";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new country for population if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                Country worldPop = new Country();
+                worldPop.population = rset.getInt("SUM(country.Population)");
+
+                return worldPop;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+    /**
      * Gets all the cities
      * @return A list of all cities, or null if there is an error.
      *
