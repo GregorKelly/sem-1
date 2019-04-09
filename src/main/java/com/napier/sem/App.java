@@ -103,11 +103,11 @@ public class App
 
     /**
      * Get a single city record.
-     * //@param name CountryCode District Population of the city record to get.
+     * @param name CountryCode District Population of the city record to get.
      * @return The record of the city with CountryCode District Population or null if no city exists.
      */
     @RequestMapping("city")
-    public City getCity()
+    public City getCity(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -544,11 +544,11 @@ public class App
 
     /**
      * Get the world population record.
-     * //@param name Population of the world.
+     * @param name Population of the world.
      * @return The record of the world Population or null if no countries exists.
      */
     @RequestMapping("worldPop")
-    public Country getWorldPopulation()
+    public Country getWorldPopulation(@RequestParam(value = "name") String name)
     {
         try
         {
