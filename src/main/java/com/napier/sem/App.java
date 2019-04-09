@@ -103,11 +103,11 @@ public class App
 
     /**
      * Get a single city record.
-     * @param name CountryCode District Population of the city record to get.
+     * //@param name CountryCode District Population of the city record to get.
      * @return The record of the city with CountryCode District Population or null if no city exists.
      */
     @RequestMapping("city")
-    public City getCity(@RequestParam(value = "name") String name)
+    public City getCity()
     {
         try
         {
@@ -116,7 +116,7 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT ID, Name, CountryCode, District, Population "
-                            + "FROM city WHERE name LIKE " + "world"
+                            + "FROM city"
                             + "GROUP BY Population";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -232,7 +232,7 @@ public class App
      * @return The record of the city with countryName Population or null if no city exists.
      */
     @RequestMapping("capitalCity")
-    public City getCapitalCity(@RequestParam(value = "name") String name)
+    public CapitalCity getCapitalCity(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -249,7 +249,7 @@ public class App
             // Check one is returned
             if (rset.next())
             {
-                City capitalCity = new City();
+                CapitalCity capitalCity = new CapitalCity();
                 capitalCity.city_name = rset.getString("city.Name");
                 capitalCity.countryName = rset.getString("country.Name");
                 capitalCity.population = rset.getInt("city.Population");
@@ -544,11 +544,11 @@ public class App
 
     /**
      * Get the world population record.
-     * @param name Population of the world.
+     * //@param name Population of the world.
      * @return The record of the world Population or null if no countries exists.
      */
     @RequestMapping("worldPop")
-    public Country getWorldPopulation(@RequestParam(value = "name") String name)
+    public Country getWorldPopulation()
     {
         try
         {
@@ -557,7 +557,7 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT SUM(country.Population)"
-                            + "FROM country WHERE name LIKE " + "world";
+                            + "FROM country";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new country for population if valid.
