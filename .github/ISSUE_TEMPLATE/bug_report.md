@@ -9,6 +9,6 @@ assignees: boggieh, FionaGilmour, RyanHeadley, Mickdevv
 
 
 bug: Certain branches are behind/wont update limiting ability to work on different branches for different features.
----
 bug: Certain SQL statements currently give incorrect population (and therefore percentage) results
+---
 
