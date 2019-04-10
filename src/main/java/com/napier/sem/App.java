@@ -27,13 +27,6 @@ public class App
         }
 
         SpringApplication.run(App.class, args);
-
-        // Extract city information
-        //ArrayList<City> cities = a.getAllCities();
-        //a.printCities(cities);
-
-        // Test the size of the returned data
-        //System.out.println(cities.size());
     }
 
         /**
@@ -296,7 +289,8 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Name, country.Population, SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
+                    "SELECT country.Name, country.Population"
+            //, SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Name LIKE '" + name + "' "
                             + "GROUP BY country.Name, country.Population";
@@ -359,7 +353,8 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Region, SUM(country.Population), city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Region, SUM(country.Population)"
+            //, city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Region LIKE '" + region + "' "
                             + "GROUP BY country.Region, city.Population";
@@ -422,7 +417,8 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Continent, SUM(country.Population), city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Continent, SUM(country.Population)"
+            //, city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Continent LIKE '" + continent + "' "
                             + "GROUP BY country.Continent, city.Population";
@@ -434,9 +430,9 @@ public class App
             {
                 Continent continentPop = new Continent();
                 continentPop.name = rset.getString("country.Continent");
-                /*continentPop.population = rset.getInt("SUM(country.Population)");
+                continentPop.population = rset.getInt("SUM(country.Population)");
                 //continentPop.population = rset.getInt("country.Population");
-                continentPop.allCityPopulation = rset.getInt("city.Population");
+                /*continentPop.allCityPopulation = rset.getInt("city.Population");
                 //continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
                 continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
