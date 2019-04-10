@@ -15,20 +15,20 @@ public class Region
     /**
      *  City populations
      */
-    public int allCityPopulation;
+    //public int allCityPopulation;
 
     /**
      *  City populations
      */
-    public float allCityPopulationPercentage;
+   // public float allCityPopulationPercentage;
 
     /**
      *  City populations
      */
-    public int notCityPopulation;
+    //public int notCityPopulation;
 
     /**
      *  City populations
      */
-    public float notCityPopulationPercentage;
+    //public float notCityPopulationPercentage;
 }

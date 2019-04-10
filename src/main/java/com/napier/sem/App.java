@@ -309,10 +309,10 @@ public class App
                 Country countryPop = new Country();
                 countryPop.country_name = rset.getString("country.Name");
                 countryPop.population = rset.getInt("country.Population");
-                countryPop.allCityPopulation = rset.getInt("SUM(city.Population)");
+                /*countryPop.allCityPopulation = rset.getInt("SUM(city.Population)");
                 countryPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
                 countryPop.notCityPopulation = rset.getInt("country.Population-SUM(city.Population)");
-                countryPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
+                countryPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");*/
 
                 return countryPop;
             }
@@ -327,7 +327,7 @@ public class App
         }
     }
 
-    public void displayCountryPopulation(Country countryPop)
+    /*public void displayCountryPopulation(Country countryPop)
     {
         if (countryPop != null)
         {
@@ -343,7 +343,7 @@ public class App
         {
             System.out.println("No country population found");
         }
-    }
+    }*/
 
     /**
      * Get a single region population record.
@@ -372,10 +372,10 @@ public class App
                 Region regionPop = new Region();
                 regionPop.name = rset.getString("country.Region");
                 regionPop.population = rset.getInt("SUM(country.Population)");
-                regionPop.allCityPopulation = rset.getInt("city.Population");
+                /*regionPop.allCityPopulation = rset.getInt("city.Population");
                 regionPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 regionPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
-                regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
+                regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");*/
 
                 return regionPop;
             }
@@ -390,7 +390,7 @@ public class App
         }
     }
 
-    public void displayRegionPopulation(Region regionPop)
+    /*public void displayRegionPopulation(Region regionPop)
     {
         if (regionPop != null)
         {
@@ -406,7 +406,7 @@ public class App
         {
             System.out.println("No region population found");
         }
-    }
+    }*/
 
     /**
      * Get a single continent population record.
@@ -434,13 +434,13 @@ public class App
             {
                 Continent continentPop = new Continent();
                 continentPop.name = rset.getString("country.Continent");
-                continentPop.population = rset.getInt("SUM(country.Population)");
+                /*continentPop.population = rset.getInt("SUM(country.Population)");
                 //continentPop.population = rset.getInt("country.Population");
                 continentPop.allCityPopulation = rset.getInt("city.Population");
                 //continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
                 continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
-                continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
+                continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");*/
 
                 return continentPop;
             }
@@ -455,7 +455,7 @@ public class App
         }
     }
 
-    public void displayContinentPopulation(Continent continentPop)
+   /* public void displayContinentPopulation(Continent continentPop)
     {
         if (continentPop != null)
         {
@@ -471,7 +471,7 @@ public class App
         {
             System.out.println("No continent population found");
         }
-    }
+    }*/
 
 
     public City getCityForCountry(int ID)
