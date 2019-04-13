@@ -323,7 +323,7 @@ public class App
      * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
      */
     @RequestMapping("countryPop")
-    public Country getCountryPopulation(@RequestParam(value = "name") String name)
+    public ArrayList<CountryPop> getCountryPopulation(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -331,29 +331,27 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Name, country.Population"
-            //, SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
+                    "SELECT country.Name, country.Population, SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Name LIKE '" + name + "' "
                             + "GROUP BY country.Name, country.Population";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new country for population if valid.
-            // Check one is returned
+
+            ArrayList<CountryPop> countryPopArray = new ArrayList<CountryPop>();
+
             if (rset.next())
             {
-                Country countryPop = new Country();
+                CountryPop countryPop = new CountryPop();
                 countryPop.country_name = rset.getString("country.Name");
                 countryPop.population = rset.getInt("country.Population");
-                /*countryPop.allCityPopulation = rset.getInt("SUM(city.Population)");
+                countryPop.allCityPopulation = rset.getInt("SUM(city.Population)");
                 countryPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
                 countryPop.notCityPopulation = rset.getInt("country.Population-SUM(city.Population)");
-                countryPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");*/
-
-                return countryPop;
+                countryPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
+                countryPopArray.add(countryPop);
             }
-            else
-                return null;
+            return countryPopArray;
         }
         catch (Exception e)
         {
@@ -387,7 +385,7 @@ public class App
      * @return The record of the region with Name Continent Region Population Capital or null if no region exists.
      */
     @RequestMapping("regionPop")
-    public Region getRegionPopulation(@RequestParam(value = "region") String region)
+    public ArrayList<Region> getRegionPopulation(@RequestParam(value = "region") String region)
     {
         try
         {
@@ -395,29 +393,27 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Region, SUM(country.Population)"
-            //, city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Region, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Region LIKE '" + region + "' "
-                            + "GROUP BY country.Region, city.Population";
+                            + "GROUP BY country.Region";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new region for population if valid.
-            // Check one is returned
-            if (rset.next())
+
+            ArrayList<Region> regionArray = new ArrayList<Region>();
+
+            while (rset.next())
             {
                 Region regionPop = new Region();
                 regionPop.name = rset.getString("country.Region");
                 regionPop.population = rset.getInt("SUM(country.Population)");
-                /*regionPop.allCityPopulation = rset.getInt("city.Population");
+                regionPop.allCityPopulation = rset.getInt("SUM(city.Population)");
                 regionPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 regionPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
-                regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");*/
-
-                return regionPop;
+                regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
+                regionArray.add(regionPop);
             }
-            else
-                return null;
+            return regionArray;
         }
         catch (Exception e)
         {
@@ -451,7 +447,7 @@ public class App
      * @return The record of the continent with Name Continent Region Population Capital or null if no continent exists.
      */
     @RequestMapping("continentPop")
-    public Continent getContinentPopulation(@RequestParam(value = "continent") String continent)
+    public ArrayList<Continent> getContinentPopulation(@RequestParam(value = "continent") String continent)
     {
         try
         {
@@ -459,31 +455,27 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Continent, SUM(country.Population)"
-            //, city.Population, (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Continent, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "WHERE country.Continent LIKE '" + continent + "' "
-                            + "GROUP BY country.Continent, city.Population";
+                            + "GROUP BY country.Continent";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new continent for population if valid.
-            // Check one is returned
+
+            ArrayList<Continent> continentArray = new ArrayList<Continent>();
+
             if (rset.next())
             {
                 Continent continentPop = new Continent();
                 continentPop.name = rset.getString("country.Continent");
                 continentPop.population = rset.getInt("SUM(country.Population)");
-                //continentPop.population = rset.getInt("country.Population");
-                /*continentPop.allCityPopulation = rset.getInt("city.Population");
-                //continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
+                continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
                 continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
-                continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");*/
-
-                return continentPop;
+                continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
+                continentArray.add(continentPop);
             }
-            else
-                return null;
+            return continentArray;
         }
         catch (Exception e)
         {
@@ -511,7 +503,7 @@ public class App
         }
     }*/
 
-
+    // Gets the name of a city for a country
     public City getCityForCountry(int ID)
     {
         try
@@ -546,6 +538,7 @@ public class App
         }
     }
 
+    // Gets the name of the country for the city
     public Country getCountryForCity(String code)
     {
         try
@@ -586,8 +579,8 @@ public class App
      * @param name Population of the world.
      * @return The record of the world Population or null if no countries exists.
      */
-    /*@RequestMapping("worldPop")
-    public Country getWorldPopulation(@RequestParam(value = "name") String name)
+    @RequestMapping("worldPop")
+    public ArrayList<World> getWorldPopulation(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -599,17 +592,17 @@ public class App
                             + "FROM country";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new country for population if valid.
-            // Check one is returned
+
+            ArrayList<World> worldArray = new ArrayList<World>();
+
             if (rset.next())
             {
-                Country worldPop = new Country();
+                World worldPop = new World();
                 worldPop.population = rset.getInt("SUM(country.Population)");
-
-                return worldPop;
+                worldArray.add(worldPop);
             }
-            else
-                return null;
+            return worldArray;
+
         }
         catch (Exception e)
         {
@@ -618,8 +611,6 @@ public class App
             return null;
         }
     }
-    */
-
 
     /**
      * Gets all the countries
@@ -635,8 +626,8 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
-                            + "FROM country JOIN city ON country.Code = city.CountryCode "
-                            + "ORDER BY city.Population DESC";
+                            + "FROM country "
+                            + "ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -678,9 +669,9 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
-                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "FROM country "
                             + "WHERE country.continent LIKE '" + name + "'"
-                            + "ORDER BY city.Population DESC";
+                            + "ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -722,9 +713,9 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
-                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "FROM country "
                             + "WHERE country.region LIKE '" + name + "'"
-                            + "ORDER BY city.Population DESC";
+                            + "ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -766,7 +757,7 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "FROM city "
                             + "ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -941,7 +932,7 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population "
-                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "FROM city "
                             + "WHERE city.District LIKE '" + name + "'"
                             + "ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -984,7 +975,7 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.Population "
-                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "FROM city "
                             + "ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);

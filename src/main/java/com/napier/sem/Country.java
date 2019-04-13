@@ -31,24 +31,4 @@ public class Country
      * Capital City Name
      */
     public String capitalName;
-
-    /**
-     *  City populations
-     */
-    //public int allCityPopulation;
-
-    /**
-     *  City populations
-     */
-    //public float allCityPopulationPercentage;
-
-    /**
-     *  City populations
-     */
-    //public int notCityPopulation;
-
-    /**
-     *  City populations
-     */
-    //public float notCityPopulationPercentage;
 }
