@@ -156,9 +156,9 @@ public class App
     }
 
     /**
-     * Get a single city record.
-     * @param name CountryCode District Population of the city record to get.
-     * @return The record of the city with CountryCode District Population or null if no city exists.
+     * Get a single district record.
+     * @param name District Population of the district record to get.
+     * @return The record of the district with District Population or null if no district exists.
      */
     @RequestMapping("districtPop")
     public ArrayList<District> getDistrict(@RequestParam(value = "name") String name)
@@ -183,6 +183,7 @@ public class App
                 District district = new District();
                 district.district = rset.getString("District");
                 district.population = rset.getInt("SUM(Population)");
+                districtArray.add(district);
             }
             return districtArray;
         }
@@ -199,7 +200,7 @@ public class App
      * @param code Name Continent Region Population Capital of the country record to get.
      * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
      */
-    @RequestMapping("countryPop")
+    @RequestMapping("country")
     public Country getCountry(@RequestParam(value = "code") String code)
     {
         try

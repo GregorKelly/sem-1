@@ -20,7 +20,7 @@ public class UnitTests
         app.connect("localhost:33060");
     }
 
-    @Test
+    /*@Test
     void getCityTestNull()
     {
         City city = app.getCity(null);
@@ -81,5 +81,5 @@ public class UnitTests
     {
         CapitalCity capCity = app.getCapitalCity("France");
         app.displayCapitalCity(capCity);
-    }
+    }*/
 }

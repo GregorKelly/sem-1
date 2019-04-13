@@ -18,7 +18,7 @@ public class AppIntegrationTest
         app.connect("localhost:33060");
     }
 
-    @Test
+    /*@Test
     void testGetCity()
     {
         City city = app.getCity("Edinburgh");
@@ -40,5 +40,5 @@ public class AppIntegrationTest
         CapitalCity capitalCity = app.getCapitalCity("France");
         assertEquals(capitalCity.city_name, "Paris");
         assertEquals(capitalCity.countryName, "France");
-    }
+    }*/
 }
