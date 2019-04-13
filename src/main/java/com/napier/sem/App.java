@@ -100,7 +100,7 @@ public class App
      * @return The record of the city with CountryCode District Population or null if no city exists.
      */
     @RequestMapping("cityPop")
-    public City getCity(@RequestParam(value = "name") String name)
+    public ArrayList<City> getCity(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -113,9 +113,11 @@ public class App
                             + "WHERE Name LIKE '" + name + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new city if valid.
-            // Check one is returned
-            if (rset.next())
+
+            ArrayList<City> cityArray = new ArrayList<City>();
+
+            // Extract city information
+            while (rset.next())
             {
                 City city = new City();
                 city.city_name = rset.getString("Name");
@@ -124,11 +126,10 @@ public class App
                 city.countryName = country.country_name;
                 city.district = rset.getString("District");
                 city.population = rset.getInt("Population");
+                cityArray.add(city);
 
-                return city;
             }
-            else
-                return null;
+            return cityArray;
         }
         catch (Exception e)
         {
@@ -160,7 +161,7 @@ public class App
      * @return The record of the city with CountryCode District Population or null if no city exists.
      */
     @RequestMapping("districtPop")
-    public City getDistrict(@RequestParam(value = "name") String name)
+    public ArrayList<District> getDistrict(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -173,18 +174,17 @@ public class App
                             + "WHERE District LIKE '" + name + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new city if valid.
-            // Check one is returned
-            if (rset.next())
-            {
-                City city = new City();
-                city.district = rset.getString("District");
-                city.population = rset.getInt("SUM(Population)");
 
-                return city;
+            ArrayList<District> districtArray = new ArrayList<District>();
+
+            // Extract city information
+            while (rset.next())
+            {
+                District district = new District();
+                district.district = rset.getString("District");
+                district.population = rset.getInt("SUM(Population)");
             }
-            else
-                return null;
+            return districtArray;
         }
         catch (Exception e)
         {
