@@ -99,7 +99,7 @@ public class App
      * @param name CountryCode District Population of the city record to get.
      * @return The record of the city with CountryCode District Population or null if no city exists.
      */
-    @RequestMapping("city")
+    @RequestMapping("cityPop")
     public City getCity(@RequestParam(value = "name") String name)
     {
         try
@@ -108,9 +108,9 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT ID, Name, CountryCode, District, Population "
-                            + "FROM city WHERE Name LIKE '" + name + "'";
-                            //+ "GROUP BY Population"
+                    "SELECT Name, CountryCode, District, Population "
+                            + "FROM city "
+                            + "WHERE Name LIKE '" + name + "'";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new city if valid.
@@ -118,7 +118,6 @@ public class App
             if (rset.next())
             {
                 City city = new City();
-                city.city_ID = rset.getInt("ID");
                 city.city_name = rset.getString("Name");
                 city.country_code = rset.getString("CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
@@ -156,11 +155,51 @@ public class App
     }
 
     /**
+     * Get a single city record.
+     * @param name CountryCode District Population of the city record to get.
+     * @return The record of the city with CountryCode District Population or null if no city exists.
+     */
+    @RequestMapping("districtPop")
+    public City getDistrict(@RequestParam(value = "name") String name)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT District, SUM(Population) "
+                            + "FROM city "
+                            + "WHERE District LIKE '" + name + "'";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new city if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                City city = new City();
+                city.district = rset.getString("District");
+                city.population = rset.getInt("SUM(Population)");
+
+                return city;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
      * Get a single country record.
      * @param code Name Continent Region Population Capital of the country record to get.
      * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
      */
-    @RequestMapping("country")
+    @RequestMapping("countryPop")
     public Country getCountry(@RequestParam(value = "code") String code)
     {
         try
