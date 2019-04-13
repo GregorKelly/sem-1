@@ -108,7 +108,7 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT Name, CountryCode, District, Population "
+                    "SELECT ID, Name, CountryCode, District, Population "
                             + "FROM city "
                             + "WHERE Name LIKE '" + name + "'";
             // Execute SQL statement
@@ -120,6 +120,7 @@ public class App
             while (rset.next())
             {
                 City city = new City();
+                city.city_ID = rset.getInt("ID");
                 city.city_name = rset.getString("Name");
                 city.country_code = rset.getString("CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
@@ -171,7 +172,8 @@ public class App
             String strSelect =
                     "SELECT District, SUM(Population) "
                             + "FROM city "
-                            + "WHERE District LIKE '" + name + "'";
+                            + "WHERE District LIKE '" + name + "'"
+                            + "GROUP BY District";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
@@ -190,7 +192,7 @@ public class App
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get city details");
+            System.out.println("Failed to get district details");
             return null;
         }
     }
