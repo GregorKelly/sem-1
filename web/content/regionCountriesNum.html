@@ -32,7 +32,7 @@
     var name = urlParams.get('name');
     var num = urlParams.get('num');
 
-    var URL = "http://" + window.location.hostname + "/app/continentCountries?name=" + name + "?num=" + num;
+    var URL = "http://" + window.location.hostname + "/app/continentCountries?name=" + name + "&num=" + num;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.
