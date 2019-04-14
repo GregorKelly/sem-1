@@ -5,12 +5,17 @@ public class Country
     /**
      * Country code
      */
-    public String country_code;
+    public String countryCode;
 
     /**
      * Country name
      */
-    public String country_name;
+    public String countryName;
+
+    /**
+     * Capital City Name
+     */
+    public String capitalName;
 
     /**
      * Continent
@@ -26,9 +31,4 @@ public class Country
      * Country population
      */
     public int population;
-
-    /**
-     * Capital City Name
-     */
-    public String capitalName;
 }

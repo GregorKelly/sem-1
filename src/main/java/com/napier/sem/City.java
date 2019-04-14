@@ -5,17 +5,17 @@ public class City
     /**
      * City ID
      */
-    public int city_ID;
+    public int cityID;
 
     /**
      * City name
      */
-    public String city_name;
+    public String cityName;
 
     /**
      * Country code
      */
-    public String country_code;
+    public String countryCode;
 
     /**
      *  Country Name

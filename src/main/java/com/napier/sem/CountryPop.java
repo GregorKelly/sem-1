@@ -5,7 +5,7 @@ public class CountryPop
     /**
      * Country name
      */
-    public String country_name;
+    public String countryName;
 
     /**
      * Country population
@@ -15,12 +15,12 @@ public class CountryPop
     /**
      *  City populations
      */
-    public int allCityPopulation;
+    public int cityPopulation;
 
     /**
      *  City populations
      */
-    public float allCityPopulationPercentage;
+    public float cityPopulationPercentage;
 
     /**
      *  City populations

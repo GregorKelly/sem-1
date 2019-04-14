@@ -120,11 +120,11 @@ public class App
             while (rset.next())
             {
                 City city = new City();
-                city.city_ID = rset.getInt("ID");
-                city.city_name = rset.getString("Name");
-                city.country_code = rset.getString("CountryCode");
+                city.cityID = rset.getInt("ID");
+                city.cityName = rset.getString("Name");
+                city.countryCode = rset.getString("CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.district = rset.getString("District");
                 city.population = rset.getInt("Population");
                 cityArray.add(city);
@@ -223,14 +223,14 @@ public class App
             if (rset.next())
             {
                 Country country = new Country();
-                country.country_code = rset.getString("Code");
-                country.country_name = rset.getString("Name");
+                country.countryCode = rset.getString("Code");
+                country.countryName = rset.getString("Name");
                 country.continent = rset.getString("Continent");
                 country.region = rset.getString("Region");
                 country.population = rset.getInt("Population");
 
                 City city = getCityForCountry(rset.getInt("Capital"));
-                country.capitalName = city.city_name;
+                country.capitalName = city.cityName;
 
                 return country;
             }
@@ -250,8 +250,8 @@ public class App
         if (country != null)
         {
             System.out.println(
-                    country.country_code + " "
-                            + country.country_name + " "
+                    country.countryCode + " "
+                            + country.countryName + " "
                             + country.continent + " "
                             + country.region + " "
                             + country.population + " "
@@ -289,7 +289,7 @@ public class App
             if (rset.next())
             {
                 CapitalCity capitalCity = new CapitalCity();
-                capitalCity.city_name = rset.getString("city.Name");
+                capitalCity.cityName = rset.getString("city.Name");
                 capitalCity.countryName = rset.getString("country.Name");
                 capitalCity.population = rset.getInt("city.Population");
 
@@ -311,7 +311,7 @@ public class App
         if (capitalCity != null)
         {
             System.out.println(
-                    capitalCity.city_name + " "
+                    capitalCity.cityName + " "
                             + capitalCity.countryName + " "
                             + capitalCity.population);
         }
@@ -350,10 +350,10 @@ public class App
             if (rset.next())
             {
                 CountryPop countryPop = new CountryPop();
-                countryPop.country_name = rset.getString("country.Name");
+                countryPop.countryName = rset.getString("country.Name");
                 countryPop.population = rset.getInt("country.Population");
-                countryPop.allCityPopulation = rset.getInt("SUM(city.Population)");
-                countryPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
+                countryPop.cityPopulation = rset.getInt("SUM(city.Population)");
+                countryPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
                 countryPop.notCityPopulation = rset.getInt("country.Population-SUM(city.Population)");
                 countryPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
                 countryPopArray.add(countryPop);
@@ -414,8 +414,8 @@ public class App
                 Region regionPop = new Region();
                 regionPop.name = rset.getString("country.Region");
                 regionPop.population = rset.getInt("SUM(country.Population)");
-                regionPop.allCityPopulation = rset.getInt("SUM(city.Population)");
-                regionPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
+                regionPop.cityPopulation = rset.getInt("SUM(city.Population)");
+                regionPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 regionPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
                 regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
                 regionArray.add(regionPop);
@@ -476,8 +476,8 @@ public class App
                 Continent continentPop = new Continent();
                 continentPop.name = rset.getString("country.Continent");
                 continentPop.population = rset.getInt("SUM(country.Population)");
-                continentPop.allCityPopulation = rset.getInt("SUM(city.Population)");
-                continentPop.allCityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
+                continentPop.cityPopulation = rset.getInt("SUM(city.Population)");
+                continentPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
                 continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
                 continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
                 continentArray.add(continentPop);
@@ -529,8 +529,8 @@ public class App
             if (rset.next())
             {
                 City city = new City();
-                city.city_ID = rset.getInt("ID");
-                city.city_name = rset.getString("Name");
+                city.cityID = rset.getInt("ID");
+                city.cityName = rset.getString("Name");
 
                 return city;
             }
@@ -564,8 +564,8 @@ public class App
             if (rset.next())
             {
                 Country country = new Country();
-                country.country_code = rset.getString("Code");
-                country.country_name = rset.getString("Name");
+                country.countryCode = rset.getString("Code");
+                country.countryName = rset.getString("Name");
 
                 return country;
             }
@@ -643,13 +643,13 @@ public class App
             while (rset.next())
             {
                 Country country = new Country();
-                country.country_code = rset.getString("Code");
-                country.country_name = rset.getString("Name");
+                country.countryCode = rset.getString("Code");
+                country.countryName = rset.getString("Name");
                 country.continent = rset.getString("Continent");
                 country.region = rset.getString("Region");
                 country.population = rset.getInt("Population");
                 City city = getCityForCountry(rset.getInt("Capital"));
-                country.capitalName = city.city_name;
+                country.capitalName = city.cityName;
                 countryArray.add(country);
             }
             return countryArray;
@@ -687,13 +687,13 @@ public class App
             while (rset.next())
             {
                 Country country = new Country();
-                country.country_code = rset.getString("Code");
-                country.country_name = rset.getString("Name");
+                country.countryCode = rset.getString("Code");
+                country.countryName = rset.getString("Name");
                 country.continent = rset.getString("Continent");
                 country.region = rset.getString("Region");
                 country.population = rset.getInt("Population");
                 City city = getCityForCountry(rset.getInt("Capital"));
-                country.capitalName = city.city_name;
+                country.capitalName = city.cityName;
                 countryArray.add(country);
             }
             return countryArray;
@@ -731,13 +731,13 @@ public class App
             while (rset.next())
             {
                 Country country = new Country();
-                country.country_code = rset.getString("Code");
-                country.country_name = rset.getString("Name");
+                country.countryCode = rset.getString("Code");
+                country.countryName = rset.getString("Name");
                 country.continent = rset.getString("Continent");
                 country.region = rset.getString("Region");
                 country.population = rset.getInt("Population");
                 City city = getCityForCountry(rset.getInt("Capital"));
-                country.capitalName = city.city_name;
+                country.capitalName = city.cityName;
                 countryArray.add(country);
             }
             return countryArray;
@@ -774,11 +774,11 @@ public class App
             while (rset.next())
             {
                 City city = new City();
-                city.city_ID = rset.getInt("city.ID");
-                city.city_name = rset.getString("city.Name");
-                city.country_code = rset.getString("city.CountryCode");
+                city.cityID = rset.getInt("city.ID");
+                city.cityName = rset.getString("city.Name");
+                city.countryCode = rset.getString("city.CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.district = rset.getString("city.District");
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
@@ -818,11 +818,11 @@ public class App
             while (rset.next())
             {
                 City city = new City();
-                city.city_ID = rset.getInt("city.ID");
-                city.city_name = rset.getString("city.Name");
-                city.country_code = rset.getString("city.CountryCode");
+                city.cityID = rset.getInt("city.ID");
+                city.cityName = rset.getString("city.Name");
+                city.countryCode = rset.getString("city.CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.district = rset.getString("city.District");
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
@@ -862,11 +862,11 @@ public class App
             while (rset.next())
             {
                 City city = new City();
-                city.city_ID = rset.getInt("city.ID");
-                city.city_name = rset.getString("city.Name");
-                city.country_code = rset.getString("city.CountryCode");
+                city.cityID = rset.getInt("city.ID");
+                city.cityName = rset.getString("city.Name");
+                city.countryCode = rset.getString("city.CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.district = rset.getString("city.District");
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
@@ -906,11 +906,11 @@ public class App
             while (rset.next())
             {
                 City city = new City();
-                city.city_ID = rset.getInt("city.ID");
-                city.city_name = rset.getString("city.Name");
-                city.country_code = rset.getString("city.CountryCode");
+                city.cityID = rset.getInt("city.ID");
+                city.cityName = rset.getString("city.Name");
+                city.countryCode = rset.getString("city.CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.district = rset.getString("city.District");
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
@@ -950,11 +950,11 @@ public class App
             while (rset.next())
             {
                 City city = new City();
-                city.city_ID = rset.getInt("city.ID");
-                city.city_name = rset.getString("city.Name");
-                city.country_code = rset.getString("city.CountryCode");
+                city.cityID = rset.getInt("city.ID");
+                city.cityName = rset.getString("city.Name");
+                city.countryCode = rset.getString("city.CountryCode");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.district = rset.getString("city.District");
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
@@ -984,7 +984,7 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.Population "
-                            + "FROM city "
+                            + "FROM city JOIN country ON city.ID = country.Capital"
                             + "ORDER BY city.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -993,9 +993,9 @@ public class App
             while (rset.next())
             {
                 CapitalCity city = new CapitalCity();
-                city.city_name = rset.getString("city.Name");
+                city.cityName = rset.getString("city.Name");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
             }
@@ -1024,7 +1024,7 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.Population "
-                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "FROM city JOIN country ON city.ID = country.Capital "
                             + "WHERE country.continent LIKE '" + name + "'"
                             + "ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -1034,9 +1034,9 @@ public class App
             while (rset.next())
             {
                 CapitalCity city = new CapitalCity();
-                city.city_name = rset.getString("city.Name");
+                city.cityName = rset.getString("city.Name");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
             }
@@ -1065,7 +1065,7 @@ public class App
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.Population "
-                            + "FROM city JOIN country ON city.CountryCode = country.Code "
+                            + "FROM city JOIN country ON city.ID = country.Capital "
                             + "WHERE country.region LIKE '" + name + "'"
                             + "ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -1075,9 +1075,9 @@ public class App
             while (rset.next())
             {
                 CapitalCity city = new CapitalCity();
-                city.city_name = rset.getString("city.Name");
+                city.cityName = rset.getString("city.Name");
                 Country country = getCountryForCity(rset.getString("CountryCode"));
-                city.countryName = country.country_name;
+                city.countryName = country.countryName;
                 city.population = rset.getInt("city.Population");
                 cityArray.add(city);
             }
@@ -1117,13 +1117,13 @@ public class App
             while (rset.next())
             {
                 Country country = new Country();
-                country.country_code = rset.getString("Code");
-                country.country_name = rset.getString("Name");
+                country.countryCode = rset.getString("Code");
+                country.countryName = rset.getString("Name");
                 country.continent = rset.getString("Continent");
                 country.region = rset.getString("Region");
                 country.population = rset.getInt("Population");
                 City city = getCityForCountry(rset.getInt("Capital"));
-                country.capitalName = city.city_name;
+                country.capitalName = city.cityName;
                 countryArray.add(country);
             }
             return countryArray;
@@ -1162,13 +1162,13 @@ public class App
             while (rset.next())
             {
                 Country country = new Country();
-                country.country_code = rset.getString("Code");
-                country.country_name = rset.getString("Name");
+                country.countryCode = rset.getString("Code");
+                country.countryName = rset.getString("Name");
                 country.continent = rset.getString("Continent");
                 country.region = rset.getString("Region");
                 country.population = rset.getInt("Population");
                 City city = getCityForCountry(rset.getInt("Capital"));
-                country.capitalName = city.city_name;
+                country.capitalName = city.cityName;
                 countryArray.add(country);
             }
             return countryArray;

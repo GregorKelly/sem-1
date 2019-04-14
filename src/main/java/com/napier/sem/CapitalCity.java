@@ -5,7 +5,7 @@ public class CapitalCity
     /**
      * City name
      */
-    public String city_name;
+    public String cityName;
 
     /**
      *  Country Name
