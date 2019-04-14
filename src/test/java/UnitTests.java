@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import com.napier.sem.App;
 import com.napier.sem.City;
 
+import java.util.ArrayList;
+
 public class UnitTests
 {
     static App app;
@@ -20,28 +22,28 @@ public class UnitTests
         app.connect("localhost:33060");
     }
 
-    /*@Test
-    void getCityTestNull()
+    @Test
+    void getCityPopTestNull()
     {
-        City city = app.getCity(null);
+        ArrayList<City> city = app.getCityPop(null);
         app.displayCity(city);
     }
 
     @Test
-    void getCityTestEmpty()
+    void getCityPopTestEmpty()
     {
-        City city = app.getCity("");
+        ArrayList<City> city = app.getCityPop("");
         app.displayCity(city);
     }
 
     @Test
-    void getCityTest()
+    void getCityPopTest()
     {
-        City city = app.getCity("Edinburgh");
+        ArrayList<City> city = app.getCityPop("Edinburgh");
         app.displayCity(city);
     }
 
-    @Test
+   /* @Test
     void getCountryTestNull()
     {
         Country country = app.getCountry(null);

@@ -100,7 +100,7 @@ public class App
      * @return The record of the city with CountryCode District Population or null if no city exists.
      */
     @RequestMapping("cityPop")
-    public ArrayList<City> getCity(@RequestParam(value = "name") String name)
+    public ArrayList<City> getCityPop(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -140,15 +140,14 @@ public class App
         }
     }
 
-    public void displayCity(City city)
+    public void displayCity(ArrayList<City> cityArray)
     {
-        if (city != null)
+        if (cityArray != null)
         {
-            System.out.println(
-                    city.city_name + " "
-                            + city.countryName + " "
-                                + city.district + " "
-                                    + city.population);
+            for(int i = 0; i < cityArray.size(); i++)
+            {
+                System.out.println(cityArray);
+            }
         }
         else
         {
@@ -162,7 +161,7 @@ public class App
      * @return The record of the district with District Population or null if no district exists.
      */
     @RequestMapping("districtPop")
-    public ArrayList<District> getDistrict(@RequestParam(value = "name") String name)
+    public ArrayList<District> getDistrictPop(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -196,6 +195,9 @@ public class App
             return null;
         }
     }
+
+
+    ////////////////////////////////////////////////////////
 
     /**
      * Get a single country record.
@@ -261,6 +263,8 @@ public class App
         }
     }
 
+    ////////////////////////////////////////////
+
     /**
      * Get a single capital city record.
      * @param name countryName Population of the city record to get.
@@ -316,6 +320,9 @@ public class App
             System.out.println("No capital city found");
         }
     }
+
+    /////////////////////////////////////////////////////
+
 
     /**
      * Get a single country population record.
