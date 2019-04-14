@@ -1093,15 +1093,17 @@ public class App
 
     /**
      * Gets all the countries
-     * @param name
-     * @param num
+     * @param name of continent
+     * @param num of countries to be displayed
      * @return A list of all countries, or null if there is an error.
      */
     @RequestMapping("continentCountriesNum")
-    public ArrayList<Country> getContinentCountriesNum(@RequestParam(value = "name") String name, @RequestParam(value = "num") int num)
+    public ArrayList<Country> getContinentCountriesNum(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num)
     {
         try
         {
+            int theNum = Integer.parseInt(num);
+
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -1109,7 +1111,8 @@ public class App
                     "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
                             + "FROM country "
                             + "WHERE country.continent LIKE '" + name + "'"
-                            + "ORDER BY country.Population DESC";
+                            + "ORDER BY country.Population DESC"
+                            + "FETCH FIRST" + theNum + "ROWS ONLY";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -1138,15 +1141,17 @@ public class App
 
     /**
      * Gets all the countries
-     * @param name
-     * @param num
+     * @param name of region
+     * @param num of countries to be displayed
      * @return A list of all countries, or null if there is an error.
      */
     @RequestMapping("regionCountriesNum")
-    public ArrayList<Country> getRegionCountriesNum(@RequestParam(value = "name") String name, @RequestParam(value = "num") int num)
+    public ArrayList<Country> getRegionCountriesNum(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num)
     {
         try
         {
+            int theNum = Integer.parseInt(num);
+
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
@@ -1154,11 +1159,13 @@ public class App
                     "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
                             + "FROM country "
                             + "WHERE country.region LIKE '" + name + "'"
-                            + "ORDER BY country.Population DESC";
+                            + "ORDER BY country.Population DESC"
+                            + "FETCH FIRST" + theNum + "ROWS ONLY";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
             ArrayList<Country> countryArray = new ArrayList<>();
+
             while (rset.next())
             {
                 Country country = new Country();
