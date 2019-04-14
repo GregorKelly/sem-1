@@ -114,7 +114,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            ArrayList<City> cityArray = new ArrayList<City>();
+            ArrayList<City> cityArray = new ArrayList<>();
 
             // Extract city information
             while (rset.next())
@@ -176,7 +176,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            ArrayList<District> districtArray = new ArrayList<District>();
+            ArrayList<District> districtArray = new ArrayList<>();
 
             // Extract city information
             while (rset.next())
@@ -345,7 +345,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            ArrayList<CountryPop> countryPopArray = new ArrayList<CountryPop>();
+            ArrayList<CountryPop> countryPopArray = new ArrayList<>();
 
             if (rset.next())
             {
@@ -407,7 +407,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            ArrayList<Region> regionArray = new ArrayList<Region>();
+            ArrayList<Region> regionArray = new ArrayList<>();
 
             while (rset.next())
             {
@@ -469,7 +469,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            ArrayList<Continent> continentArray = new ArrayList<Continent>();
+            ArrayList<Continent> continentArray = new ArrayList<>();
 
             if (rset.next())
             {
@@ -600,7 +600,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
 
-            ArrayList<World> worldArray = new ArrayList<World>();
+            ArrayList<World> worldArray = new ArrayList<>();
 
             if (rset.next())
             {
@@ -638,7 +638,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<Country> countryArray = new ArrayList<Country>();
+            ArrayList<Country> countryArray = new ArrayList<>();
             while (rset.next())
             {
                 Country country = new Country();
@@ -682,7 +682,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<Country> countryArray = new ArrayList<Country>();
+            ArrayList<Country> countryArray = new ArrayList<>();
             while (rset.next())
             {
                 Country country = new Country();
@@ -726,7 +726,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<Country> countryArray = new ArrayList<Country>();
+            ArrayList<Country> countryArray = new ArrayList<>();
             while (rset.next())
             {
                 Country country = new Country();
@@ -769,7 +769,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<City> cityArray = new ArrayList<City>();
+            ArrayList<City> cityArray = new ArrayList<>();
             while (rset.next())
             {
                 City city = new City();
@@ -813,7 +813,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<City> cityArray = new ArrayList<City>();
+            ArrayList<City> cityArray = new ArrayList<>();
             while (rset.next())
             {
                 City city = new City();
@@ -857,7 +857,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<City> cityArray = new ArrayList<City>();
+            ArrayList<City> cityArray = new ArrayList<>();
             while (rset.next())
             {
                 City city = new City();
@@ -901,7 +901,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<City> cityArray = new ArrayList<City>();
+            ArrayList<City> cityArray = new ArrayList<>();
             while (rset.next())
             {
                 City city = new City();
@@ -945,7 +945,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<City> cityArray = new ArrayList<City>();
+            ArrayList<City> cityArray = new ArrayList<>();
             while (rset.next())
             {
                 City city = new City();
@@ -970,10 +970,11 @@ public class App
 
     /**
      * Gets all the capital cities
+     * @param name
      * @return A list of all capital cities, or null if there is an error.
      */
     @RequestMapping("worldCapitalCities")
-    public ArrayList<CapitalCity> getWorldCapitalCities()
+    public ArrayList<CapitalCity> getWorldCapitalCities(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -987,7 +988,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<CapitalCity> cityArray = new ArrayList<CapitalCity>();
+            ArrayList<CapitalCity> cityArray = new ArrayList<>();
             while (rset.next())
             {
                 CapitalCity city = new CapitalCity();
@@ -1028,7 +1029,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<CapitalCity> cityArray = new ArrayList<CapitalCity>();
+            ArrayList<CapitalCity> cityArray = new ArrayList<>();
             while (rset.next())
             {
                 CapitalCity city = new CapitalCity();
@@ -1069,7 +1070,7 @@ public class App
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<CapitalCity> cityArray = new ArrayList<CapitalCity>();
+            ArrayList<CapitalCity> cityArray = new ArrayList<>();
             while (rset.next())
             {
                 CapitalCity city = new CapitalCity();
@@ -1088,4 +1089,106 @@ public class App
             return null;
         }
     }
+
+    /**
+     * Gets all the countries
+     * @param name
+     * @param num
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("continentCountriesNum")
+    public ArrayList<Country> getContinentCountriesNum(@RequestParam(value = "name") String name, @RequestParam(value = "num") int num)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                            + "FROM country "
+                            + "WHERE country.continent LIKE '" + name + "'"
+                            + "ORDER BY country.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<Country> countryArray = new ArrayList<>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.country_code = rset.getString("Code");
+                country.country_name = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                City city = getCityForCountry(rset.getInt("Capital"));
+                country.capitalName = city.city_name;
+                countryArray.add(country);
+            }
+            return countryArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets all the countries
+     * @param name
+     * @param num
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("regionCountriesNum")
+    public ArrayList<Country> getRegionCountriesNum(@RequestParam(value = "name") String name, @RequestParam(value = "num") int num)
+    {
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                            + "FROM country "
+                            + "WHERE country.region LIKE '" + name + "'"
+                            + "ORDER BY country.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<Country> countryArray = new ArrayList<>();
+            while (rset.next())
+            {
+                Country country = new Country();
+                country.country_code = rset.getString("Code");
+                country.country_name = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                City city = getCityForCountry(rset.getInt("Capital"));
+                country.capitalName = city.city_name;
+                countryArray.add(country);
+            }
+            return countryArray;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
