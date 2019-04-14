@@ -28,8 +28,10 @@
 <div class="showData">Waiting</div>
 </body>
 <script>
+    var urlParams = new URLSearchParams(window.location.search);
+    var name = urlParams.get('name');
 
-    var URL = "http://" + window.location.hostname + "/app/worldPop";
+    var URL = "http://" + window.location.hostname + "/app/worldPop?name=" + name;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.

@@ -621,10 +621,11 @@ public class App
 
     /**
      * Gets all the countries
+     * @param name countries in the world
      * @return A list of all countries, or null if there is an error.
      */
     @RequestMapping("worldCountries")
-    public ArrayList<Country> getWorldCountries()
+    public ArrayList<Country> getWorldCountries(@RequestParam(value = "name") String name)
     {
         try
         {
@@ -663,7 +664,7 @@ public class App
 
     /**
      * Gets all the countries
-     * @param name
+     * @param name countries in a continent
      * @return A list of all countries, or null if there is an error.
      */
     @RequestMapping("continentCountries")
@@ -707,7 +708,7 @@ public class App
 
     /**
      * Gets all the countries
-     * @param name
+     * @param name countries in a region
      * @return A list of all countries, or null if there is an error.
      */
     @RequestMapping("regionCountries")
@@ -794,7 +795,7 @@ public class App
 
     /**
      * Gets all the cities
-     * @param name
+     * @param name cities in a continent
      * @return A list of all cities, or null if there is an error.
      */
     @RequestMapping("continentCities")
@@ -838,7 +839,7 @@ public class App
 
     /**
      * Gets all the cities
-     * @param name
+     * @param name cities in a region
      * @return A list of all cities, or null if there is an error.
      */
     @RequestMapping("regionCities")
@@ -882,7 +883,7 @@ public class App
 
     /**
      * Gets all the cities
-     * @param name
+     * @param name cities in a country
      * @return A list of all cities, or null if there is an error.
      */
     @RequestMapping("countryCities")
@@ -926,7 +927,7 @@ public class App
 
     /**
      * Gets all the cities
-     * @param name
+     * @param name cities in a district
      * @return A list of all cities, or null if there is an error.
      */
     @RequestMapping("districtCities")
@@ -970,7 +971,7 @@ public class App
 
     /**
      * Gets all the capital cities
-     * @param name
+     * @param name capital cities in the world
      * @return A list of all capital cities, or null if there is an error.
      */
     @RequestMapping("worldCapitalCities")
@@ -1010,7 +1011,7 @@ public class App
 
     /**
      * Gets all the capital cities
-     * @param name
+     * @param name capital cities in a continent
      * @return A list of all capital cities, or null if there is an error.
      */
     @RequestMapping("continentCapitalCities")
@@ -1051,7 +1052,7 @@ public class App
 
     /**
      * Gets all the capital cities
-     * @param name
+     * @param name capital cities in a region
      * @return A list of all capital cities, or null if there is an error.
      */
     @RequestMapping("regionCapitalCities")
