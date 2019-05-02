@@ -1,14 +1,15 @@
-
-
+import com.napier.sem.CapitalCity;
 import com.napier.sem.Country;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+//import org.junit.jupiter.api.TestInstance;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 import com.napier.sem.App;
 import com.napier.sem.City;
+
+import java.util.ArrayList;
 
 public class UnitTests
 {
@@ -22,27 +23,27 @@ public class UnitTests
     }
 
     @Test
-    void getCityTestNull()
+    void getCityPopTestNull()
     {
-        City city = app.getCity(null);
+        ArrayList<City> city = app.getCityPop(null);
         app.displayCity(city);
     }
 
     @Test
-    void getCityTestEmpty()
+    void getCityPopTestEmpty()
     {
-        City city = app.getCity("");
+        ArrayList<City> city = app.getCityPop("");
         app.displayCity(city);
     }
 
     @Test
-    void getCityTest()
+    void getCityPopTest()
     {
-        City city = app.getCity("Edinburgh");
+        ArrayList<City> city = app.getCityPop("Edinburgh");
         app.displayCity(city);
     }
 
-    @Test
+   /* @Test
     void getCountryTestNull()
     {
         Country country = app.getCountry(null);
@@ -80,7 +81,7 @@ public class UnitTests
     @Test
     void getCapitalCityTest()
     {
-        City capCity = app.getCapitalCity("France");
+        CapitalCity capCity = app.getCapitalCity("France");
         app.displayCapitalCity(capCity);
-    }
+    }*/
 }

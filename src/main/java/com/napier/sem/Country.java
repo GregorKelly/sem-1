@@ -5,12 +5,17 @@ public class Country
     /**
      * Country code
      */
-    public String country_code;
+    public String countryCode;
 
     /**
      * Country name
      */
-    public String country_name;
+    public String countryName;
+
+    /**
+     * Capital City Name
+     */
+    public String capitalName;
 
     /**
      * Continent
@@ -23,82 +28,7 @@ public class Country
     public String region;
 
     /**
-     * Country's surface area
-     */
-    public float surface_area;
-
-    /**
-     * Independance Year
-     */
-    public int indep_year;
-
-    /**
      * Country population
      */
     public int population;
-
-    /**
-     * Country life expectency
-     */
-    public float life_expectency;
-
-    /**
-     * GNP
-     */
-    public float gnp;
-
-    /**
-     * GNP Old
-     */
-    public float gnp_Old;
-
-    /**
-     * Local Name
-     */
-    public String local_name;
-
-    /**
-     * Government Form
-     */
-    public String government_form;
-
-    /**
-     * Head of State
-     */
-    public String head_of_state;
-
-    /**
-     * Capital City Code
-     */
-    public int capitalCode;
-
-    /**
-     * Capital City Name
-     */
-    public String capitalName;
-
-    /**
-     * Code 2
-     */
-    public String code2;
-
-    /**
-     *  City populations
-     */
-    public int allCityPopulation;
-
-    /**
-     *  City populations
-     */
-    public float allCityPopulationPercentage;
-
-    /**
-     *  City populations
-     */
-    public int notCityPopulation;
-
-    /**
-     *  City populations
-     */
-    public float notCityPopulationPercentage;
 }

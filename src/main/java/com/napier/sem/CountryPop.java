@@ -1,14 +1,14 @@
 package com.napier.sem;
 
-public class Continent
+public class CountryPop
 {
     /**
-     *  Continent name
+     * Country name
      */
-    public String name;
+    public String countryName;
 
     /**
-     *  Continent population
+     * Country population
      */
     public int population;
 
@@ -31,5 +31,4 @@ public class Continent
      *  City populations
      */
     public float notCityPopulationPercentage;
-
 }

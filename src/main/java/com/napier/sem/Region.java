@@ -15,12 +15,12 @@ public class Region
     /**
      *  City populations
      */
-    public int allCityPopulation;
+    public int cityPopulation;
 
     /**
      *  City populations
      */
-    public float allCityPopulationPercentage;
+    public float cityPopulationPercentage;
 
     /**
      *  City populations

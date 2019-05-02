@@ -1,9 +1,6 @@
-import com.napier.sem.App;
-import com.napier.sem.City;
-import com.napier.sem.Country;
+import com.napier.sem.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.ArrayList;
 
@@ -21,26 +18,24 @@ public class AppIntegrationTest
     }
 
     @Test
-    void testGetCity()
+    void testGetCityPop()
     {
-        City city = app.getCity("Edinburgh");
-        assertEquals(city.city_name, "Edinburgh");
-        assertEquals(city.countryName, "United Kingdom");
+        ArrayList<City> city = app.getCityPop("Edinburgh");
+        //assertEquals(city.city_name, "Edinburgh");
+        //assertEquals(city.countryName, "United Kingdom");
     }
 
     @Test
-    void testGetCountry()
+    void testGetCountryPop()
     {
-        Country country = app.getCountry("GBR");
-        assertEquals(country.country_name, "United Kingdom");
-        assertEquals(country.country_code, "GBR");
+        ArrayList<CountryPop> country = app.getCountryPopulation("GBR");
+        //assertEquals(country.country_name, "United Kingdom");
+        //assertEquals(country.country_code, "GBR");
     }
 
     @Test
-    void testGetCapitalCity()
+    void testGetDistrictPop()
     {
-        City capitalCity = app.getCapitalCity("France");
-        assertEquals(capitalCity.city_name, "Paris");
-        assertEquals(capitalCity.countryName, "France");
+        ArrayList<District> district = app.getDistrictPop("Scotland");
     }
 }
