@@ -1,28 +1,87 @@
 language: java
-
 sudo: false
-
 addons:
   hosts:
+<<<<<<< HEAD
+  - db
+=======
     - db
 
 env:
   global:
     - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
+>>>>>>> e0c3c28e248af8f2428f31e33b2031607361a938
 services:
-  - docker
-
+- docker
 install:
+<<<<<<< HEAD
+- docker build -t database db/.
+- docker run --rm -d -e MYSQL_ROOT_PASSWORD=example -p 33060:3306 database
+- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+env:
+  global:
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+=======
   - docker build -t database db/.
   - docker run --rm -d -e MYSQL_ROOT_PASSWORD=example -p 33060:3306 database
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
+>>>>>>> e0c3c28e248af8f2428f31e33b2031607361a938
 before_script:
-  - mvn clean
-
+- mvn clean
 jobs:
   include:
+<<<<<<< HEAD
+  - stage: unit tests
+    install: skip
+    jdk: oraclejdk11
+    script: mvn test -Dtest=UnitTests
+  - stage: integration tests
+    jdk: oraclejdk11
+    script: mvn test -Dtest=AppIntegrationTest
+  - stage: GitHub Release
+    install: skip
+    dk: oraclejdk11
+    script:
+    - echo "Deploying to GitHub Releases"
+    - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+    before_deploy:
+    - git config --local user.name "Fiona Gilmour"
+    - git config --local user.email "40315836@live.napier.ac.uk"
+    - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y-%m-%d')-$(git log --format=%h -1)}
+    - git tag $TRAVIS_TAG
+    deploy: 
+    provider: releases
+    api_key: "$GITHUB_OAUTH_TOKEN"
+    file: "$TRAVIS_BUILD_DIR/target/seMethods.jar"
+    skip_cleanup: true
+  - stage: Google Cloud Deploy
+    install: skip
+    jdk: oraclejdk11
+    before_script:
+    - if [ ! -d ${HOME}/google-cloud-sdk ]; then curl https://sdk.cloud.google.com
+      | bash > /dev/null; fi
+    - source $HOME/google-cloud-sdk/path.bash.inc
+    - gcloud components install kubectl
+    - gcloud version
+    - gcloud auth activate-service-account --key-file client-secret.json
+    script:
+    - gcloud config set project intense-elysium-235810
+    - gcloud config set compute/zone europe-west2-b
+    - export PROJECT_ID="$(gcloud config get-value project -q)"
+    - gcloud auth configure-docker
+    - docker build -t gcr.io/${PROJECT_ID}/db db/.
+    - docker push gcr.io/${PROJECT_ID}/db
+    - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+    - docker build -t gcr.io/${PROJECT_ID}/app .
+    - docker push gcr.io/${PROJECT_ID}/app
+    - gcloud container clusters create hr-cluster --num-nodes=1
+    - kubectl run db --image=gcr.io/${PROJECT_ID}/db --port 3306
+    - kubectl expose deployment db --name=db
+    - kubectl run app --image=gcr.io/${PROJECT_ID}/app --port 8080
+    - kubectl expose deployment app --port=80 --target-port=8080 --type=LoadBalancer
+=======
     - stage: unit tests
       install: skip
       jdk: oraclejdk11
@@ -105,17 +164,24 @@ jobs:
         # Expose the web interface, mapping external port 80 to internal port 80
         - kubectl expose deployment web --port=80 --target-port=80 --type=LoadBalancer
 
+>>>>>>> e0c3c28e248af8f2428f31e33b2031607361a938
 stages:
-  - unit tests
-  - integration tests
-  - name: deploy
-    if: branch = master
-  - name: Google Cloud Deploy
-    if: branch = master
-
+- unit tests
+- integration tests
+- name: deploy
+  if: branch = master
+- name: Google Cloud Deploy
+  if: branch = master
 after_success:
+<<<<<<< HEAD
+- bash <(curl -s https://codecov.io/bash)
+before_install:
+- openssl aes-256-cbc -K $encrypted_24682ebcd9bf_key -iv $encrypted_24682ebcd9bf_iv
+  -in client-secret.json.enc -out client-secret.json -d
+=======
   - bash <(curl -s https://codecov.io/bash)
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_24682ebcd9bf_key -iv $encrypted_24682ebcd9bf_iv
     -in client-secret.json.enc -out client-secret.json -d
+>>>>>>> e0c3c28e248af8f2428f31e33b2031607361a938
