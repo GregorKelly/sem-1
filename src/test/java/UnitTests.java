@@ -19,51 +19,51 @@ public class UnitTests
     static void init()
     {
         app = new App();
-        app.connect("localhost:33060");
+        app.connect("localhost:3306");
     }
-/*
+
     @Test
     void getCityPopTestNull()
     {
-        ArrayList<City> city = app.getCityPop(null);
-        app.displayCityPop(city);
+        City city = app.getSingleCityPop(null);
+        app.displaySingleCityPop(city);
     }
 
     @Test
     void getCityPopTestEmpty()
     {
-        ArrayList<City> city = app.getCityPop("");
-        app.displayCityPop(city);
+        City city = app.getSingleCityPop("");
+        app.displaySingleCityPop(city);
     }
 
     @Test
     void getCityPopTest()
     {
-        ArrayList<City> city = app.getCityPop("Edinburgh");
-        app.displayCityPop(city);
+        City city = app.getSingleCityPop("Edinburgh");
+        app.displaySingleCityPop(city);
     }
 
     @Test
     void getCountryTestNull()
     {
-        Country country = app.getCountry(null);
-        app.displayCountry(country);
+        Country country = app.getSingleCountryPop(null);
+        app.displaySingleCountryPop(country);
     }
 
     @Test
     void getCountryTestEmpty()
     {
-        Country country = app.getCountry("");
-        app.displayCountry(country);
+        Country country = app.getSingleCountryPop("");
+        app.displaySingleCountryPop(country);
     }
 
     @Test
     void getCountryTest()
     {
-        Country country = app.getCountry("GBR");
-        app.displayCountry(country);
+        Country country = app.getSingleCountryPop("United Kingdom");
+        app.displaySingleCountryPop(country);
     }
-
+    /*
     @Test
     void getCapitalCityTestNull()
     {

@@ -35,8 +35,20 @@ public class App {
         a.displaySingleDistrictPop(districtPop);
 
         Country countryPop = a.getSingleCountryPop("United Kingdom");
-        // Print single district population
+        // Print single country population
         a.displaySingleCountryPop(countryPop);
+
+        Region regionPop = a.getSingleRegionPop("Western Europe");
+        // Print single regions population
+        a.displaySingleRegionPop(regionPop);
+
+        Continent continentPop = a.getSingleContinentPop("Europe");
+        // Print single continents population
+        a.displaySingleContinentPop(continentPop);
+
+        World worldPop = a.getWorldPopulation();
+        // Print world population;
+        a.displayWorldPop(worldPop);
 
         // Disconnect from database
         a.disconnect2();
@@ -220,7 +232,7 @@ public class App {
         }
     }
 
-
+    // Displays a single cities population
     public void displaySingleCityPop(City city) {
         if (city != null) {
             System.out.println(
@@ -298,6 +310,7 @@ public class App {
         }
     }
 
+    // Displays a single districts population
     public void displaySingleDistrictPop(District district) {
         if (district != null) {
             System.out.println(
@@ -383,6 +396,7 @@ public class App {
         }
     }
 
+    // Dsiplays a single countries population
     public void displaySingleCountryPop(Country country) {
         if (country != null) {
             System.out.println(
@@ -391,7 +405,7 @@ public class App {
             System.out.println("No country found");
         }
     }
-    
+
     /**
      * Get a single capital city record.
      *
@@ -428,6 +442,7 @@ public class App {
         }
     }
 
+    // Displays a capital city
     public void displayCapitalCity(CapitalCity capitalCity) {
         if (capitalCity != null) {
             System.out.println(
@@ -438,8 +453,6 @@ public class App {
             System.out.println("No capital city found");
         }
     }
-
-    /////////////////////////////////////////////////////
 
 
     /**
@@ -482,24 +495,6 @@ public class App {
         }
     }
 
-    /*public void displayCountryPopulation(Country countryPop)
-    {
-        if (countryPop != null)
-        {
-            System.out.println(
-                    countryPop.country_name + " "
-                            + countryPop.population + " "
-                            + countryPop.allCityPopulation + " "
-                            + countryPop.allCityPopulationPercentage + "% "
-                            + countryPop.notCityPopulation + " "
-                            + countryPop.notCityPopulationPercentage + "%");
-        }
-        else
-        {
-            System.out.println("No country population found");
-        }
-    }*/
-
     /**
      * Get a single region population record.
      *
@@ -540,23 +535,48 @@ public class App {
         }
     }
 
-    /*public void displayRegionPopulation(Region regionPop)
+    // Get single region population
+    public Region getSingleRegionPop(String name) {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Region, SUM(Population)"
+                            + "FROM country "
+                            + "WHERE country.Region LIKE '" + name + "' "
+                            + "GROUP BY country.Region";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            if (rset.next()) {
+                Region region = new Region();
+                region.name = rset.getString("country.Region");
+                region.population = rset.getInt("SUM(Population)");
+                return region;
+            }
+            else
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    // Displays a regions population
+    public void displaySingleRegionPop(Region region)
     {
-        if (regionPop != null)
+        if (region != null)
         {
             System.out.println(
-                    regionPop.name + " "
-                            + regionPop.population + " "
-                            + regionPop.allCityPopulation + " "
-                            + regionPop.allCityPopulationPercentage + "% "
-                            + regionPop.notCityPopulation + " "
-                            + regionPop.notCityPopulationPercentage + "%");
+                    region.name + " " + region.population + " ");
         }
         else
         {
             System.out.println("No region population found");
         }
-    }*/
+    }
 
     /**
      * Get a single continent population record.
@@ -580,7 +600,7 @@ public class App {
 
             ArrayList<Continent> continentArray = new ArrayList<>();
 
-            if (rset.next()) {
+            while (rset.next()) {
                 Continent continentPop = new Continent();
                 continentPop.name = rset.getString("country.Continent");
                 continentPop.population = rset.getInt("SUM(country.Population)");
@@ -598,23 +618,48 @@ public class App {
         }
     }
 
-   /* public void displayContinentPopulation(Continent continentPop)
+    // Get single continent population
+    public Continent getSingleContinentPop(String name) {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Continent, SUM(Population) "
+                            + "FROM country "
+                            + "WHERE country.Continent LIKE '" + name + "' "
+                            + "GROUP BY country.Continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            if (rset.next()) {
+                Continent continent = new Continent();
+                continent.name = rset.getString("country.Continent");
+                continent.population = rset.getInt("SUM(Population)");
+                return continent;
+            }
+            else
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    // Displays a continents population
+    public void displaySingleContinentPop(Continent continent)
     {
-        if (continentPop != null)
+        if (continent != null)
         {
             System.out.println(
-                    continentPop.name + " "
-                            + continentPop.population + " "
-                            + continentPop.allCityPopulation + " "
-                            + continentPop.allCityPopulationPercentage + "% "
-                            + continentPop.notCityPopulation + " "
-                            + continentPop.notCityPopulationPercentage + "%");
+                    continent.name + " " + continent.population);
         }
         else
         {
             System.out.println("No continent population found");
         }
-    }*/
+    }
 
     // Gets the name of a city for a country
     public City getCityForCountry(int ID) {
@@ -695,9 +740,9 @@ public class App {
 
             ArrayList<World> worldArray = new ArrayList<>();
 
-            if (rset.next()) {
+            while (rset.next()) {
                 World worldPop = new World();
-                worldPop.population = rset.getInt("SUM(country.Population)");
+                worldPop.population = rset.getLong("SUM(country.Population)");
                 worldArray.add(worldPop);
             }
             return worldArray;
@@ -706,6 +751,47 @@ public class App {
             System.out.println(e.getMessage());
             System.out.println("Failed to get population details");
             return null;
+        }
+    }
+
+    // Get the world population
+    public World getWorldPopulation() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT SUM(country.Population)"
+                            + "FROM country";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            if (rset.next()) {
+                World world = new World();
+                world.population = rset.getLong("SUM(country.Population)");
+                return world;
+            }
+            else
+            return null;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get world population details");
+            return null;
+        }
+    }
+
+    // Displays the worlds population
+    public void displayWorldPop(World world)
+    {
+        if (world != null)
+        {
+            System.out.println(
+                    "World  " + world.population);
+        }
+        else
+        {
+            System.out.println("No world population found");
         }
     }
 

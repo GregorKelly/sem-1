@@ -4,5 +4,5 @@ public class World {
     /**
      * Country population
      */
-    public int population;
+    public long population;
 }

@@ -32,9 +32,9 @@
 | 23 | The population of people, people living in cities, and people not living in cities in each continent.| Yes/No |            |
 | 24 | The population of people, people living in cities, and people not living in cities in each region.   | Yes/No |            |
 | 25 | The population of people, people living in cities, and people not living in cities in each country.  | Yes/No |            |
-| 26 | The population of the world.            | Yes/No |            |
-| 27 | The population of the continent.        | Yes/No |            |
-| 28 | The population of the region.           | Yes/No |            |
+| 26 | The population of the world.            | Yes | ![singleWorldPop](SingleWorldPop.png)           |
+| 27 | The population of the continent.        | Yes | ![singleContinentPop](SingleContinentPop.png)           |
+| 28 | The population of the region.           | Yes | ![singleRegionPop](SingleRegionPop.png)           |
 | 29 | The population of the country.          | Yes | ![singleCountryPop](SingleCountryPop.png)             |
 | 30 | The population of the district.         | Yes | ![singleDistrictPop](SingleDistrictPop.png)           |
 | 31 | The population of the city.             | Yes | ![singleCityPop](SingleCityPop.png)                   |
