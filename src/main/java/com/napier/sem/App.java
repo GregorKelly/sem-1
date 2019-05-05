@@ -50,6 +50,10 @@ public class App {
         // Print world population;
         a.displayWorldPop(worldPop);
 
+        ArrayList<Country> countries = a.getTheWorldCountries();
+        // Display all countries in the world
+        a.displayWorldCounties(countries);
+
         // Disconnect from database
         a.disconnect2();
 
@@ -719,7 +723,6 @@ public class App {
         }
     }
 
-
     /**
      * Get the world population record.
      *
@@ -808,9 +811,9 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                    "SELECT Code, Name, Continent, Region, Population, Capital "
                             + "FROM country "
-                            + "ORDER BY country.Population DESC";
+                            + "ORDER BY Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
@@ -831,6 +834,53 @@ public class App {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country details");
             return null;
+        }
+    }
+
+    // Get all the countries in the world
+    public ArrayList<Country> getTheWorldCountries() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT Code, Name, Continent, Region, Population, Capital "
+                            + "FROM country "
+                            + "ORDER BY Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract country information
+            ArrayList<Country> countryArray = new ArrayList<>();
+            while (rset.next()) {
+                Country country = new Country();
+                country.countryCode = rset.getString("Code");
+                country.countryName = rset.getString("Name");
+                country.continent = rset.getString("Continent");
+                country.region = rset.getString("Region");
+                country.population = rset.getInt("Population");
+                City city = getCityForCountry(rset.getInt("Capital"));
+                country.capitalName = city.cityName;
+                countryArray.add(country);
+            }
+            return countryArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public void displayWorldCounties(ArrayList<Country> countryArray)
+    {
+        // Print header
+        System.out.println(String.format("%-15s %-15s %-15s %-15s %-15s %-15s", "Country Code", "Name", "Continent", "Region", "Population", "Capital"));
+        // Loop over all countries in the list
+        for (Country country : countryArray)
+        {
+            String country_string =
+                    String.format("%-15s %-15s %-15s %-15s %-15s %-15s",
+                            country.countryCode, country.countryName, country.continent, country.region, country.population, country.capitalName);
+            System.out.println(country_string);
         }
     }
 
