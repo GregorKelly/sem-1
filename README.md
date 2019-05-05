@@ -35,7 +35,7 @@
 | 26 | The population of the world.            | Yes/No |            |
 | 27 | The population of the continent.        | Yes/No |            |
 | 28 | The population of the region.           | Yes/No |            |
-| 29 | The population of the country.          | Yes/No |            |
-| 30 | The population of the district.         | Yes/No |            |
-| 31 | The population of the city.             | Yes/No |            |
+| 29 | The population of the country.          | Yes | ![singleCountryPop](SingleCountryPop.png)             |
+| 30 | The population of the district.         | Yes | ![singleDistrictPop](SingleDistrictPop.png)           |
+| 31 | The population of the city.             | Yes | ![singleCityPop](SingleCityPop.png)                   |
 | 32 | The number of people who speak these languages (greatest to smallest) including the percentage of the world population: Chinese, English, Hindi, Spanish, Arabic | Yes/No |            |

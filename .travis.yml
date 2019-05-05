@@ -37,6 +37,7 @@ jobs:
         - echo "Deploying to GitHub Releases"
         # Package (build) the JAR
         - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+        - docker-compose up --abort-on-container-exit
       before_deploy:
         # Set up git user name and tag this commit
         - git config --local user.name "Fiona Gilmour"

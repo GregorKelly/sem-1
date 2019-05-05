@@ -21,29 +21,29 @@ public class UnitTests
         app = new App();
         app.connect("localhost:33060");
     }
-
+/*
     @Test
     void getCityPopTestNull()
     {
         ArrayList<City> city = app.getCityPop(null);
-        app.displayCity(city);
+        app.displayCityPop(city);
     }
 
     @Test
     void getCityPopTestEmpty()
     {
         ArrayList<City> city = app.getCityPop("");
-        app.displayCity(city);
+        app.displayCityPop(city);
     }
 
     @Test
     void getCityPopTest()
     {
         ArrayList<City> city = app.getCityPop("Edinburgh");
-        app.displayCity(city);
+        app.displayCityPop(city);
     }
 
-   /* @Test
+    @Test
     void getCountryTestNull()
     {
         Country country = app.getCountry(null);
