@@ -8,16 +8,16 @@
 | ID |                                 Name                                         |  Met   | Screenshot |
 |----|:----------------------------------------------------------------------------:|-------:|-----------:|
 | 1  | All the countries in the world organised by largest population to smallest.  |  Yes   |            |
-| 2  | All the countries in a continent organised by largest population to smallest.|  Yes   |            |
-| 3  | All the countries in a region organised by largest population to smallest.   |  Yes   |            |
+| 2  | All the countries in a continent organised by largest population to smallest.|  Yes   |Countries in Europe ![continentCountries](ContinentCountries.png)           |
+| 3  | All the countries in a region organised by largest population to smallest.   |  Yes   |Countries in Western Europe![regionCountries](regionCountries.png)         |
 | 4  | The top N populated countries in the world where N is provided by the user.  | Yes/No |            |
-| 5  | The top N populated countries in the world where N is provided by the user.  | Yes/No |            |
+| 5  | The top N populated countries in the continent where N is provided by the user.  | Yes/No |            |
 | 6  | The top N populated countries in a region where N is provided by the user.   | Yes/No |            |
-| 7  | All the cities in the world organised by largest population to smallest.     |  Yes   |            |
-| 8  | All the cities in a continent organised by largest population to smallest.   |  Yes   |            |
-| 9  | All the cities in a region organised by largest population to smallest.      |  Yes   |            |
-| 10 | All the cities in a country organised by largest population to smallest.     |  Yes   |            |
-| 11 | All the cities in a district organised by largest population to smallest.    |  Yes   |            |
+| 7  | All the cities in the world organised by largest population to smallest.     |  Yes   |Cities in the World ![worldCities](worldCities.png)           |
+| 8  | All the cities in a continent organised by largest population to smallest.   |  Yes   |Cities in Europe ![continentCities](continentCities.png)          |
+| 9  | All the cities in a region organised by largest population to smallest.      |  Yes   |Cities in Western Europe ![regionCities](regionCities.png)           |
+| 10 | All the cities in a country organised by largest population to smallest.     |  Yes   |Cities in the United Kingdom ![countryCities](countryCities.png)          |
+| 11 | All the cities in a district organised by largest population to smallest.    |  Yes   |Cities in Scotland ![districtCities](districtCities.png)          |
 | 12 | The top N populated cities in the world where N is provided by the user.     | Yes/No |            |
 | 13 | The top N populated cities in a continent where N is provided by the user.   | Yes/No |            |
 | 14 | The top N populated cities in a region where N is provided by the user.      | Yes/No |            |

@@ -20,22 +20,24 @@ public class AppIntegrationTest
     @Test
     void testGetCityPop()
     {
-        ArrayList<City> city = app.getCityPop("Edinburgh");
-        //assertEquals(city.city_name, "Edinburgh");
-        //assertEquals(city.countryName, "United Kingdom");
+        City city = app.getSingleCityPop("Edinburgh");
+        //assertEquals(city.cityName, "Edinburgh");
+        //assertEquals(city.population, 450180);
     }
 
     @Test
     void testGetCountryPop()
     {
-        ArrayList<CountryPop> country = app.getCountryPopulation("GBR");
-        //assertEquals(country.country_name, "United Kingdom");
-        //assertEquals(country.country_code, "GBR");
+        Country country = app.getSingleCountryPop("United Kingdom");
+        //assertEquals(country.countryName, "United Kingdom");
+        //assertEquals(country.population, 59623400);
     }
 
     @Test
     void testGetDistrictPop()
     {
-        ArrayList<District> district = app.getDistrictPop("Scotland");
+        District district = app.getSingleDistrictPop("Scotland");
+        //assertEquals(district.district, "Scotland");
+        //assertEquals(district.population, 1429620);
     }
 }
