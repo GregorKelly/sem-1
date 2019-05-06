@@ -50,7 +50,7 @@ public class App {
         // Print world population;
         a.displayWorldPop(worldPop);
 
-        ArrayList<Country> worldCountries = a.getTheWorldCountries("world");
+        ArrayList<Country> worldCountries = a.getTheWorldCountries();
         // Display all countries in the world
         a.displayWorldCountries(worldCountries);
 
@@ -84,7 +84,7 @@ public class App {
 
         ArrayList<CapitalCity> worldCapitalCities = a.getTheWorldCapitalCities();
         // Display all cities in the world
-        a.displayWorldCapitalCities(worldCapitalCities);
+        //a.displayWorldCapitalCities(worldCapitalCities);
 
         ArrayList<CapitalCity> continentCapitalCities = a.getTheContinentCapitalCities("Europe");
         // Display all cities in a continent
@@ -864,18 +864,14 @@ public class App {
      * Get all the countries in the world
      * @return A list of all countries in the world or null if there is an error
      */
-    public ArrayList<Country> getTheWorldCountries(String name) {
+    public ArrayList<Country> getTheWorldCountries() {
         try {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT Code, Name, Continent, Region, Population, Capital "
+                    "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
-                            + "WHERE '" + name + "' LIKE 'world'"
-                            //+ "WHERE Continent LIKE 'Europe' AND Continent LIKE 'Asia'OR Continent LIKE 'North America' "
-                            //+ "OR Continent LIKE 'South America' OR Continent LIKE 'Oceania' OR Continent LIKE 'Antarctica' "
-                            //+ "OR Continent LIKE 'Africa' "
                             + "ORDER BY Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
@@ -883,12 +879,12 @@ public class App {
             ArrayList<Country> countryArray = new ArrayList<>();
             while (rset.next()) {
                 Country country = new Country();
-                country.countryCode = rset.getString("Code");
-                country.countryName = rset.getString("Name");
-                country.continent = rset.getString("Continent");
-                country.region = rset.getString("Region");
-                country.population = rset.getInt("Population");
-                City city = getCityForCountry(rset.getInt("Capital"));
+                country.countryCode = rset.getString("country.Code");
+                country.countryName = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
+                country.population = rset.getInt("country.Population");
+                City city = getCityForCountry(rset.getInt("country.Capital"));
                 country.capitalName = city.cityName;
                 countryArray.add(country);
             }
@@ -1724,7 +1720,7 @@ public class App {
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.Population "
-                            + "FROM city JOIN country ON city.ID = country.Capital"
+                            + "FROM city JOIN country ON city.ID = country.Capital "
                             + "WHERE country.continent LIKE '" + name + "' "
                             + "ORDER BY city.Population DESC";
             // Execute SQL statement
@@ -1814,7 +1810,7 @@ public class App {
             // Create string for SQL statement
             String strSelect =
                     "SELECT city.Name, city.CountryCode, city.Population "
-                            + "FROM city JOIN country ON city.ID = country.Capital"
+                            + "FROM city JOIN country ON city.ID = country.Capital "
                             + "WHERE country.Region LIKE '" + name + "' "
                             + "ORDER BY city.Population DESC";
             // Execute SQL statement

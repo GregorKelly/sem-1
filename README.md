@@ -8,7 +8,7 @@
 | ID |                                 Name                                         |  Met   | Screenshot |
 |----|:----------------------------------------------------------------------------:|-------:|-----------:|
 | 1  | All the countries in the world organised by largest population to smallest.  |  Yes   |            |
-| 2  | All the countries in a continent organised by largest population to smallest.|  Yes   |Countries in Europe ![continentCountries](ContinentCountries.png)           |
+| 2  | All the countries in a continent organised by largest population to smallest.|  Yes   |Countries in Europe ![continentCountries](continentCountries.png)           |
 | 3  | All the countries in a region organised by largest population to smallest.   |  Yes   |Countries in Western Europe![regionCountries](regionCountries.png)         |
 | 4  | The top N populated countries in the world where N is provided by the user.  | Yes/No |            |
 | 5  | The top N populated countries in the continent where N is provided by the user.  | Yes/No |            |
@@ -23,9 +23,9 @@
 | 14 | The top N populated cities in a region where N is provided by the user.      | Yes/No |            |
 | 15 | The top N populated cities in a country where N is provided by the user.     | Yes/No |            |
 | 16 | The top N populated cities in a district where N is provided by the user.    | Yes/No |            |
-| 17 | All the capital cities in the world organised by largest population to smallest.  |  Yes   |            |
-| 18 | All the capital cities in a continent organised by largest population to smallest.|  Yes   |            |
-| 19 | All the capital cities in a region organised by largest to smallest.              |  Yes   |            |
+| 17 | All the capital cities in the world organised by largest population to smallest.  |  Yes   |Capital Cities of the World ![worldCapitalCities](worldCapitalCities.png)           |
+| 18 | All the capital cities in a continent organised by largest population to smallest.|  Yes   |Capital Cities of Europe ![continentCapitalCities](continentCapitalCities.png)           |
+| 19 | All the capital cities in a region organised by largest to smallest.              |  Yes   |Capital Cities of Western Europe ![regionCapitalCities](regionCapitalCities.png)           |
 | 20 | The top N populated capital cities in the world where N is provided by the user.  | Yes/No |            |
 | 21 | The top N populated capital cities in a continent where N is provided by the user.| Yes/No |            |
 | 22 | The top N populated capital cities in a region where N is provided by the user.   | Yes/No |            |
