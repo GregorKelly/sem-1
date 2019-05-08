@@ -94,6 +94,18 @@ public class App {
         // Display all cities in a region
         //a.displayRegionCapitalCities(regionCapitalCities);
 
+        ArrayList<Continent> continentPercentage = a.getContinentPopPercent();
+        // Display all continents cities percentage
+        a.displayContinentPopPercent(continentPercentage);
+
+        ArrayList<Region> regionPercentage = a.getRegionPopPercent();
+        // Display all regions cities percentage
+        a.displayRegionPopPercent(regionPercentage);
+
+        ArrayList<CountryPop> countryPercentage = a.getCountryPopPercent();
+        // Display all countries cities percentage
+        //a.displayCountryPopPercent(countryPercentage);
+
         // Disconnect from database
         a.disconnect2();
 
@@ -496,7 +508,6 @@ public class App {
         }
     }
 
-
     /**
      * Get a single country population record.
      *
@@ -519,7 +530,7 @@ public class App {
 
             ArrayList<CountryPop> countryPopArray = new ArrayList<>();
 
-            if (rset.next()) {
+            while (rset.next()) {
                 CountryPop countryPop = new CountryPop();
                 countryPop.countryName = rset.getString("country.Name");
                 countryPop.population = rset.getInt("country.Population");
@@ -535,6 +546,61 @@ public class App {
             System.out.println("Failed to get population details");
             return null;
         }
+    }
+
+    /**
+     * Get a single country population record.
+     * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
+     */
+    public ArrayList<CountryPop> getCountryPopPercent() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Name, country.Population, SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "GROUP BY country.Name, country.Population";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            ArrayList<CountryPop> countryPopArray = new ArrayList<>();
+
+            while (rset.next()) {
+                CountryPop countryPop = new CountryPop();
+                countryPop.countryName = rset.getString("country.Name");
+                countryPop.population = rset.getLong("country.Population");
+                countryPop.cityPopulation = rset.getLong("SUM(city.Population)");
+                countryPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
+                countryPop.notCityPopulation = rset.getLong("country.Population-SUM(city.Population)");
+                countryPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
+                countryPopArray.add(countryPop);
+            }
+            return countryPopArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    // Displays Countries Cities Percentage
+    public void displayCountryPopPercent(ArrayList<CountryPop> countryPopArray) {
+        // Check the country arraylist is not null
+        if (countryPopArray == null) {
+            System.out.println("No countries");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-20s %-15s %-15s %-15s %-15s %-15s", "Name", "Population", "City Population", "City Population %", "Rural Population", "Rural Population %"));
+        // Loop over all countries in the list
+        for (CountryPop country : countryPopArray) {
+            String country_string =
+                    String.format("%-20s %-15s %-15s %-15s %-15s %-15s",
+                            country.countryName, country.population, country.cityPopulation, country.cityPopulationPercentage, country.notCityPopulation, country.notCityPopulationPercentage);
+            System.out.println(country_string);
+        }
+        System.out.println("\n");
     }
 
     /**
@@ -575,6 +641,61 @@ public class App {
             System.out.println("Failed to get population details");
             return null;
         }
+    }
+
+    /**
+     * Get a single country population record.
+     * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
+     */
+    public ArrayList<Region> getRegionPopPercent() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Region, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "GROUP BY country.Region";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            ArrayList<Region> regionArray = new ArrayList<>();
+
+            while (rset.next()) {
+                Region regionPop = new Region();
+                regionPop.name = rset.getString("country.Region");
+                regionPop.population = rset.getLong("SUM(country.Population)");
+                regionPop.cityPopulation = rset.getLong("SUM(city.Population)");
+                regionPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
+                regionPop.notCityPopulation = rset.getLong("SUM(country.Population)-SUM(city.Population)");
+                regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
+                regionArray.add(regionPop);
+            }
+            return regionArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    // Displays Region Cities Percentage
+    public void displayRegionPopPercent(ArrayList<Region> regionArray) {
+        // Check the country arraylist is not null
+        if (regionArray == null) {
+            System.out.println("No countries");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-20s %-15s %-15s %-15s %-15s %-15s", "Name", "Population", "City Population", "City Population %", "Rural Population", "Rural Population %"));
+        // Loop over all countries in the list
+        for (Region region : regionArray) {
+            String country_string =
+                    String.format("%-20s %-15s %-15s %-15s %-15s %-15s",
+                            region.name, region.population, region.cityPopulation, region.cityPopulationPercentage, region.notCityPopulation, region.notCityPopulationPercentage);
+            System.out.println(country_string);
+        }
+        System.out.println("\n");
     }
 
     // Get single region population
@@ -653,6 +774,61 @@ public class App {
             System.out.println("Failed to get population details");
             return null;
         }
+    }
+
+    /**
+     * Get a single country population record.
+     * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
+     */
+    public ArrayList<Continent> getContinentPopPercent() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Continent, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "GROUP BY country.Continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            ArrayList<Continent> continentArray = new ArrayList<>();
+
+            while (rset.next()) {
+                Continent continentPop = new Continent();
+                continentPop.name = rset.getString("country.Continent");
+                continentPop.population = rset.getLong("SUM(country.Population)");
+                continentPop.cityPopulation = rset.getLong("SUM(city.Population)");
+                continentPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
+                continentPop.notCityPopulation = rset.getLong("SUM(country.Population)-SUM(city.Population)");
+                continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
+                continentArray.add(continentPop);
+            }
+            return continentArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    // Display Continent City Percentage
+    public void displayContinentPopPercent(ArrayList<Continent> continentArray) {
+        // Check the country arraylist is not null
+        if (continentArray == null) {
+            System.out.println("No countries");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-20s %-20s %-20s %-20s %-20s %-20s", "Name", "Population", "City Population", "City Population %", "Rural Population", "Rural Population %"));
+        // Loop over all countries in the list
+        for (Continent continent : continentArray) {
+            String country_string =
+                    String.format("%-20s %-20s %-20s %-20s %-20s %-20s",
+                            continent.name, continent.population, continent.cityPopulation, continent.cityPopulationPercentage, continent.notCityPopulation, continent.notCityPopulationPercentage);
+            System.out.println(country_string);
+        }
+        System.out.println("\n");
     }
 
     // Get single continent population
@@ -753,7 +929,6 @@ public class App {
 
     /**
      * Get the world population record.
-     *
      * @param name Population of the world.
      * @return The record of the world Population or null if no countries exists.
      */
@@ -823,7 +998,6 @@ public class App {
 
     /**
      * Gets all the countries
-     *
      * @param name countries in the world
      * @return A list of all countries, or null if there is an error.
      */
@@ -904,11 +1078,11 @@ public class App {
         }
 
         // Print header
-        System.out.println(String.format("%-15s %-15s %-15s %-15s %-15s %-15s", "Country Code", "Name", "Continent", "Region", "Population", "Capital"));
+        System.out.println(String.format("%-15s %-20s %-15s %-15s %-15s %-15s", "Country Code", "Name", "Continent", "Region", "Population", "Capital"));
         // Loop over all countries in the list
         for (Country country : countryArray) {
             String country_string =
-                    String.format("%-15s %-15s %-15s %-15s %-15s %-15s",
+                    String.format("%-15s %-20s %-15s %-15s %-15s %-15s",
                             country.countryCode, country.countryName, country.continent, country.region, country.population, country.capitalName);
             System.out.println(country_string);
         }

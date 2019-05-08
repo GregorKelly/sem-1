@@ -10,12 +10,12 @@ public class Region
     /**
      *  Region population
      */
-    public int population;
+    public long population;
 
     /**
      *  City populations
      */
-    public int cityPopulation;
+    public long cityPopulation;
 
     /**
      *  City populations
@@ -25,7 +25,7 @@ public class Region
     /**
      *  City populations
      */
-    public int notCityPopulation;
+    public long notCityPopulation;
 
     /**
      *  City populations
