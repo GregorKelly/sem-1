@@ -1090,7 +1090,7 @@ public class App {
             String strSelect =
                     "SELECT country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
-                            + "ORDER BY Population DESC";
+                            + "ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract country information
@@ -1120,13 +1120,12 @@ public class App {
             System.out.println("No countries");
             return;
         }
-
         // Print header
-        System.out.println(String.format("%-15s %-20s %-15s %-15s %-15s %-15s", "Country Code", "Name", "Continent", "Region", "Population", "Capital"));
+        System.out.println(String.format("%-15s %-20s %-15s %-20s %-15s %-20s", "Country Code", "Name", "Continent", "Region", "Population", "Capital"));
         // Loop over all countries in the list
         for (Country country : countryArray) {
             String country_string =
-                    String.format("%-15s %-20s %-15s %-15s %-15s %-15s",
+                    String.format("%-15s %-20s %-15s %-20s %-15s %-20s",
                             country.countryCode, country.countryName, country.continent, country.region, country.population, country.capitalName);
             System.out.println(country_string);
         }
