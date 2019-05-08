@@ -29,9 +29,9 @@
 | 20 | The top N populated capital cities in the world where N is provided by the user.  | Yes/No |            |
 | 21 | The top N populated capital cities in a continent where N is provided by the user.| Yes/No |            |
 | 22 | The top N populated capital cities in a region where N is provided by the user.   | Yes/No |            |
-| 23 | The population of people, people living in cities, and people not living in cities in each continent.| Yes/No |            |
-| 24 | The population of people, people living in cities, and people not living in cities in each region.   | Yes/No |            |
-| 25 | The population of people, people living in cities, and people not living in cities in each country.  | Yes/No |            |
+| 23 | The population of people, people living in cities, and people not living in cities in each continent.| Yes |![continentCityPercentage](continentCityPercentage.png)            |
+| 24 | The population of people, people living in cities, and people not living in cities in each region.   | Yes |![regionCityPercentage](regionCityPercentage.png)           |
+| 25 | The population of people, people living in cities, and people not living in cities in each country.  | Yes |![countryCityPercentage](countryCityPercentage.png)            |
 | 26 | The population of the world.            | Yes | ![singleWorldPop](SingleWorldPop.png)           |
 | 27 | The population of the continent.        | Yes | ![singleContinentPop](SingleContinentPop.png)           |
 | 28 | The population of the region.           | Yes | ![singleRegionPop](SingleRegionPop.png)           |

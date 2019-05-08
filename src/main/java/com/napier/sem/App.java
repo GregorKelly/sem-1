@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 @RestController
@@ -96,11 +97,11 @@ public class App {
 
         ArrayList<Continent> continentPercentage = a.getContinentPopPercent();
         // Display all continents cities percentage
-        a.displayContinentPopPercent(continentPercentage);
+        //a.displayContinentPopPercent(continentPercentage);
 
         ArrayList<Region> regionPercentage = a.getRegionPopPercent();
         // Display all regions cities percentage
-        a.displayRegionPopPercent(regionPercentage);
+        //a.displayRegionPopPercent(regionPercentage);
 
         ArrayList<CountryPop> countryPercentage = a.getCountryPopPercent();
         // Display all countries cities percentage
@@ -592,11 +593,11 @@ public class App {
             return;
         }
         // Print header
-        System.out.println(String.format("%-20s %-15s %-15s %-15s %-15s %-15s", "Name", "Population", "City Population", "City Population %", "Rural Population", "Rural Population %"));
+        System.out.println(String.format("%-25s %-15s %-20s %-25s %-20s %-25s", "Name", "Population", "City Population", "City Population %", "Rural Population", "Rural Population %"));
         // Loop over all countries in the list
         for (CountryPop country : countryPopArray) {
             String country_string =
-                    String.format("%-20s %-15s %-15s %-15s %-15s %-15s",
+                    String.format("%-25s %-15s %-20s %-25s %-20s %-25s",
                             country.countryName, country.population, country.cityPopulation, country.cityPopulationPercentage, country.notCityPopulation, country.notCityPopulationPercentage);
             System.out.println(country_string);
         }
@@ -653,7 +654,7 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Region, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Region, SUM(city.Population)"
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "GROUP BY country.Region";
             // Execute SQL statement
@@ -661,15 +662,44 @@ public class App {
 
             ArrayList<Region> regionArray = new ArrayList<>();
 
+            List<String> regions = new ArrayList<>();
+            regions.add("Southern and Central Asia");
+            regions.add("Western Europe");
+            regions.add("Caribbean");
+            regions.add("Southern Europe");
+            regions.add("Northern Africa");
+            regions.add("Polynesia");
+            regions.add("Central Africa");
+            regions.add("Middle East");
+            regions.add("South America");
+            regions.add("Australia and New Zealand");
+            regions.add("Central America");
+            regions.add("Western Africa");
+            regions.add("North America");
+            regions.add("Southern Africa");
+            regions.add("British Islands");
+            regions.add("Southeast Asia");
+            regions.add("Eastern Europe");
+            regions.add("Eastern Africa");
+            regions.add("Melanesia");
+            regions.add("Nordic Countries");
+            regions.add("Micronesia");
+            regions.add("Eastern Asia");
+            regions.add("Baltic Countries");
+
+            int i = 0;
+
             while (rset.next()) {
                 Region regionPop = new Region();
                 regionPop.name = rset.getString("country.Region");
-                regionPop.population = rset.getLong("SUM(country.Population)");
+                Region theRegion = getSingleRegionPop(regions.get(i));
+                regionPop.population = theRegion.population;
                 regionPop.cityPopulation = rset.getLong("SUM(city.Population)");
-                regionPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
-                regionPop.notCityPopulation = rset.getLong("SUM(country.Population)-SUM(city.Population)");
-                regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
+                regionPop.cityPopulationPercentage = ((rset.getFloat("SUM(city.Population)"))/theRegion.population)*100;
+                regionPop.notCityPopulation = theRegion.population - rset.getLong("SUM(city.Population)");
+                regionPop.notCityPopulationPercentage = ((theRegion.population - rset.getFloat("SUM(city.Population)"))/theRegion.population)*100;
                 regionArray.add(regionPop);
+                i++;
             }
             return regionArray;
         } catch (Exception e) {
@@ -687,11 +717,11 @@ public class App {
             return;
         }
         // Print header
-        System.out.println(String.format("%-20s %-15s %-15s %-15s %-15s %-15s", "Name", "Population", "City Population", "City Population %", "Rural Population", "Rural Population %"));
+        System.out.println(String.format("%-25s %-15s %-15s %-20s %-15s %-20s", "Name", "Population", "City Population", "City Population %", "Rural Population", "Rural Population %"));
         // Loop over all countries in the list
         for (Region region : regionArray) {
             String country_string =
-                    String.format("%-20s %-15s %-15s %-15s %-15s %-15s",
+                    String.format("%-25s %-15s %-15s %-20s %-15s %-20s",
                             region.name, region.population, region.cityPopulation, region.cityPopulationPercentage, region.notCityPopulation, region.notCityPopulationPercentage);
             System.out.println(country_string);
         }
@@ -786,7 +816,7 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.Continent, SUM(country.Population), SUM(city.Population), (SUM(city.Population)/SUM(country.Population))*100, SUM(country.Population)-SUM(city.Population), ((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100 "
+                    "SELECT country.Continent, SUM(city.Population)"
                             + "FROM country JOIN city ON country.Code = city.CountryCode "
                             + "GROUP BY country.Continent";
             // Execute SQL statement
@@ -794,15 +824,27 @@ public class App {
 
             ArrayList<Continent> continentArray = new ArrayList<>();
 
+            List<String> continents = new ArrayList<>();
+            continents.add("Asia");
+            continents.add("Europe");
+            continents.add("North America");
+            continents.add("Africa");
+            continents.add("Oceania");
+            continents.add("South America");
+
+            int i = 0;
+
             while (rset.next()) {
                 Continent continentPop = new Continent();
                 continentPop.name = rset.getString("country.Continent");
-                continentPop.population = rset.getLong("SUM(country.Population)");
+                Continent theContinent = getSingleContinentPop(continents.get(i));
+                continentPop.population = theContinent.population;
                 continentPop.cityPopulation = rset.getLong("SUM(city.Population)");
-                continentPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
-                continentPop.notCityPopulation = rset.getLong("SUM(country.Population)-SUM(city.Population)");
-                continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
+                continentPop.cityPopulationPercentage = ((rset.getFloat("SUM(city.Population)"))/theContinent.population)*100;
+                continentPop.notCityPopulation = theContinent.population - rset.getLong("SUM(city.Population)");
+                continentPop.notCityPopulationPercentage = ((theContinent.population - rset.getFloat("SUM(city.Population)"))/theContinent.population)*100;
                 continentArray.add(continentPop);
+                i++;
             }
             return continentArray;
         } catch (Exception e) {
@@ -848,7 +890,7 @@ public class App {
             if (rset.next()) {
                 Continent continent = new Continent();
                 continent.name = rset.getString("country.Continent");
-                continent.population = rset.getInt("SUM(Population)");
+                continent.population = rset.getLong("SUM(Population)");
                 return continent;
             } else
                 return null;
