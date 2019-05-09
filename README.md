@@ -12,7 +12,7 @@
 | 3  | All the countries in a region organised by largest population to smallest.   |  Yes   |Countries in Western Europe![regionCountries](regionCountries.png)         |
 | 4  | The top N populated countries in the world where N is provided by the user.  | Yes |            |
 | 5  | The top N populated countries in the continent where N is provided by the user.  | Yes |5 Top Countries in Europe ![userContinentCountries](userContinentCountries.png)           |
-| 6  | The top N populated countries in a region where N is provided by the user.   | Yes/No |5 Top Countries in Western Europe ![userRegionCountries](userRegionCountries.png)            |
+| 6  | The top N populated countries in a region where N is provided by the user.   | Yes |5 Top Countries in Western Europe ![userRegionCountries](userRegionCountries.png)            |
 | 7  | All the cities in the world organised by largest population to smallest.     |  Yes   |Cities in the World ![worldCities](worldCities.png)           |
 | 8  | All the cities in a continent organised by largest population to smallest.   |  Yes   |Cities in Europe ![continentCities](continentCities.png)          |
 | 9  | All the cities in a region organised by largest population to smallest.      |  Yes   |Cities in Western Europe ![regionCities](regionCities.png)           |
@@ -38,4 +38,4 @@
 | 29 | The population of the country.          | Yes | ![singleCountryPop](SingleCountryPop.png)             |
 | 30 | The population of the district.         | Yes | ![singleDistrictPop](SingleDistrictPop.png)           |
 | 31 | The population of the city.             | Yes | ![singleCityPop](SingleCityPop.png)                   |
-| 32 | The number of people who speak these languages (greatest to smallest) including the percentage of the world population: Chinese, English, Hindi, Spanish, Arabic | Yes/No |            |
+| 32 | The number of people who speak these languages (greatest to smallest) including the percentage of the world population: Chinese, English, Hindi, Spanish, Arabic | No |            |
