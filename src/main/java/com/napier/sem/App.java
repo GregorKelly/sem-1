@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Scanner;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,100 +16,110 @@ public class App {
     public static void main(String[] args) {
 
         // Create new Application
-        App a = new App();
-
+        //App a = new App();
 
         // Connect to database
         if (args.length < 1) {
-            a.connect2("localhost:3306");
+            //a.connect2("localhost:3306");
             connect("localhost:33060");
         } else {
-            a.connect2(args[0]);
+            //a.connect2(args[0]);
             connect(args[0]);
         }
 
-        City cityPop = a.getSingleCityPop("Edinburgh");
+        //City cityPop = a.getSingleCityPop("Edinburgh");
         // Print single city population
-        a.displaySingleCityPop(cityPop);
+        //a.displaySingleCityPop(cityPop);
 
-        District districtPop = a.getSingleDistrictPop("Scotland");
+        //District districtPop = a.getSingleDistrictPop("Scotland");
         // Print single district population
-        a.displaySingleDistrictPop(districtPop);
+        //a.displaySingleDistrictPop(districtPop);
 
-        Country countryPop = a.getSingleCountryPop("United Kingdom");
+        //Country countryPop = a.getSingleCountryPop("United Kingdom");
         // Print single country population
-        a.displaySingleCountryPop(countryPop);
+        //a.displaySingleCountryPop(countryPop);
 
-        Region regionPop = a.getSingleRegionPop("Western Europe");
+        //Region regionPop = a.getSingleRegionPop("Western Europe");
         // Print single regions population
-        a.displaySingleRegionPop(regionPop);
+        //a.displaySingleRegionPop(regionPop);
 
-        Continent continentPop = a.getSingleContinentPop("Europe");
+        //Continent continentPop = a.getSingleContinentPop("Europe");
         // Print single continents population
-        a.displaySingleContinentPop(continentPop);
+        //a.displaySingleContinentPop(continentPop);
 
-        World worldPop = a.getWorldPopulation();
+        //World worldPop = a.getWorldPopulation();
         // Print world population;
-        a.displayWorldPop(worldPop);
+        //a.displayWorldPop(worldPop);
 
-        ArrayList<Country> worldCountries = a.getTheWorldCountries();
+        //ArrayList<Country> worldCountries = a.getTheWorldCountries();
         // Display all countries in the world
-        a.displayWorldCountries(worldCountries);
+        //a.displayWorldCountries(worldCountries);
+        //a.displayTopCountriesUserInput(worldCountries, 5);
 
-        ArrayList<Country> continentCountries = a.getTheContinentCountries("Europe");
+        //ArrayList<Country> continentCountries = a.getTheContinentCountries("Europe");
         // Display all countries in a continent
         //a.displayContinentCountries(continentCountries);
+        //a.displayTopCountriesUserInput(continentCountries, 5);
 
-        ArrayList<Country> regionCountries = a.getTheRegionCountries("Western Europe");
+        //ArrayList<Country> regionCountries = a.getTheRegionCountries("Western Europe");
         // Display all countries in a region
         //a.displayRegionCountries(regionCountries);
+        //a.displayTopCountriesUserInput(regionCountries, 5);
 
-        ArrayList<City> worldCities = a.getTheWorldCities();
+        //ArrayList<City> worldCities = a.getTheWorldCities();
         // Display all cities in the world
         //a.displayWorldCities(worldCities);
+        //a.displayTopCitiesUserInput(worldCities, 5);
 
-        ArrayList<City> continentCities = a.getTheContinentCities("Europe");
+        //ArrayList<City> continentCities = a.getTheContinentCities("Europe");
         // Display all cities in a continent
         //a.displayContinentCities(continentCities);
+        //a.displayTopCitiesUserInput(continentCities, 5);
 
-        ArrayList<City> regionCities = a.getTheRegionCities("Western Europe");
+        //ArrayList<City> regionCities = a.getTheRegionCities("Western Europe");
         // Display all cities in a region
         //a.displayRegionCities(regionCities);
+        //a.displayTopCitiesUserInput(regionCities, 5);
 
-        ArrayList<City> countryCities = a.getTheCountryCities("United Kingdom");
+        //ArrayList<City> countryCities = a.getTheCountryCities("United Kingdom");
         // Display all cities in a country
         //a.displayCountryCities(countryCities);
+        //a.displayTopCitiesUserInput(countryCities, 5);
 
-        ArrayList<City> districtCities = a.getTheDistrictCities("Scotland");
+        //ArrayList<City> districtCities = a.getTheDistrictCities("Scotland");
         // Display all cities in a district
         //a.displayDistrictCities(districtCities);
+        //a.displayTopCitiesUserInput(districtCities, 5);
 
-        ArrayList<CapitalCity> worldCapitalCities = a.getTheWorldCapitalCities();
+        //ArrayList<CapitalCity> worldCapitalCities = a.getTheWorldCapitalCities();
         // Display all cities in the world
         //a.displayWorldCapitalCities(worldCapitalCities);
+        //a.displayTopCapitalCitiesUserInput(worldCapitalCities, 5);
 
-        ArrayList<CapitalCity> continentCapitalCities = a.getTheContinentCapitalCities("Europe");
+        //ArrayList<CapitalCity> continentCapitalCities = a.getTheContinentCapitalCities("Europe");
         // Display all cities in a continent
         //a.displayContinentCapitalCities(continentCapitalCities);
+        //a.displayTopCapitalCitiesUserInput(continentCapitalCities, 5);
 
-        ArrayList<CapitalCity> regionCapitalCities = a.getTheRegionCapitalCities("Western Europe");
+        //ArrayList<CapitalCity> regionCapitalCities = a.getTheRegionCapitalCities("Western Europe");
         // Display all cities in a region
         //a.displayRegionCapitalCities(regionCapitalCities);
+        //a.displayTopCapitalCitiesUserInput(regionCapitalCities, 5);
 
-        ArrayList<Continent> continentPercentage = a.getContinentPopPercent();
+        //ArrayList<Continent> continentPercentage = a.getContinentPopPercent();
         // Display all continents cities percentage
         //a.displayContinentPopPercent(continentPercentage);
 
-        ArrayList<Region> regionPercentage = a.getRegionPopPercent();
+        //ArrayList<Region> regionPercentage = a.getRegionPopPercent();
         // Display all regions cities percentage
         //a.displayRegionPopPercent(regionPercentage);
 
-        ArrayList<CountryPop> countryPercentage = a.getCountryPopPercent();
+        //ArrayList<CountryPop> countryPercentage = a.getCountryPopPercent();
         // Display all countries cities percentage
         //a.displayCountryPopPercent(countryPercentage);
 
         // Disconnect from database
-        a.disconnect2();
+        //a.disconnect2();
 
         SpringApplication.run(App.class, args);
     }
@@ -175,7 +184,7 @@ public class App {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             } catch (SQLException sqle) {
@@ -553,6 +562,7 @@ public class App {
 
     /**
      * Get a single country population record.
+     *
      * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
      */
     public ArrayList<CountryPop> getCountryPopPercent() {
@@ -648,6 +658,7 @@ public class App {
 
     /**
      * Get a single country population record.
+     *
      * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
      */
     public ArrayList<Region> getRegionPopPercent() {
@@ -697,9 +708,9 @@ public class App {
                 Region theRegion = getSingleRegionPop(regions.get(i));
                 regionPop.population = theRegion.population;
                 regionPop.cityPopulation = rset.getLong("SUM(city.Population)");
-                regionPop.cityPopulationPercentage = ((rset.getFloat("SUM(city.Population)"))/theRegion.population)*100;
+                regionPop.cityPopulationPercentage = ((rset.getFloat("SUM(city.Population)")) / theRegion.population) * 100;
                 regionPop.notCityPopulation = theRegion.population - rset.getLong("SUM(city.Population)");
-                regionPop.notCityPopulationPercentage = ((theRegion.population - rset.getFloat("SUM(city.Population)"))/theRegion.population)*100;
+                regionPop.notCityPopulationPercentage = ((theRegion.population - rset.getFloat("SUM(city.Population)")) / theRegion.population) * 100;
                 regionArray.add(regionPop);
                 i++;
             }
@@ -810,6 +821,7 @@ public class App {
 
     /**
      * Get a single country population record.
+     *
      * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
      */
     public ArrayList<Continent> getContinentPopPercent() {
@@ -842,9 +854,9 @@ public class App {
                 Continent theContinent = getSingleContinentPop(continents.get(i));
                 continentPop.population = theContinent.population;
                 continentPop.cityPopulation = rset.getLong("SUM(city.Population)");
-                continentPop.cityPopulationPercentage = ((rset.getFloat("SUM(city.Population)"))/theContinent.population)*100;
+                continentPop.cityPopulationPercentage = ((rset.getFloat("SUM(city.Population)")) / theContinent.population) * 100;
                 continentPop.notCityPopulation = theContinent.population - rset.getLong("SUM(city.Population)");
-                continentPop.notCityPopulationPercentage = ((theContinent.population - rset.getFloat("SUM(city.Population)"))/theContinent.population)*100;
+                continentPop.notCityPopulationPercentage = ((theContinent.population - rset.getFloat("SUM(city.Population)")) / theContinent.population) * 100;
                 continentArray.add(continentPop);
                 i++;
             }
@@ -973,6 +985,7 @@ public class App {
 
     /**
      * Get the world population record.
+     *
      * @param name Population of the world.
      * @return The record of the world Population or null if no countries exists.
      */
@@ -1042,6 +1055,7 @@ public class App {
 
     /**
      * Gets all the countries
+     *
      * @param name countries in the world
      * @return A list of all countries, or null if there is an error.
      */
@@ -1080,6 +1094,7 @@ public class App {
 
     /**
      * Get all the countries in the world
+     *
      * @return A list of all countries in the world or null if there is an error
      */
     public ArrayList<Country> getTheWorldCountries() {
@@ -1174,6 +1189,7 @@ public class App {
 
     /**
      * Get all the countries in a continent
+     *
      * @return A list of all countries in a continent or null if there is an error
      */
     public ArrayList<Country> getTheContinentCountries(String name) {
@@ -1270,6 +1286,7 @@ public class App {
 
     /**
      * Get all the countries in a region
+     *
      * @return A list of all countries in a region or null if there is an error
      */
     public ArrayList<Country> getTheRegionCountries(String name) {
@@ -1364,6 +1381,7 @@ public class App {
 
     /**
      * Gets all the cities
+     *
      * @return A list of all cities, or null if there is an error.
      */
     public ArrayList<City> getTheWorldCities() {
@@ -1398,6 +1416,7 @@ public class App {
         }
     }
 
+    // Displays cities in the world
     public void displayWorldCities(ArrayList<City> cityArray) {
         // Check the country arraylist is not null
         if (cityArray == null) {
@@ -1459,6 +1478,7 @@ public class App {
 
     /**
      * Gets all the cities
+     *
      * @return A list of all cities, or null if there is an error.
      */
     public ArrayList<City> getTheContinentCities(String name) {
@@ -1500,7 +1520,6 @@ public class App {
             System.out.println("No cities");
             return;
         }
-
         // Print header
         System.out.println(String.format("%-20s %-20s %-15s %-15s", "Name", "Country", "District", "Population"));
         // Loop over all countries in the list
@@ -1555,6 +1574,7 @@ public class App {
 
     /**
      * Gets all the cities
+     *
      * @return A list of all cities, or null if there is an error.
      */
     public ArrayList<City> getTheRegionCities(String name) {
@@ -1590,13 +1610,13 @@ public class App {
         }
     }
 
+    // Displays cities in a region
     public void displayRegionCities(ArrayList<City> cityArray) {
         // Check the city arraylist is not null
         if (cityArray == null) {
             System.out.println("No cities");
             return;
         }
-
         // Print header
         System.out.println(String.format("%-20s %-20s %-15s %-15s", "Name", "Country", "District", "Population"));
         // Loop over all countries in the list
@@ -1651,6 +1671,7 @@ public class App {
 
     /**
      * Gets all the cities
+     *
      * @return A list of all cities, or null if there is an error.
      */
     public ArrayList<City> getTheCountryCities(String name) {
@@ -1686,13 +1707,13 @@ public class App {
         }
     }
 
+    // Displays cities in a country
     public void displayCountryCities(ArrayList<City> cityArray) {
         // Check the city arraylist is not null
         if (cityArray == null) {
             System.out.println("No cities");
             return;
         }
-
         // Print header
         System.out.println(String.format("%-20s %-20s %-15s %-15s", "Name", "Country", "District", "Population"));
         // Loop over all countries in the list
@@ -1747,6 +1768,7 @@ public class App {
 
     /**
      * Gets all the cities
+     *
      * @return A list of all cities, or null if there is an error.
      */
     public ArrayList<City> getTheDistrictCities(String name) {
@@ -1782,6 +1804,7 @@ public class App {
         }
     }
 
+    // Displays cities in a district
     public void displayDistrictCities(ArrayList<City> cityArray) {
         // Check the city arraylist is not null
         if (cityArray == null) {
@@ -1839,6 +1862,7 @@ public class App {
 
     /**
      * Gets all the capital cities
+     *
      * @return A list of all capital cities, or null if there is an error.
      */
     public ArrayList<CapitalCity> getTheWorldCapitalCities() {
@@ -1870,13 +1894,13 @@ public class App {
         }
     }
 
+    //Displays Capital cities in the world
     public void displayWorldCapitalCities(ArrayList<CapitalCity> cityArray) {
         // Check the capital city arraylist is not null
         if (cityArray == null) {
             System.out.println("No cities");
             return;
         }
-
         // Print header
         System.out.println(String.format("%-20s %-20s %-15s", "Name", "Country", "Population"));
         // Loop over all countries in the list
@@ -1928,6 +1952,7 @@ public class App {
 
     /**
      * Gets all the capital cities
+     *
      * @return A list of all capital cities, or null if there is an error.
      */
     public ArrayList<CapitalCity> getTheContinentCapitalCities(String name) {
@@ -1960,13 +1985,13 @@ public class App {
         }
     }
 
+    // Displays capital cities in a continent
     public void displayContinentCapitalCities(ArrayList<CapitalCity> cityArray) {
         // Check the capital city arraylist is not null
         if (cityArray == null) {
             System.out.println("No cities");
             return;
         }
-
         // Print header
         System.out.println(String.format("%-20s %-20s %-15s", "Name", "Country", "Population"));
         // Loop over all countries in the list
@@ -2018,6 +2043,7 @@ public class App {
 
     /**
      * Gets all the capital cities
+     *
      * @return A list of all capital cities, or null if there is an error.
      */
     public ArrayList<CapitalCity> getTheRegionCapitalCities(String name) {
@@ -2050,13 +2076,13 @@ public class App {
         }
     }
 
+    // Displays capital cities in a region
     public void displayRegionCapitalCities(ArrayList<CapitalCity> cityArray) {
         // Check the capital city arraylist is not null
         if (cityArray == null) {
             System.out.println("No cities");
             return;
         }
-
         // Print header
         System.out.println(String.format("%-20s %-20s %-15s", "Name", "Country", "Population"));
         // Loop over all countries in the list
@@ -2069,19 +2095,13 @@ public class App {
         System.out.println("\n");
     }
 
-
-
-
-
     /**
-     * Gets all the countries
-     *
-     * @param name of continent
-     * @param num  of countries to be displayed
+     * Gets all the countries where the user specifies the amount
+     * @param num amount
      * @return A list of all countries, or null if there is an error.
      */
-    @RequestMapping("continentCountriesNum")
-    public ArrayList<Country> getContinentCountriesNum(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+    @RequestMapping("TopWorldCountries")
+    public ArrayList<Country> getTopCountriesUserInput(@RequestParam(value = "num") String num) {
         try {
             int theNum = Integer.parseInt(num);
 
@@ -2089,25 +2109,141 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                    "SELECT  country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
                             + "FROM country "
-                            + "WHERE country.continent LIKE '" + name + "'"
-                            + "ORDER BY country.Population DESC"
-                            + "FETCH FIRST" + theNum + "ROWS ONLY";
+                            + "ORDER BY country.Population DESC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
             ArrayList<Country> countryArray = new ArrayList<>();
+
             while (rset.next()) {
                 Country country = new Country();
-                country.countryCode = rset.getString("Code");
-                country.countryName = rset.getString("Name");
-                country.continent = rset.getString("Continent");
-                country.region = rset.getString("Region");
-                country.population = rset.getInt("Population");
-                City city = getCityForCountry(rset.getInt("Capital"));
+                country.countryCode = rset.getString("country.Code");
+                country.countryName = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
+                country.population = rset.getInt("country.Population");
+                City city = getCityForCountry(rset.getInt("country.Capital"));
                 country.capitalName = city.cityName;
-                countryArray.add(country);
+                if(theNum > 0) {
+                    countryArray.add(country);
+                    theNum--;
+                }
+            }
+            return countryArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    // Displays top countries using user input
+    public void displayTopCountriesUserInput(ArrayList<Country> countryArray, int num) {
+        // Check the country arraylist is not null
+        if (countryArray == null) {
+            System.out.println("No countries");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-15s %-25s %-20s %-25s %-20s %-25s", "Code", "Name", "Continent", "Region", "Population", "Capital"));
+        // Loop over all countries in the list
+        for (Country country : countryArray) {
+            if (num > 0) {
+                String country_string =
+                        String.format("%-15s %-25s %-20s %-25s %-20s %-25s",
+                                country.countryCode, country.countryName, country.continent, country.region, country.population, country.capitalName);
+                System.out.println(country_string);
+                num--;
+            }
+        }
+        System.out.println("\n");
+    }
+
+    /**
+     * Gets all the continents where the user specifies the amount
+     * @param name continent
+     * @param num amount
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("TopContinentCountries")
+    public ArrayList<Country> getTopCountriesContinentUserInput(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
+
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT  country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                            + "FROM country "
+                            + "WHERE country.Continent LIKE " + name + " "
+                            + "ORDER BY country.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<Country> countryArray = new ArrayList<>();
+
+            while (rset.next()) {
+                Country country = new Country();
+                country.countryCode = rset.getString("country.Code");
+                country.countryName = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
+                country.population = rset.getInt("country.Population");
+                City city = getCityForCountry(rset.getInt("country.Capital"));
+                country.capitalName = city.cityName;
+                if(theNum > 0) {
+                    countryArray.add(country);
+                    theNum--;
+                }
+            }
+            return countryArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get continent details");
+            return null;
+        }
+    }
+
+    /**
+     * Gets all the countries where the user specified the region
+     * @param name region
+     * @param num amount
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("TopRegionCountries")
+    public ArrayList<Country> getTopCountriesRegionUserInput(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
+
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT  country.Code, country.Name, country.Continent, country.Region, country.Population, country.Capital "
+                            + "FROM country "
+                            + "WHERE country.Region LIKE " + name + " "
+                            + "ORDER BY country.Population DESC";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<Country> countryArray = new ArrayList<>();
+
+            while (rset.next()) {
+                Country country = new Country();
+                country.countryCode = rset.getString("country.Code");
+                country.countryName = rset.getString("country.Name");
+                country.continent = rset.getString("country.Continent");
+                country.region = rset.getString("country.Region");
+                country.population = rset.getInt("country.Population");
+                City city = getCityForCountry(rset.getInt("country.Capital"));
+                country.capitalName = city.cityName;
+                if(theNum > 0) {
+                    countryArray.add(country);
+                    theNum--;
+                }
             }
             return countryArray;
         } catch (Exception e) {
@@ -2118,14 +2254,12 @@ public class App {
     }
 
     /**
-     * Gets all the countries
-     *
-     * @param name of region
-     * @param num  of countries to be displayed
+     * The top N populated cities in the world where N is provided by the user.
+     * @param num amount
      * @return A list of all countries, or null if there is an error.
      */
-    @RequestMapping("regionCountriesNum")
-    public ArrayList<Country> getRegionCountriesNum(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+    @RequestMapping("TopWorldCities")
+    public ArrayList<City> getCitiesUserInput(@RequestParam(value = "num") String num) {
         try {
             int theNum = Integer.parseInt(num);
 
@@ -2133,402 +2267,378 @@ public class App {
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
-                            + "FROM country "
-                            + "WHERE country.region LIKE '" + name + "'"
-                            + "ORDER BY country.Population DESC"
-                            + "FETCH FIRST" + theNum + "ROWS ONLY";
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM City"
+                            + "ORDER BY city.Population DESC ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract city information
-            ArrayList<Country> countryArray = new ArrayList<>();
-
+            ArrayList<City> cityArray = new ArrayList<>();
             while (rset.next()) {
-                Country country = new Country();
-                country.countryCode = rset.getString("Code");
-                country.countryName = rset.getString("Name");
-                country.continent = rset.getString("Continent");
-                country.region = rset.getString("Region");
-                country.population = rset.getInt("Population");
-                City city = getCityForCountry(rset.getInt("Capital"));
-                country.capitalName = city.cityName;
-                countryArray.add(country);
+                City city = new City();
+                city.cityName = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("CountryCode"));
+                city.countryName = country.countryName;
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                if(theNum > 0) {
+                    cityArray.add(city);
+                    theNum--;
+                }
             }
-            return countryArray;
+            return cityArray;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get country details");
+            System.out.println("Failed to get city details");
             return null;
         }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //SQL 4
-        //untested.
-        /**
-         * Gets all the countries where the user specifies the amount
-         *
-         * @param name of region
-         * @param num  of countries to be displayed
-         * @return A list of all countries, or null if there is an error.
-         */
-        @RequestMapping("topCountries")
-        public ArrayList<Country> getTopCountriesUserInput ()
-        {
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Please enter the number of countries youd like to see: ");
-            int x = sc.nextInt();
-            try
-            {
-                // Create an SQL statement
-                Statement stmt = con.createStatement();
-                // Create string for SQL statement
-                String strSelect =
-                        "SELECT  Country.Name, Country.Population "
-                        + "FROM Country"
-                        + "ORDER BY Country.Population DESC"
-                        + "LIMIT" +x+ "";
-                // Execute SQL statement
-                ResultSet rset = stmt.executeQuery(strSelect);
-                // Extract city information
-                ArrayList<Country> countryArray = new ArrayList<>();
-
-                while (rset.next()) {
-                    Country country = new Country();
-                    country.countryCode = rset.getString("Code");
-                    country.countryName = rset.getString("Name");
-                    country.continent = rset.getString("Continent");
-                    country.region = rset.getString("Region");
-                    country.population = rset.getInt("Population");
-                    City city = getCityForCountry(rset.getInt("Capital"));
-                    country.capitalName = city.cityName;
-                    countryArray.add(country);
-                }
-                return countryArray;
-            }
-            catch (Exception e)
-            {
-                System.out.println(e.getMessage());
-                System.out.println("Failed to get country details");
-                return null;
+    // Displays top cities using user input
+    public void displayTopCitiesUserInput(ArrayList<City> cityArray, int num) {
+        // Check the city arraylist is not null
+        if (cityArray == null) {
+            System.out.println("No cities");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-25s %-25s %-25s %-20s", "Name", "Country", "District", "Population"));
+        // Loop over all countries in the list
+        for (City city : cityArray) {
+            if (num > 0) {
+                String city_string =
+                        String.format("%-25s %-25s %-25s %-20s",
+                                city.cityName, city.countryName, city.district, city.population);
+                System.out.println(city_string);
+                num--;
             }
         }
+        System.out.println("\n");
+    }
 
+    /**
+     * The top N populated cities in a continent where N is provided by the user.
+     * @param name continent
+     * @param num amount
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("TopContinentCities")
+    public ArrayList<City> getContinentCitiesUserInput(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
 
-        //SQL 5
-        //untested.
-        /**
-         * Gets all the continents where the user specifies the amount
-         *
-         * @return A list of all countries, or null if there is an error.
-         */
-        @RequestMapping("topContinents")
-        public ArrayList<Continent> getTopContinentsUserInput ()
-        {
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Please enter the number of continents you'd like to see: ");
-            int x = sc.nextInt();
-            try
-            {
-                // Create an SQL statement
-                Statement stmt = con.createStatement();
-                // Create string for SQL statement
-                String strSelect =
-                        "SELECT  Continent.Name, Continent.Population "
-                                + "FROM Continent"
-                                + "ORDER BY Continent.Population DESC"
-                                + "LIMIT" +x+ "";
-                // Execute SQL statement
-                ResultSet rset = stmt.executeQuery(strSelect);
-                // Extract city information
-                ArrayList<Continent> continentArray = new ArrayList<>();
-
-                while (rset.next()) {
-                    Continent continentPop = new Continent();
-                    continentPop.name = rset.getString("country.Continent");
-                    continentPop.population = rset.getInt("SUM(country.Population)");
-                    continentPop.cityPopulation = rset.getInt("SUM(city.Population)");
-                    continentPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/SUM(country.Population))*100");
-                    continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
-                    continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
-                    continentArray.add(continentPop);
-                }
-                return continentArray;
-            }
-            catch (Exception e)
-            {
-                System.out.println(e.getMessage());
-                System.out.println("Failed to get continent details");
-                return null;
-            }
-        }
-
-
-
-
-        //SQL 6
-        //untested.
-        /**
-         * Gets all the countries where the user specified the region
-         *
-         * @return A list of all countries, or null if there is an error.
-         */
-        @RequestMapping("topCountries")
-        public ArrayList<Country> getTopCountriesRegionUserInput ()
-        {
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Please enter the number of countries youd like to see: ");
-            int x = sc.nextInt();
-            System.out.println("Please enter the Region: " );
-            String region = sc.nextLine();
-            try
-            {
-                // Create an SQL statement
-                Statement stmt = con.createStatement();
-                // Create string for SQL statement
-                String strSelect =
-                        "SELECT  Country.Name, Country.Population "
-                                + "FROM Country"
-                                + "WHERE Country.Region LIKE " +region+ " "
-                                + "ORDER BY Country.Population DESC"
-                                + "LIMIT" +x+ "";
-                // Execute SQL statement
-                ResultSet rset = stmt.executeQuery(strSelect);
-                // Extract city information
-                ArrayList<Country> countryArray = new ArrayList<>();
-
-                while (rset.next()) {
-                    Country country = new Country();
-                    country.countryCode = rset.getString("Code");
-                    country.countryName = rset.getString("Name");
-                    country.continent = rset.getString("Continent");
-                    country.region = rset.getString("Region");
-                    country.population = rset.getInt("Population");
-                    City city = getCityForCountry(rset.getInt("Capital"));
-                    country.capitalName = city.cityName;
-                    countryArray.add(country);
-                }
-                return countryArray;
-            }
-            catch (Exception e)
-            {
-                System.out.println(e.getMessage());
-                System.out.println("Failed to get country details");
-                return null;
-            }
-        }
-
-
-
-
-
-
-        //SQL 12
-        //untested
-        /**
-         * The top N populated cities in a region where N is provided by the user.
-         *
-         * @return A list of all countries, or null if there is an error.
-         */
-        @RequestMapping("citiesbyRegion")
-        public ArrayList<cityArray> getRegionCapitalCitiesUserInput() {
-            try {
-                Scanner sc = new Scanner(System.in);
-                System.out.print("Please enter the number of countries youd like to see: ");
-                int x = sc.nextInt();
-                // Create an SQL statement
-                Statement stmt = con.createStatement();
-                // Create string for SQL statement
-                String strSelect =
-                        "SELECT city.Name, city.CountryCode, city.Population "
-                                + "FROM City"
-                                + "ORDER BY city.Population DESC"
-                                + "LIMIT "+x+" ";
-                // Execute SQL statement
-                ResultSet rset = stmt.executeQuery(strSelect);
-                // Extract city information
-                ArrayList<CapitalCity> cityArray = new ArrayList<>();
-                while (rset.next()) {
-                    CapitalCity city = new CapitalCity();
-                    city.cityName = rset.getString("city.Name");
-                    Country country = getCountryForCity(rset.getString("CountryCode"));
-                    city.countryName = country.countryName;
-                    city.population = rset.getInt("city.Population");
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city"
+                            + "WHERE city.Continent LIKE '" + name + "' "
+                            + "ORDER BY city.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> cityArray = new ArrayList<>();
+            while (rset.next()) {
+                City city = new City();
+                city.cityName = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("city.CountryCode"));
+                city.countryName = country.countryName;
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                if(theNum > 0) {
                     cityArray.add(city);
+                    theNum--;
                 }
-                return cityArray;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                System.out.println("Failed to get city details");
-                return null;
             }
-        }
-
-
-
-        //SQL 13
-        //untested
-        /**
-         * The top N populated cities in a region where N is provided by the user.
-         *
-         * @return A list of all countries, or null if there is an error.
-         */
-        @RequestMapping("citiesbyRegion")
-        public ArrayList<cityArray> getRegionCapitalCitiesUserInput() {
-            try {
-                Scanner sc = new Scanner(System.in);
-                System.out.print("Please enter the number of countries youd like to see: ");
-                int x = sc.nextInt();
-                System.out.println("Please enter the Region: " );
-                String region = sc.nextLine();
-                // Create an SQL statement
-                Statement stmt = con.createStatement();
-                // Create string for SQL statement
-                String strSelect =
-                        "SELECT city.Name, city.CountryCode, city.Population "
-                                + "FROM City"
-                                + "WHERE City.countryName LIKE '" + region + "' "
-                                + "ORDER BY city.Population DESC"
-                                + "LIMIT "+x+" ";
-                // Execute SQL statement
-                ResultSet rset = stmt.executeQuery(strSelect);
-                // Extract city information
-                ArrayList<CapitalCity> cityArray = new ArrayList<>();
-                while (rset.next()) {
-                    CapitalCity city = new CapitalCity();
-                    city.cityName = rset.getString("city.Name");
-                    Country country = getCountryForCity(rset.getString("CountryCode"));
-                    city.countryName = country.countryName;
-                    city.population = rset.getInt("city.Population");
-                    cityArray.add(city);
-                }
-                return cityArray;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                System.out.println("Failed to get city details");
-                return null;
-            }
-        }
-
-
-
-
-        //SQL 16
-        //untested
-        /**
-         * The top N populated cities in a region where N is provided by the user.
-         *
-         * @return A list of all countries, or null if there is an error.
-         */
-        @RequestMapping("citiesbyRegion")
-        public ArrayList<cityArray> getRegionCapitalCitiesUserInput() {
-            try {
-                Scanner sc = new Scanner(System.in);
-                System.out.print("Please enter the number of countries youd like to see: ");
-                int x = sc.nextInt();
-                System.out.println("Please enter the District: " );
-                String district = sc.nextLine();
-                // Create an SQL statement
-                Statement stmt = con.createStatement();
-                // Create string for SQL statement
-                String strSelect =
-                        "SELECT city.Name, city.Population "
-                                + "FROM City"
-                                + "WHERE City.countryName LIKE '" + district + "' "
-                                + "INNER JOIN City.district ON District.district"
-                                + "ORDER BY city.Population DESC"
-                                + "LIMIT "+x+" ";
-                // Execute SQL statement
-                ResultSet rset = stmt.executeQuery(strSelect);
-                // Extract city information
-                ArrayList<CapitalCity> cityArray = new ArrayList<>();
-                while (rset.next()) {
-                    CapitalCity city = new CapitalCity();
-                    city.cityName = rset.getString("city.Name");
-                    Country country = getCountryForCity(rset.getString("CountryCode"));
-                    city.countryName = country.countryName;
-                    city.population = rset.getInt("city.Population");
-                    cityArray.add(city);
-                }
-                return cityArray;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                System.out.println("Failed to get city details");
-                return null;
-            }
-        }
-
-
-
-        //SQL 20
-        //untested
-        /**
-         * The top N populated cities in a region where N is provided by the user.
-         *
-         * @return A list of all countries, or null if there is an error.
-         */
-        @RequestMapping("topCapitalCities")
-        public ArrayList<capitalCity> getCapitalCitiesUserInput() {
-            try {
-                Scanner sc = new Scanner(System.in);
-                System.out.print("Please enter the number of capital cities you'd like to see: ");
-                int x = sc.nextInt();
-                // Create an SQL statement
-                Statement stmt = con.createStatement();
-                // Create string for SQL statement
-                String strSelect =
-                        "SELECT CapitalCity.cityName, CapitalCity.Population "
-                                + "FROM CapitalCity"
-                                + "ORDER BY CapitalCity.Population DESC"
-                                + "LIMIT "+x+" ";
-                // Execute SQL statement
-                ResultSet rset = stmt.executeQuery(strSelect);
-                // Extract city information
-                ArrayList<CapitalCity> cityArray = new ArrayList<>();
-                while (rset.next()) {
-                    CapitalCity city = new CapitalCity();
-                    city.cityName = rset.getString("city.Name");
-                    Country country = getCountryForCity(rset.getString("CountryCode"));
-                    city.countryName = country.countryName;
-                    city.population = rset.getInt("city.Population");
-                    cityArray.add(city);
-                }
-                return cityArray;
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                System.out.println("Failed to get city details");
-                return null;
-            }
+            return cityArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
         }
     }
+
+    /**
+     * The top N populated cities in a continent where N is provided by the user.
+     * @param name region
+     * @param num amount
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("TopRegionCities")
+    public ArrayList<City> getRegionCitiesUserInput(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
+
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city"
+                            + "WHERE city.Region LIKE '" + name + "' "
+                            + "ORDER BY city.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> cityArray = new ArrayList<>();
+            while (rset.next()) {
+                City city = new City();
+                city.cityName = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("city.CountryCode"));
+                city.countryName = country.countryName;
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                if(theNum > 0) {
+                    cityArray.add(city);
+                    theNum--;
+                }
+            }
+            return cityArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * The top N populated cities in a continent where N is provided by the user.
+     * @param name country
+     * @param num amount
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("TopCountryCities")
+    public ArrayList<City> getCountryCitiesUserInput(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
+
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District, city.Population "
+                            + "FROM city"
+                            + "WHERE city.CountryCode LIKE '" + name + "' "
+                            + "ORDER BY city.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> cityArray = new ArrayList<>();
+            while (rset.next()) {
+                City city = new City();
+                city.cityName = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("city.CountryCode"));
+                city.countryName = country.countryName;
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                if(theNum > 0) {
+                    cityArray.add(city);
+                    theNum--;
+                }
+            }
+            return cityArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    /**
+     * The top N populated cities in a region where N is provided by the user.
+     * @param name district
+     * @param num amount
+     * @return A list of all countries, or null if there is an error.
+     */
+    @RequestMapping("TopDistrictCities")
+    public ArrayList<City> getDistrictCitiesUserInput(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
+
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.District city.Population "
+                            + "FROM city"
+                            + "WHERE city.District LIKE '" + name + "' "
+                            + "ORDER BY city.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<City> cityArray = new ArrayList<>();
+            while (rset.next()) {
+                City city = new City();
+                city.cityName = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("city.CountryCode"));
+                city.countryName = country.countryName;
+                city.district = rset.getString("city.District");
+                city.population = rset.getInt("city.Population");
+                if(theNum > 0) {
+                    cityArray.add(city);
+                    theNum--;
+                }
+            }
+            return cityArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+    }
+
+    //SQL 20
+    /**
+     * The top N populated capital cities in the world where N is provided by the user.
+     * @param num amount
+     * @return A list of all capital cities, or null if there is an error.
+     */
+    @RequestMapping("TopWorldCapitalCities")
+    public ArrayList<CapitalCity> getCapitalCitiesUserInput(@RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
+
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.cityName, city.CountryCode, city.Population "
+                            + "FROM city JOIN country ON city.ID = country.Capital "
+                            + "ORDER BY city.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<CapitalCity> cityArray = new ArrayList<>();
+            while (rset.next()) {
+                CapitalCity city = new CapitalCity();
+                city.cityName = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("city.CountryCode"));
+                city.countryName = country.countryName;
+                city.population = rset.getInt("city.Population");
+                if(theNum > 0) {
+                    cityArray.add(city);
+                    theNum--;
+                }
+            }
+            return cityArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital city details");
+            return null;
+        }
+    }
+
+    //Displays top capital cities, amount defined by user
+    public void displayTopCapitalCitiesUserInput(ArrayList<CapitalCity> cityArray, int num) {
+        // Check the capital city arraylist is not null
+        if (cityArray == null) {
+            System.out.println("No cities");
+            return;
+        }
+        // Print header
+        System.out.println(String.format("%-20s %-20s %-15s", "Name", "Country", "Population"));
+        // Loop over all countries in the list
+        for (CapitalCity city : cityArray) {
+            if(num > 0) {
+                String country_string =
+                        String.format("%-20s %-20s %-15s",
+                                city.cityName, city.countryName, city.population);
+                System.out.println(country_string);
+                num--;
+            }
+        }
+        System.out.println("\n");
+    }
+
+    //SQL 21
+    /**
+     * The top N populated capital cities in a continent where N is provided by the user.
+     * @param name continent
+     * @param num amount
+     * @return A list of all capital cities, or null if there is an error.
+     */
+    @RequestMapping("TopContinentCapitalCities")
+    public ArrayList<CapitalCity> getContinentCapitalCitiesUserInput(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
+
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.Population "
+                            + "FROM city JOIN country ON city.ID = country.Capital "
+                            + "WHERE country.Continent LIKE " + name + " "
+                            + "ORDER BY city.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<CapitalCity> cityArray = new ArrayList<>();
+            while (rset.next()) {
+                CapitalCity city = new CapitalCity();
+                city.cityName = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("city.CountryCode"));
+                city.countryName = country.countryName;
+                city.population = rset.getInt("city.Population");
+                if(theNum > 0) {
+                    cityArray.add(city);
+                    theNum--;
+                }
+            }
+            return cityArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital city details");
+            return null;
+        }
+    }
+
+    //SQL 22
+    /**
+     * The top N populated capital cities in a region where N is provided by the user.
+     * @param name region
+     * @param num amount
+     * @return A list of all capital cities, or null if there is an error.
+     */
+    @RequestMapping("TopRegionCapitalCities")
+    public ArrayList<CapitalCity> getRegionCapitalCitiesUserInput(@RequestParam(value = "name") String name, @RequestParam(value = "num") String num) {
+        try {
+            int theNum = Integer.parseInt(num);
+
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.Name, city.CountryCode, city.Population "
+                            + "FROM city JOIN country ON city.ID = country.Capital "
+                            + "WHERE country.Region LIKE " + name + " "
+                            + "ORDER BY city.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract city information
+            ArrayList<CapitalCity> cityArray = new ArrayList<>();
+            while (rset.next()) {
+                CapitalCity city = new CapitalCity();
+                city.cityName = rset.getString("city.Name");
+                Country country = getCountryForCity(rset.getString("city.CountryCode"));
+                city.countryName = country.countryName;
+                city.population = rset.getInt("city.Population");
+                if(theNum > 0) {
+                    cityArray.add(city);
+                    theNum--;
+                }
+            }
+            return cityArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get capital city details");
+            return null;
+        }
+    }
+
 }
+
 
 
 

@@ -10,25 +10,25 @@
 | 1  | All the countries in the world organised by largest population to smallest.  |  Yes   |            |
 | 2  | All the countries in a continent organised by largest population to smallest.|  Yes   |Countries in Europe ![continentCountries](continentCountries.png)           |
 | 3  | All the countries in a region organised by largest population to smallest.   |  Yes   |Countries in Western Europe![regionCountries](regionCountries.png)         |
-| 4  | The top N populated countries in the world where N is provided by the user.  | Yes/No |            |
-| 5  | The top N populated countries in the continent where N is provided by the user.  | Yes/No |            |
-| 6  | The top N populated countries in a region where N is provided by the user.   | Yes/No |            |
+| 4  | The top N populated countries in the world where N is provided by the user.  | Yes |            |
+| 5  | The top N populated countries in the continent where N is provided by the user.  | Yes |5 Top Countries in Europe ![userContinentCountries](userContinentCountries.png)           |
+| 6  | The top N populated countries in a region where N is provided by the user.   | Yes/No |5 Top Countries in Western Europe ![userRegionCountries](userRegionCountries.png)            |
 | 7  | All the cities in the world organised by largest population to smallest.     |  Yes   |Cities in the World ![worldCities](worldCities.png)           |
 | 8  | All the cities in a continent organised by largest population to smallest.   |  Yes   |Cities in Europe ![continentCities](continentCities.png)          |
 | 9  | All the cities in a region organised by largest population to smallest.      |  Yes   |Cities in Western Europe ![regionCities](regionCities.png)           |
 | 10 | All the cities in a country organised by largest population to smallest.     |  Yes   |Cities in the United Kingdom ![countryCities](countryCities.png)          |
 | 11 | All the cities in a district organised by largest population to smallest.    |  Yes   |Cities in Scotland ![districtCities](districtCities.png)          |
-| 12 | The top N populated cities in the world where N is provided by the user.     | Yes/No |            |
-| 13 | The top N populated cities in a continent where N is provided by the user.   | Yes/No |            |
-| 14 | The top N populated cities in a region where N is provided by the user.      | Yes/No |            |
-| 15 | The top N populated cities in a country where N is provided by the user.     | Yes/No |            |
-| 16 | The top N populated cities in a district where N is provided by the user.    | Yes/No |            |
+| 12 | The top N populated cities in the world where N is provided by the user.     | Yes |5 Top Cities in the World ![userWorldCities](userWorldCities.png)            |
+| 13 | The top N populated cities in a continent where N is provided by the user.   | Yes |5 Top Cities in Europe ![userContinentCities](userContinentCities.png)            |
+| 14 | The top N populated cities in a region where N is provided by the user.      | Yes |5 Top Cities in Western Europe ![userRegionCities](userRegionCities.png)             |
+| 15 | The top N populated cities in a country where N is provided by the user.     | Yes |5 Top Cities in the United Kingdom ![userCountryCities](userCountryCities.png)            |
+| 16 | The top N populated cities in a district where N is provided by the user.    | Yes |5 Top Cities in Scotland ![userDistrictCities](userDistrictCities.png)             |
 | 17 | All the capital cities in the world organised by largest population to smallest.  |  Yes   |Capital Cities of the World ![worldCapitalCities](worldCapitalCities.png)           |
 | 18 | All the capital cities in a continent organised by largest population to smallest.|  Yes   |Capital Cities of Europe ![continentCapitalCities](continentCapitalCities.png)           |
 | 19 | All the capital cities in a region organised by largest to smallest.              |  Yes   |Capital Cities of Western Europe ![regionCapitalCities](regionCapitalCities.png)           |
-| 20 | The top N populated capital cities in the world where N is provided by the user.  | Yes/No |            |
-| 21 | The top N populated capital cities in a continent where N is provided by the user.| Yes/No |            |
-| 22 | The top N populated capital cities in a region where N is provided by the user.   | Yes/No |            |
+| 20 | The top N populated capital cities in the world where N is provided by the user.  | Yes |Top 5 Capital Cities of the World ![userWorldCapitalCities](userWorldCapitalCities.png)            |
+| 21 | The top N populated capital cities in a continent where N is provided by the user.| Yes |Top 5 Capital Cities of Europe ![userContinentCapitalCities](userContinentCapitalCities.png)           |
+| 22 | The top N populated capital cities in a region where N is provided by the user.   | Yes |Top 5 Capital Cities of Western Europe ![userRegionCapitalCities](userRegionCapitalCities.png)         |
 | 23 | The population of people, people living in cities, and people not living in cities in each continent.| Yes |![continentCityPercentage](continentCityPercentage.png)            |
 | 24 | The population of people, people living in cities, and people not living in cities in each region.   | Yes |![regionCityPercentage](regionCityPercentage.png)           |
 | 25 | The population of people, people living in cities, and people not living in cities in each country.  | Yes |![countryCityPercentage](countryCityPercentage.png)            |
