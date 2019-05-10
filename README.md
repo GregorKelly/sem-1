@@ -5,6 +5,8 @@
 - Licence [![LICENSE](https://img.shields.io/github/license/RyanHeadley/sem.svg?style=flat-square)](https://github.com/RyanHeadley/sem/blob/master/LICENSE)
 - Release [![Releases](https://img.shields.io/github/release/RyanHeadley/sem/all.svg?style=flat-square)](https://github.com/RyanHeadley/sem/releases)
 
+31 requirements of 32 have been implemented, which is 96.9%.
+
 | ID |                                 Name                                         |  Met   | Screenshot |
 |----|:----------------------------------------------------------------------------:|-------:|-----------:|
 | 1  | All the countries in the world organised by largest population to smallest.  |  Yes   |            |
