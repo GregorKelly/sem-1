@@ -1,15 +1,6 @@
-import com.napier.sem.CapitalCity;
-import com.napier.sem.Country;
+import com.napier.sem.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.TestInstance;
-
-//import static org.junit.jupiter.api.Assertions.*;
-
-import com.napier.sem.App;
-import com.napier.sem.City;
-
-import java.util.ArrayList;
 
 public class UnitTests
 {
@@ -63,25 +54,74 @@ public class UnitTests
         Country country = app.getSingleCountryPop("United Kingdom");
         app.displaySingleCountryPop(country);
     }
-    /*
+
     @Test
-    void getCapitalCityTestNull()
+    void getDistrictTestNull()
     {
-        City capCity = app.getCity(null);
-        app.displayCity(capCity);
+        District district = app.getSingleDistrictPop(null);
+        app.displaySingleDistrictPop(district);
     }
 
     @Test
-    void getCapitalCityTestEmpty()
+    void getDistrictTestEmpty()
     {
-        City capCity = app.getCity("");
-        app.displayCity(capCity);
+        District district = app.getSingleDistrictPop("");
+        app.displaySingleDistrictPop(district);
     }
 
     @Test
-    void getCapitalCityTest()
+    void getDistrictTest()
     {
-        CapitalCity capCity = app.getCapitalCity("France");
-        app.displayCapitalCity(capCity);
-    }*/
+        District district = app.getSingleDistrictPop("Scotland");
+        app.displaySingleDistrictPop(district);
+    }
+
+    @Test
+    void getRegionTestNull()
+    {
+        Region region = app.getSingleRegionPop(null);
+        app.displaySingleRegionPop(region);
+    }
+
+    @Test
+    void getRegionTestEmpty()
+    {
+        Region region = app.getSingleRegionPop("");
+        app.displaySingleRegionPop(region);
+    }
+
+    @Test
+    void getRegionTest()
+    {
+        Region region = app.getSingleRegionPop("Western Europe");
+        app.displaySingleRegionPop(region);
+    }
+
+    @Test
+    void getContinentTestNull()
+    {
+        Continent continent = app.getSingleContinentPop(null);
+        app.displaySingleContinentPop(continent);
+    }
+
+    @Test
+    void getContinentTestEmpty()
+    {
+        Continent continent = app.getSingleContinentPop("");
+        app.displaySingleContinentPop(continent);
+    }
+
+    @Test
+    void getContinentTest()
+    {
+        Continent continent = app.getSingleContinentPop("Europe");
+        app.displaySingleContinentPop(continent);
+    }
+
+    @Test
+    void getWorldTest()
+    {
+        World world = app.getWorldPopulation();
+        app.displayWorldPop(world);
+    }
 }
