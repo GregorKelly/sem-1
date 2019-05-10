@@ -565,6 +565,44 @@ public class App {
      *
      * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
      */
+    @RequestMapping("CountryPopPercent")
+    public ArrayList<CountryPop> getTheCountryPopPercent() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Name, country.Population, SUM(city.Population), (SUM(city.Population)/country.Population)*100, country.Population-SUM(city.Population), ((country.Population-SUM(city.Population))/country.Population)*100 "
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "GROUP BY country.Name, country.Population";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            ArrayList<CountryPop> countryPopArray = new ArrayList<>();
+
+            while (rset.next()) {
+                CountryPop countryPop = new CountryPop();
+                countryPop.countryName = rset.getString("country.Name");
+                countryPop.population = rset.getLong("country.Population");
+                countryPop.cityPopulation = rset.getLong("SUM(city.Population)");
+                countryPop.cityPopulationPercentage = rset.getFloat("(SUM(city.Population)/country.Population)*100");
+                countryPop.notCityPopulation = rset.getLong("country.Population-SUM(city.Population)");
+                countryPop.notCityPopulationPercentage = rset.getFloat("((country.Population-SUM(city.Population))/country.Population)*100");
+                countryPopArray.add(countryPop);
+            }
+            return countryPopArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    /**
+     * Get a single country population record.
+     *
+     * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
+     */
     public ArrayList<CountryPop> getCountryPopPercent() {
         try {
             // Create an SQL statement
@@ -647,6 +685,73 @@ public class App {
                 regionPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
                 regionPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
                 regionArray.add(regionPop);
+            }
+            return regionArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    /**
+     * Get a single country population record.
+     *
+     * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
+     */
+    @RequestMapping("RegionPopPercent")
+    public ArrayList<Region> getTheRegionPopPercent() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Region, SUM(city.Population)"
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "GROUP BY country.Region";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            ArrayList<Region> regionArray = new ArrayList<>();
+
+            List<String> regions = new ArrayList<>();
+            regions.add("Southern and Central Asia");
+            regions.add("Western Europe");
+            regions.add("Caribbean");
+            regions.add("Southern Europe");
+            regions.add("Northern Africa");
+            regions.add("Polynesia");
+            regions.add("Central Africa");
+            regions.add("Middle East");
+            regions.add("South America");
+            regions.add("Australia and New Zealand");
+            regions.add("Central America");
+            regions.add("Western Africa");
+            regions.add("North America");
+            regions.add("Southern Africa");
+            regions.add("British Islands");
+            regions.add("Southeast Asia");
+            regions.add("Eastern Europe");
+            regions.add("Eastern Africa");
+            regions.add("Melanesia");
+            regions.add("Nordic Countries");
+            regions.add("Micronesia");
+            regions.add("Eastern Asia");
+            regions.add("Baltic Countries");
+
+            int i = 0;
+
+            while (rset.next()) {
+                Region regionPop = new Region();
+                regionPop.name = rset.getString("country.Region");
+                Region theRegion = getSingleRegionPop(regions.get(i));
+                regionPop.population = theRegion.population;
+                regionPop.cityPopulation = rset.getLong("SUM(city.Population)");
+                regionPop.cityPopulationPercentage = ((rset.getFloat("SUM(city.Population)")) / theRegion.population) * 100;
+                regionPop.notCityPopulation = theRegion.population - rset.getLong("SUM(city.Population)");
+                regionPop.notCityPopulationPercentage = ((theRegion.population - rset.getFloat("SUM(city.Population)")) / theRegion.population) * 100;
+                regionArray.add(regionPop);
+                i++;
             }
             return regionArray;
         } catch (Exception e) {
@@ -810,6 +915,56 @@ public class App {
                 continentPop.notCityPopulation = rset.getInt("SUM(country.Population)-SUM(city.Population)");
                 continentPop.notCityPopulationPercentage = rset.getFloat("((SUM(country.Population)-SUM(city.Population))/SUM(country.Population))*100");
                 continentArray.add(continentPop);
+            }
+            return continentArray;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get population details");
+            return null;
+        }
+    }
+
+    /**
+     * Get a single country population record.
+     *
+     * @return The record of the country with Name Continent Region Population Capital or null if no country exists.
+     */
+    @RequestMapping("ContinentPopPercent")
+    public ArrayList<Continent> getTheContinentPopPercent() {
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.Continent, SUM(city.Population)"
+                            + "FROM country JOIN city ON country.Code = city.CountryCode "
+                            + "GROUP BY country.Continent";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+            ArrayList<Continent> continentArray = new ArrayList<>();
+
+            List<String> continents = new ArrayList<>();
+            continents.add("Asia");
+            continents.add("Europe");
+            continents.add("North America");
+            continents.add("Africa");
+            continents.add("Oceania");
+            continents.add("South America");
+
+            int i = 0;
+
+            while (rset.next()) {
+                Continent continentPop = new Continent();
+                continentPop.name = rset.getString("country.Continent");
+                Continent theContinent = getSingleContinentPop(continents.get(i));
+                continentPop.population = theContinent.population;
+                continentPop.cityPopulation = rset.getLong("SUM(city.Population)");
+                continentPop.cityPopulationPercentage = ((rset.getFloat("SUM(city.Population)")) / theContinent.population) * 100;
+                continentPop.notCityPopulation = theContinent.population - rset.getLong("SUM(city.Population)");
+                continentPop.notCityPopulationPercentage = ((theContinent.population - rset.getFloat("SUM(city.Population)")) / theContinent.population) * 100;
+                continentArray.add(continentPop);
+                i++;
             }
             return continentArray;
         } catch (Exception e) {
@@ -2488,7 +2643,6 @@ public class App {
         }
     }
 
-    //SQL 20
     /**
      * The top N populated capital cities in the world where N is provided by the user.
      * @param num amount
@@ -2551,7 +2705,6 @@ public class App {
         System.out.println("\n");
     }
 
-    //SQL 21
     /**
      * The top N populated capital cities in a continent where N is provided by the user.
      * @param name continent
@@ -2594,7 +2747,6 @@ public class App {
         }
     }
 
-    //SQL 22
     /**
      * The top N populated capital cities in a region where N is provided by the user.
      * @param name region

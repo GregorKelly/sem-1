@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Top Countries by Continent</title>
+    <title>Top Countries in the World</title>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
@@ -29,10 +29,9 @@
 </body>
 <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var name = urlParams.get('name');
     var num = urlParams.get('num');
 
-    var URL = "http://" + window.location.hostname + "/app/continentCountries?name=" + name + "&num=" + num;
+    var URL = "http://" + window.location.hostname + "/app/TopWorldCountries?num=" + num;
 
     $.getJSON(URL, function(data) {
         // EXTRACT VALUE FOR HTML HEADER.
